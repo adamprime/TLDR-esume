@@ -1,0 +1,87 @@
+body {
+    font-family: 'JetBrains Mono', 'Courier Prime', 'Courier New', Courier, monospace;
+    font-size: 12pt;
+    line-height: 1.7;
+    color: #111;
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    background: #fff;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.2rem;
+  }
+  
+  h1 {
+    font-size: 20pt;
+    text-align: center;
+    border: none;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 14pt;
+  }
+  
+  h3 {
+    font-size: 12pt;
+    font-style: italic;
+    color: #555;
+  }
+  
+  p:first-of-type {
+    text-align: center;
+    font-size: 10pt;
+    color: #333;
+    margin-bottom: 2.5rem;
+  }
+  
+  ul {
+    padding-left: 1.5rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  a {
+    color: #222;
+    text-decoration: underline dotted;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px dashed #bbb;
+    margin: 2rem 0;
+  }
+  
+  strong {
+    color: #000;
+  }
+  
+  @media print {
+    body {
+      color: #000;
+      background: none;
+    }
+  
+    h1, h2, h3 {
+      color: #000;
+    }
+  
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+  
+    .page-break {
+      page-break-before: always;
+    }
+  }
