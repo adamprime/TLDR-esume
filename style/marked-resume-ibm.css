@@ -1,7 +1,7 @@
 body {
     font-family: 'IBM Plex Mono', 'Courier Prime', 'Courier New', Courier, monospace;
-    font-size: 12pt;
-    line-height: 1.7;
+    font-size: 11pt; /* was 12pt */
+    line-height: 1.6; /* reduce slightly from 1.7 if needed */
     color: #111;
     max-width: 720px;
     margin: 2rem auto;
@@ -45,11 +45,42 @@ body {
   }
   
   ul {
-    padding-left: 1.5rem;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
   }
   
   li {
+    position: relative;
     margin-bottom: 0.5rem;
+    padding-left: 2.5rem;
+    display: block;
+  }
+  
+  li:before {
+    content: "–";
+    position: absolute;
+    left: 1rem;
+    color: #333;
+  }
+  
+  /* Target both native and MultiMarkdown list rendering */
+  .ul, ul {
+    list-style: none !important;
+    padding-left: 0 !important;
+  }
+  
+  .li, li {
+    position: relative !important;
+    padding-left: 2.5rem !important;
+    text-indent: 0 !important;
+  }
+  
+  /* Override any browser or Marked 2 default styles */
+  li p {
+    margin: 0;
+    padding: 0;
+    display: inline;
   }
   
   a {
