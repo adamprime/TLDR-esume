@@ -61,9 +61,7 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 #### *Support Engineer*  
 **Jan 2014 – Jan 2017**  
 
-- Delivered world-class technical support via email and video to global customer base.  
-- Maintained and supported billing system and handled sensitive account-related inquiries.  
-- Collaborated with marketing on technical content and outreach.
+- Delivered high-quality technical support via email and video, managed the billing and account system, and collaborated with marketing to develop technical content and customer onboarding materials.
 
 ---
 
@@ -72,33 +70,31 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 ### **Freelance Consultant**  
 **Jul 2013 – Present**  
 
-- Helped early-stage and solo founders across education, solar, insurance, and publishing optimize web funnels, streamline operations, and scale growth.  
-- Specialties: sales copy, conversion optimization, WordPress, automation, and process design.  
+- Supported 10+ founders across education, solar, insurance, and publishing in optimizing web funnels, automating operations, and building scalable digital systems.  
+- Delivered end-to-end projects including copywriting, workflow automation, and WordPress builds to improve lead conversion and reduce manual workload.
 
 ---
 
-## Volunteer Leadership
+## Community & Advisory Leadership
 
 ### **The Church of Jesus Christ of Latter-day Saints**  
 *Bishop – Rush Creek Ward*  
 **Aug 2023 – Present**  
 
 - Lead a congregation of 375 members, overseeing spiritual, temporal, and operational welfare.  
-- Provide pastoral counseling, organize community support, and develop youth leadership programs.  
+- Provide pastoral counseling, organize community outreach, and develop youth leadership programs.  
 
 ### **Kansas City Jazz Academy**  
 *Jazz Bass Instructor*  
 **Sep 2018 – Present**  
 
-- Teach jazz bass to youth ensembles; mentor emerging musicians and support community arts education.  
-- Contributed to program growth and student retention through curriculum design and parent engagement.  
+- Teach jazz bass and mentor youth ensembles as part of the American Jazz Museum’s education program.
 
 ### **Many Moods Choir & Orchestra**  
 *President, Board of Directors*  
 **Jul 2014 – Jun 2020**  
 
-- Led a nonprofit arts organization that delivered free concerts to the Kansas City Northland community.  
-- Managed operations, logistics, and strategic direction of a volunteer board and 50+ musicians.
+- Led nonprofit arts organization, producing free public concerts and managing board operations.
 
 ---
 
@@ -106,7 +102,8 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 
 **B.S., History**  
 *Missouri Western State University*  
-**2000 – 2005**
+**2000 – 2005**  
+*Developed research, communication, and systems-thinking skills foundational to operational leadership.*
 
 ---
 
