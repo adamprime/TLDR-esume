@@ -1,3 +1,14 @@
+---
+title: "Adam Tervort – Executive Resume"
+author: "Adam Tervort"
+email: "adam@adamtervort.com"
+location: "Liberty, MO"
+github: "https://github.com/adamprime"
+updated: "2025-03-24"
+target: "General / Open"
+version: "1.0"
+---
+
 # Adam Tervort
 
 **Email**: adam@adamtervort.com  
