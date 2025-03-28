@@ -54,7 +54,7 @@ Emphasize clarity, human tone, and measurable results. The goal is to sound alig
 
 🔹 Prompt 2: Write a Custom Cover Letter (300 words or less)
 
-Write a cover letter tailored for the following job. Use an approachable but professional tone — clear, warm, and curious. It should show I’ve done my homework, care about the company, and can solve problems they care about.
+Write a cover letter in markdown tailored for the following job. Use an approachable but professional tone — clear, warm, and curious. It should show I’ve done my homework, care about the company, and can solve problems they care about.
 
 The letter should:
 	•	Be no longer than 300 words
