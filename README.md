@@ -44,17 +44,19 @@ I’m applying for the following role. Please analyze the job description and re
 
 Emphasize clarity, human tone, and measurable results. The goal is to sound aligned, not robotic.
 
+— Existing Resume is attached —
+
 — Job Description —
 [Paste JD here]
 
-— Existing Resume —
-[Paste current resume.md or link to GitHub copy]
+
+
 
 ⸻
 
 🔹 Prompt 2: Write a Custom Cover Letter (300 words or less)
 
-Write a cover letter in markdown tailored for the following job. Use an approachable but professional tone — clear, warm, and curious. It should show I’ve done my homework, care about the company, and can solve problems they care about.
+Write a cover letter in markdown tailored for the same job. Use an approachable but professional tone — clear, warm, and curious. It should show I’ve done my homework, care about the company, and can solve problems they care about.
 
 The letter should:
 	•	Be no longer than 300 words
@@ -62,11 +64,11 @@ The letter should:
 	•	Connect my experience directly to what the company is looking for
 	•	End with a light, human call to action
 
-— Job Description —
-[Paste JD or summary]
-
 — My Background —
 [Paste the relevant resume section or summary paragraph]
+
+— Job Description —
+[Paste JD or summary]
 
 ⸻
 
