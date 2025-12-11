@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f0f0f;
+  --foreground: #ededed;
+  --card-bg: #1a1a1a;
+  --card-border: #2a2a2a;
+  --input-bg: #1a1a1a;
+  --input-border: #3a3a3a;
+  --muted: #888888;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Dark mode form inputs */
+input, textarea, select {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--foreground) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+  opacity: 1 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #3b82f6 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dark mode for markdown editor */
+.w-md-editor {
+  background-color: var(--card-bg) !important;
+  color: var(--foreground) !important;
+  --color-fg-default: #ededed !important;
+  --color-canvas-default: #1a1a1a !important;
+}
+
+.w-md-editor-toolbar {
+  background-color: #1f1f1f !important;
+  border-color: var(--card-border) !important;
+}
+
+.w-md-editor-toolbar svg {
+  fill: #ededed !important;
+}
+
+.w-md-editor-content {
+  background-color: var(--card-bg) !important;
+}
+
+.w-md-editor-input {
+  color: #ededed !important;
+  caret-color: #ededed !important;
+}
+
+.w-md-editor-text-pre,
+.w-md-editor-text-pre > code,
+.w-md-editor-text-input,
+.w-md-editor-text {
+  color: #ededed !important;
+  -webkit-text-fill-color: #ededed !important;
+}
+
+.w-md-editor-area {
+  background-color: #1a1a1a !important;
+}
+
+.w-md-editor-preview {
+  background-color: #1f1f1f !important;
+}
+
+.wmde-markdown {
+  background-color: transparent !important;
+  color: var(--foreground) !important;
+}
+
+.wmde-markdown h1,
+.wmde-markdown h2,
+.wmde-markdown h3,
+.wmde-markdown p,
+.wmde-markdown li,
+.wmde-markdown strong {
+  color: #ededed !important;
+}
+
+.wmde-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.wmde-markdown ul li {
+  display: list-item !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.wmde-markdown ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.wmde-markdown ol li {
+  display: list-item !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Loading dots animation */
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
