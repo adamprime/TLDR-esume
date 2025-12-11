@@ -63,7 +63,7 @@ export async function getAllApplications(): Promise<Application[]> {
         jobUrl: '',
         jobDescription: '',
         baseResume: 'resume.md',
-        style: 'ibm-plex-mono',
+        style: 'modern',
         status: 'submitted',
         createdAt: stat.birthtime.toISOString(),
         updatedAt: stat.mtime.toISOString(),

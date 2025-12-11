@@ -6,7 +6,7 @@ import { STYLE_OPTIONS } from '@/lib/types';
 describe('StyleSelector', () => {
   it('should render a select element', () => {
     const onChange = vi.fn();
-    render(<StyleSelector value="ibm-plex-mono" onChange={onChange} />);
+    render(<StyleSelector value="modern" onChange={onChange} />);
     
     const select = screen.getByRole('combobox');
     expect(select).toBeInTheDocument();
@@ -14,7 +14,7 @@ describe('StyleSelector', () => {
 
   it('should display all style options', () => {
     const onChange = vi.fn();
-    render(<StyleSelector value="ibm-plex-mono" onChange={onChange} />);
+    render(<StyleSelector value="modern" onChange={onChange} />);
     
     STYLE_OPTIONS.forEach(option => {
       expect(screen.getByText(option.label)).toBeInTheDocument();
@@ -31,19 +31,19 @@ describe('StyleSelector', () => {
 
   it('should call onChange when selection changes', () => {
     const onChange = vi.fn();
-    render(<StyleSelector value="ibm-plex-mono" onChange={onChange} />);
+    render(<StyleSelector value="modern" onChange={onChange} />);
     
     const select = screen.getByRole('combobox');
-    fireEvent.change(select, { target: { value: 'modern' } });
+    fireEvent.change(select, { target: { value: 'serif' } });
     
-    expect(onChange).toHaveBeenCalledWith('modern');
+    expect(onChange).toHaveBeenCalledWith('serif');
   });
 
   it('should apply custom className', () => {
     const onChange = vi.fn();
     render(
       <StyleSelector 
-        value="ibm-plex-mono" 
+        value="modern" 
         onChange={onChange} 
         className="custom-class" 
       />

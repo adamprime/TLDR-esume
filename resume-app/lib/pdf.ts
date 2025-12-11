@@ -9,19 +9,13 @@ import { getApplicationFolder, getApplication, getExportPath, getApplicationFold
 const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/coding/2025-resume-project';
 
 const STYLE_FILES: Record<StyleOption, string> = {
-  'courier-new': 'marked-resume.css',
-  'ibm-plex-mono': 'marked-resume-ibm.css',
-  'courier-prime': 'marked-resume-courierprime.css',
-  'jetbrains-mono': 'marked-resume-jetbrains.css',
   'modern': 'marked-resume-modern.css',
+  'serif': 'marked-resume-serif.css',
 };
 
 const FONT_IMPORTS: Record<StyleOption, string> = {
-  'courier-new': '',
-  'ibm-plex-mono': '@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap");',
-  'courier-prime': '@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");',
-  'jetbrains-mono': '@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap");',
   'modern': '@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");',
+  'serif': '@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&display=swap");',
 };
 
 export async function getStyleCSS(style: StyleOption): Promise<string> {

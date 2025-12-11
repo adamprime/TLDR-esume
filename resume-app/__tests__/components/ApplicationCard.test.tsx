@@ -10,7 +10,7 @@ const mockApplication: Application = {
   jobUrl: 'https://stripe.com/jobs/123',
   jobDescription: 'Test job description',
   baseResume: 'resume.md',
-  style: 'ibm-plex-mono',
+  style: 'modern',
   status: 'draft',
   createdAt: '2025-01-01T00:00:00.000Z',
   updatedAt: '2025-01-15T00:00:00.000Z',

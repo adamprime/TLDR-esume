@@ -8,12 +8,12 @@ import {
 
 describe('types', () => {
   describe('STYLE_OPTIONS', () => {
-    it('should have 5 style options', () => {
-      expect(STYLE_OPTIONS).toHaveLength(5);
+    it('should have 2 style options', () => {
+      expect(STYLE_OPTIONS).toHaveLength(2);
     });
 
-    it('should have ibm-plex-mono as first option (default)', () => {
-      expect(STYLE_OPTIONS[0].value).toBe('ibm-plex-mono');
+    it('should have modern as first option (default)', () => {
+      expect(STYLE_OPTIONS[0].value).toBe('modern');
     });
 
     it('should have all required properties for each option', () => {
@@ -24,10 +24,10 @@ describe('types', () => {
       });
     });
 
-    it('should include modern style option', () => {
-      const modern = STYLE_OPTIONS.find(o => o.value === 'modern');
-      expect(modern).toBeDefined();
-      expect(modern?.font).toBe('Inter');
+    it('should include serif style option', () => {
+      const serif = STYLE_OPTIONS.find(o => o.value === 'serif');
+      expect(serif).toBeDefined();
+      expect(serif?.font).toBe('Crimson Pro');
     });
   });
 
@@ -56,24 +56,22 @@ describe('types', () => {
   describe('type safety', () => {
     it('should accept valid StyleOption values', () => {
       const validStyles: StyleOption[] = [
-        'courier-new',
-        'ibm-plex-mono',
-        'courier-prime',
-        'jetbrains-mono',
         'modern',
+        'serif',
       ];
-      expect(validStyles).toHaveLength(5);
+      expect(validStyles).toHaveLength(2);
     });
 
     it('should accept valid ApplicationStatus values', () => {
       const validStatuses: ApplicationStatus[] = [
         'draft',
+        'closed',
         'submitted',
         'interviewing',
         'rejected',
         'offer',
       ];
-      expect(validStatuses).toHaveLength(5);
+      expect(validStatuses).toHaveLength(6);
     });
   });
 });

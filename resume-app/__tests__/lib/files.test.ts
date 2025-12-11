@@ -63,7 +63,7 @@ describe('files', () => {
         jobUrl: 'https://example.com',
         jobDescription: 'Job description text',
         baseResume: 'resume.md',
-        style: 'ibm-plex-mono' as const,
+        style: 'modern' as const,
         status: 'draft' as const,
         createdAt: '2025-01-01T00:00:00.000Z',
         updatedAt: '2025-01-01T00:00:00.000Z',

@@ -21,11 +21,8 @@ export type ApplicationStatus =
   | 'offer';
 
 export type StyleOption = 
-  | 'courier-new'
-  | 'ibm-plex-mono'
-  | 'courier-prime'
-  | 'jetbrains-mono'
-  | 'modern';
+  | 'modern'
+  | 'serif';
 
 export interface BaseResume {
   filename: string;
@@ -101,11 +98,8 @@ export interface ResumeReview {
 }
 
 export const STYLE_OPTIONS: { value: StyleOption; label: string; font: string }[] = [
-  { value: 'ibm-plex-mono', label: 'IBM Plex Mono', font: 'IBM Plex Mono' },
-  { value: 'jetbrains-mono', label: 'JetBrains Mono', font: 'JetBrains Mono' },
-  { value: 'courier-prime', label: 'Courier Prime', font: 'Courier Prime' },
-  { value: 'courier-new', label: 'Courier New', font: 'Courier New' },
-  { value: 'modern', label: 'Modern (Inter)', font: 'Inter' },
+  { value: 'modern', label: 'Modern (Sans-Serif)', font: 'Inter' },
+  { value: 'serif', label: 'Classic (Serif)', font: 'Crimson Pro' },
 ];
 
 export const STATUS_OPTIONS: { value: ApplicationStatus; label: string; color: string }[] = [

@@ -116,18 +116,47 @@ AI API calls cost money. Rough estimates per application:
 
 | Model | Cost/Application |
 |-------|-----------------|
-| Claude Opus 4 | ~$0.50-1.00 |
-| Claude Sonnet 4 | ~$0.10-0.20 |
-| GPT-4o | ~$0.10-0.20 |
-| GPT-4o Mini | ~$0.01-0.05 |
+| Claude Opus 4.5 | ~$0.50-1.00 |
+| Claude Sonnet 4.5 | ~$0.10-0.20 |
+| Claude Haiku 4.5 | ~$0.02-0.05 |
+| GPT-5.1 | ~$0.15-0.30 |
+| GPT-5 Mini | ~$0.05-0.10 |
+| GPT-5 Nano | ~$0.01-0.03 |
 
-Sonnet and GPT-4o offer the best balance of quality and cost for most users.
+Sonnet 4.5 and GPT-5 Mini offer the best balance of quality and cost for most users.
+
+## PDF Styles
+
+TLDR;esume includes two PDF styles out of the box:
+
+- **Modern (Sans-Serif)** — Clean, contemporary look using Inter font
+- **Classic (Serif)** — Traditional, elegant look using Crimson Pro font
+
+### Customizing Styles
+
+PDF styles are defined as CSS files in the `/style` directory:
+
+```
+style/
+├── marked-resume-modern.css   # Sans-serif style (Inter)
+└── marked-resume-serif.css    # Serif style (Crimson Pro)
+```
+
+To customize a style:
+
+1. Copy an existing CSS file: `cp style/marked-resume-modern.css style/marked-resume-custom.css`
+2. Edit the CSS to match your preferences (fonts, colors, spacing, etc.)
+3. Add your new style to `resume-app/lib/types.ts` in `StyleOption` and `STYLE_OPTIONS`
+4. Add the CSS file mapping in `resume-app/lib/pdf.ts` in `STYLE_FILES`
+
+The CSS uses standard web fonts via Google Fonts. You can change the `@import` at the top to use any Google Font, or remove it to use system fonts.
 
 ## Project Structure
 
 ```
 TLDR-esume/
 ├── resume-app/          # Next.js application
+├── style/               # PDF export CSS templates
 ├── resume.md            # Your base resume (gitignored)
 ├── resume_corporate.md  # Optional: alternate version
 ├── versions/            # Generated applications (gitignored)

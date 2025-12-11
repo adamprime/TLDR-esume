@@ -20,7 +20,7 @@ export default function NewApplication() {
   const [jobUrl, setJobUrl] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [baseResume, setBaseResume] = useState('');
-  const [style, setStyle] = useState<StyleOption>('ibm-plex-mono');
+  const [style, setStyle] = useState<StyleOption>('modern');
 
   useEffect(() => {
     fetchBaseResumes();
