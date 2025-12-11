@@ -1,8 +1,8 @@
-# Resume Builder App
+# TLDR;esume - Next.js Application
 
 ## Project Overview
 
-A local-first Next.js web application for managing job applications with AI-powered resume customization, cover letter generation, and application question drafting.
+A local-first Next.js web application for managing job applications with AI-powered resume customization, cover letter generation, fit assessment, and PDF export.
 
 ## Tech Stack
 
@@ -10,9 +10,9 @@ A local-first Next.js web application for managing job applications with AI-powe
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Markdown Editor**: @uiw/react-md-editor
-- **PDF Generation**: md-to-pdf
-- **AI**: Anthropic Claude API (Opus 4.5)
-- **Storage**: File system (reads/writes to parent `2025-resume-project` folder)
+- **PDF Generation**: Puppeteer + Marked
+- **AI**: Anthropic Claude API or OpenAI GPT API (user configurable)
+- **Storage**: File system (local-first, no database)
 - **Testing**: Vitest + React Testing Library
 
 ## Project Structure
@@ -21,21 +21,25 @@ A local-first Next.js web application for managing job applications with AI-powe
 resume-app/
 ├── app/                    # Next.js App Router pages
 │   ├── api/               # API routes
-│   │   ├── applications/  # CRUD for applications
-│   │   ├── generate-resume/
-│   │   ├── generate-cover-letter/
-│   │   ├── generate-answers/
-│   │   └── export-pdf/
+│   │   ├── applications/  # CRUD + bulk update
+│   │   ├── assess-fit/    # Fit assessment
+│   │   ├── generate-*/    # AI generation endpoints
+│   │   ├── review-resume/ # Resume review/improvement
+│   │   ├── preferences/   # User settings
+│   │   └── export-pdf/    # PDF export
+│   ├── settings/          # User preferences page
+│   ├── review/            # Base resume review page
 │   ├── new/               # New application wizard
 │   └── application/[id]/  # Application detail views
 ├── components/            # React components
 ├── lib/                   # Core utilities
 │   ├── types.ts          # TypeScript types
 │   ├── files.ts          # File system operations
-│   ├── claude.ts         # Claude API wrapper
+│   ├── ai.ts             # AI provider abstraction (Anthropic/OpenAI)
+│   ├── preferences.ts    # User preferences management
 │   ├── prompts.ts        # AI prompt templates
-│   └── pdf.ts            # PDF generation
-└── __tests__/            # Test files
+│   └── pdf.ts            # PDF generation (Puppeteer)
+└── __tests__/            # Test files (67 tests)
 ```
 
 ## Data Model
@@ -48,13 +52,15 @@ Applications are stored as folders in `../versions/{Company - Role}/` with:
 
 ## Key Design Decisions
 
-1. **File-based storage**: No database needed for v1. Uses existing folder structure from the parent resume project.
+1. **File-based storage**: No database needed. All data stored as JSON/Markdown files.
 
-2. **Backwards compatible**: Existing applications (without `application.json`) are auto-indexed by parsing folder names.
+2. **Backwards compatible**: Applications without `application.json` are auto-indexed and manifests are created on first load.
 
-3. **Claude Opus 4.5**: Used for all AI generation (resume customization, cover letters, question answers).
+3. **Multi-provider AI**: Supports both Anthropic (Claude) and OpenAI (GPT) with user-configurable model selection.
 
-4. **PDF styling**: 5 style options including 4 existing monospace styles + 1 modern sans-serif.
+4. **Anti-hallucination**: All prompts include strict rules preventing fabrication of facts not in the source resume.
+
+5. **PDF styling**: 2 style options - Modern (sans-serif) and Classic (serif). Easily extensible via CSS.
 
 ## Development
 
