@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { Application, BaseResume, ApplicationQuestion, FitAssessment, ResumeReview } from './types';
 
-const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/2025-resume-project';
+const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/coding/2025-resume-project';
 
 export function getProjectPath(): string {
   return PROJECT_PATH;
