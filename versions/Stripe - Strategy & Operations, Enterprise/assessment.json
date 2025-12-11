@@ -1,0 +1,62 @@
+{
+  "overallAssessment": "You're a solid operational leader but lack direct enterprise strategy experience and payments expertise. This role requires someone who can immediately drive complex cross-functional initiatives at enterprise scale - you'd be learning on the job in a high-stakes environment.",
+  "fitScore": 4,
+  "recommendation": "stretch",
+  "strengths": [
+    {
+      "area": "Cross-functional leadership",
+      "evidence": "Led 5 departments at SpiderOak including Engineering, DevOps, IT, HR, and Customer Success"
+    },
+    {
+      "area": "Operational execution",
+      "evidence": "Cut time-to-hire by 50%, reduced support backlog by 80%, improved customer retention by 25%"
+    },
+    {
+      "area": "Strategic program management",
+      "evidence": "Partnered with CEO/finance on $13M Series C, aligned ops KPIs with board goals"
+    },
+    {
+      "area": "Working with minimal guidance",
+      "evidence": "Built customer success org from scratch, designed internal leadership programs"
+    }
+  ],
+  "gaps": [
+    {
+      "area": "Enterprise strategy experience",
+      "concern": "No evidence of working with Fortune 500 or global enterprise clients - SpiderOak appears to be SMB/mid-market focused",
+      "question": "Have you led strategic initiatives specifically for enterprise accounts with $10M+ annual contract values?",
+      "id": "92e1006a-6c63-4596-8720-cda1669ffd6c",
+      "userContext": ""
+    },
+    {
+      "area": "Payments/fintech domain knowledge",
+      "concern": "Role strongly prefers payments ecosystem experience - your background is in security/SaaS",
+      "question": "Do you have any experience with payment processing, financial infrastructure, or fintech regulatory requirements?",
+      "id": "1a55d6cc-01d0-4562-90bf-ec2b24a7fe93",
+      "userContext": ""
+    },
+    {
+      "area": "Product strategy depth",
+      "concern": "Limited product management experience beyond being product owner for one product",
+      "question": "Can you describe a time you developed and executed a multi-year product strategy that transformed how enterprises use your platform?",
+      "id": "88fa890f-aa61-415b-838e-94a5b99a4bef",
+      "userContext": ""
+    },
+    {
+      "area": "Scale of operations",
+      "concern": "SpiderOak appears to be Series C stage - Stripe operates at massive global scale with thousands of employees",
+      "question": "What's the largest cross-functional initiative you've led in terms of people involved and business impact?",
+      "id": "6db17145-d494-4b4d-af20-2910f36f450f",
+      "userContext": ""
+    },
+    {
+      "area": "Data analysis capabilities",
+      "concern": "Role prefers SQL and advanced analytics - your resume shows basic BI tools but no SQL mention",
+      "question": "How comfortable are you writing complex SQL queries and building data models to measure program success?",
+      "id": "43a9e849-a9a1-45a5-90be-322560bb3e98",
+      "userContext": ""
+    }
+  ],
+  "dealbreakers": [],
+  "assessedAt": "2025-12-11T20:15:36.308Z"
+}

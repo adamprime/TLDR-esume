@@ -1,0 +1,55 @@
+{
+  "overallAssessment": "This candidate has zero Chief of Staff experience and is applying for a role that explicitly requires 3-4 years of management consulting or similar experience. Their VP Ops background at a small company doesn't translate to the strategic advisory and board-level work this role demands. This is a fundamental mismatch.",
+  "fitScore": 2,
+  "recommendation": "not_recommended",
+  "strengths": [
+    {
+      "area": "Cross-functional leadership",
+      "evidence": "Led 5 departments at SpiderOak including Engineering, DevOps, IT, HR, and Customer Success"
+    },
+    {
+      "area": "Executive presence",
+      "evidence": "10+ years scaling from IC to VP level, represented customer voice in board meetings, partnered with CEO on Series C funding"
+    },
+    {
+      "area": "Data-driven approach",
+      "evidence": "Implemented metrics-based improvements: 25% retention increase, 15% ARR growth, 50% reduction in time-to-hire"
+    }
+  ],
+  "gaps": [
+    {
+      "area": "Management consulting experience",
+      "concern": "Job explicitly requires 3-4 years management consulting experience. Candidate has none - their experience is entirely operational within one company.",
+      "question": "Have you ever worked in a management consulting capacity, either internally as a strategy consultant or externally with firms like McKinsey, Bain, or BCG?",
+      "id": "d5347c43-f765-4e38-b724-2012dce20266",
+      "userContext": ""
+    },
+    {
+      "area": "Chief of Staff experience",
+      "concern": "No evidence of CoS work - strategic planning, board prep, CEO advisory. VP Ops is execution-focused, not strategy/advisory focused.",
+      "question": "Have you ever served in a Chief of Staff or strategic advisory role where you were the direct thought partner to a CEO?",
+      "id": "01d7c06e-42b8-44bd-a3c0-32536196e589",
+      "userContext": ""
+    },
+    {
+      "area": "Board and investor engagement",
+      "concern": "Limited evidence of board-level work beyond mentioned Series C support. CoS needs extensive board prep and investor relations experience.",
+      "question": "What specific experience do you have preparing board decks, leading board meetings, or managing investor communications?",
+      "id": "118cf510-8366-4e6f-ade1-42a026dd6efe",
+      "userContext": ""
+    },
+    {
+      "area": "Strategic planning frameworks",
+      "concern": "No evidence of formal strategic planning methodologies that consulting firms teach. CoS role requires this analytical rigor.",
+      "question": "What strategic planning frameworks (OKRs, balanced scorecard, etc.) have you implemented at the company level?",
+      "id": "6fcff417-24bd-4533-8325-10c8849a4b44",
+      "userContext": ""
+    }
+  ],
+  "dealbreakers": [
+    "Requires 3-4 years management consulting experience - candidate has zero",
+    "No Chief of Staff experience in a role explicitly hiring for CoS skills",
+    "No evidence of the analytical rigor and strategic frameworks that define management consulting backgrounds"
+  ],
+  "assessedAt": "2025-12-11T20:19:58.672Z"
+}
