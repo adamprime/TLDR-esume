@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { reviewResume, generateImprovedResume } from '@/lib/claude';
+import { reviewResume, generateImprovedResume } from '@/lib/ai';
 import { 
   readBaseResume, 
   saveResumeReview, 

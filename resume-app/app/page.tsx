@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ApplicationCard from '@/components/ApplicationCard';
 import { Application, ApplicationStatus, STATUS_OPTIONS } from '@/lib/types';
 
 export default function Dashboard() {
+  const router = useRouter();
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -15,8 +17,21 @@ export default function Dashboard() {
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
+    checkFirstRun();
     fetchApplications();
   }, []);
+
+  async function checkFirstRun() {
+    try {
+      const res = await fetch('/api/first-run');
+      const data = await res.json();
+      if (data.isFirstRun) {
+        router.push('/settings');
+      }
+    } catch (error) {
+      console.error('Error checking first run:', error);
+    }
+  }
 
   async function fetchApplications() {
     try {
@@ -95,8 +110,14 @@ export default function Dashboard() {
       <header className="bg-[#1a1a1a] border-b border-[#2a2a2a]">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-100">Resume Builder</h1>
+            <h1 className="text-2xl font-bold text-gray-100">TLDR;esume</h1>
             <div className="flex items-center gap-3">
+              <Link
+                href="/settings"
+                className="px-4 py-2 text-gray-400 hover:text-gray-200 transition-colors"
+              >
+                Settings
+              </Link>
               <Link
                 href="/review"
                 className="px-4 py-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 transition-colors"

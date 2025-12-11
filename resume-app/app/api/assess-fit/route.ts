@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { assessFit } from '@/lib/claude';
+import { assessFit } from '@/lib/ai';
 import { readBaseResume, getApplication, saveAssessment, getAssessment, updateAssessmentGaps } from '@/lib/files';
 
 export async function POST(request: NextRequest) {

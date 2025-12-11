@@ -1,1 +1,45 @@
+# OS files
 .DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+
+# Environment files (contains API keys!)
+.env
+.env.local
+.env.*.local
+
+# Personal data - DO NOT COMMIT
+versions/
+export/
+archive/
+preferences.json
+*.review.json
+
+# Keep your actual resumes private
+resume.md
+resume_*.md
+!resume-template.md
+
+# Next.js
+.next/
+out/
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/

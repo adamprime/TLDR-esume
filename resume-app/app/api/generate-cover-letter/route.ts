@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateCoverLetter } from '@/lib/claude';
+import { generateCoverLetter } from '@/lib/ai';
 import { getResume, saveCoverLetter, getApplication, getAssessment, getCoverLetterHooks } from '@/lib/files';
 
 export async function POST(request: NextRequest) {

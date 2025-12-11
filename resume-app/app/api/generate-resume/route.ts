@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateResume } from '@/lib/claude';
+import { generateResume } from '@/lib/ai';
 import { readBaseResume, saveResume, getApplication, updateApplication, getAssessment } from '@/lib/files';
 
 export async function POST(request: NextRequest) {
