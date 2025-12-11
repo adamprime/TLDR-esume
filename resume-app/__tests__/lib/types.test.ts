@@ -32,13 +32,14 @@ describe('types', () => {
   });
 
   describe('STATUS_OPTIONS', () => {
-    it('should have 5 status options', () => {
-      expect(STATUS_OPTIONS).toHaveLength(5);
+    it('should have 6 status options', () => {
+      expect(STATUS_OPTIONS).toHaveLength(6);
     });
 
     it('should include all expected statuses', () => {
       const values = STATUS_OPTIONS.map(s => s.value);
       expect(values).toContain('draft');
+      expect(values).toContain('closed');
       expect(values).toContain('submitted');
       expect(values).toContain('interviewing');
       expect(values).toContain('rejected');

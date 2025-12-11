@@ -16,8 +16,10 @@
     "@uiw/react-md-editor": "^4.0.11",
     "diff": "^8.0.2",
     "gray-matter": "^4.0.3",
+    "marked": "^17.0.1",
     "md-to-pdf": "^5.2.5",
     "next": "16.0.8",
+    "puppeteer": "^24.32.1",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "uuid": "^13.0.0"

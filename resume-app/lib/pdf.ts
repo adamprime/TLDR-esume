@@ -1,10 +1,12 @@
-import { mdToPdf } from 'md-to-pdf';
 import fs from 'fs/promises';
 import path from 'path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import puppeteer from 'puppeteer';
 import { StyleOption } from './types';
 import { getApplicationFolder, getApplication, getExportPath, getApplicationFolderName } from './files';
 
-const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/2025-resume-project';
+const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/coding/2025-resume-project';
 
 const STYLE_FILES: Record<StyleOption, string> = {
   'courier-new': 'marked-resume.css',
@@ -157,29 +159,52 @@ export async function generatePDF(
   style: StyleOption,
   outputPath: string
 ): Promise<void> {
+  // Strip YAML frontmatter before converting to PDF
+  const { content: markdownContent } = matter(markdown);
+  
   const css = await getStyleCSS(style);
   
-  const pdf = await mdToPdf(
-    { content: markdown },
-    {
-      css,
-      pdf_options: {
-        format: 'Letter',
-        margin: {
-          top: '0.75in',
-          bottom: '0.75in',
-          left: '0.75in',
-          right: '0.75in',
-        },
-        printBackground: true,
-      },
-    }
-  );
+  // Convert markdown to HTML
+  const htmlContent = await marked(markdownContent);
   
-  if (pdf.content) {
-    await fs.writeFile(outputPath, pdf.content);
-  } else {
-    throw new Error('PDF generation failed');
+  // Create full HTML document
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>${css}</style>
+</head>
+<body>
+  ${htmlContent}
+</body>
+</html>
+`;
+  
+  // Launch puppeteer and generate PDF
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+  
+  try {
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+    
+    const pdfBuffer = await page.pdf({
+      format: 'Letter',
+      margin: {
+        top: '0.75in',
+        bottom: '0.75in',
+        left: '0.75in',
+        right: '0.75in',
+      },
+      printBackground: true,
+    });
+    
+    await fs.writeFile(outputPath, pdfBuffer);
+  } finally {
+    await browser.close();
   }
 }
 

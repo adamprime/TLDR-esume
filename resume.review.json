@@ -1,0 +1,90 @@
+{
+  "overallGrade": "B-",
+  "overallFeedback": "This resume shows strong career progression but reads like a generic operations executive template. The accomplishments lack specific context and the impact numbers feel disconnected from the actual work described.",
+  "strengths": [
+    {
+      "area": "Career Progression",
+      "detail": "Clear advancement from Support Engineer to VP Operations at the same company over 10 years shows loyalty and growth"
+    },
+    {
+      "area": "Quantification Attempts",
+      "detail": "Most bullets include metrics (15% ARR growth, 25% retention improvement, 80% backlog reduction)"
+    },
+    {
+      "area": "Technical Competence",
+      "detail": "The tools section demonstrates hands-on technical skills unusual for an operations executive, which could be a differentiator"
+    }
+  ],
+  "weaknesses": [
+    {
+      "area": "Summary Vagueness",
+      "detail": "The summary line 'Built and led 5 departments' is meaningless without context - what size? From scratch or inherited?",
+      "suggestion": "Replace with 'Built customer success organization from 0 to X people, then expanded leadership to oversee 5 departments totaling Y employees'",
+      "id": "02180771-ccc6-4acb-95a1-3f8f820e89d3"
+    },
+    {
+      "area": "Repeated Metrics",
+      "detail": "Uses '15% ARR growth' in both summary and VP Operations role, making it unclear if this is the same achievement double-counted",
+      "suggestion": "Clarify timeframes and whether these are cumulative or separate achievements",
+      "id": "4ab192e1-d327-404d-8136-bf85798c0b3a"
+    },
+    {
+      "area": "Passive Language",
+      "detail": "Bullets like 'Co-led Series C fundraise, developing operational models' bury the actual work done",
+      "suggestion": "Rewrite as 'Secured $13M Series C funding by creating operational models that demonstrated X efficiency gains to investors'",
+      "id": "09db52d3-39f2-444b-ad32-3663fa3f1450"
+    },
+    {
+      "area": "Missing Business Context",
+      "detail": "No indication of company size, revenue scale, or market position makes achievements hard to evaluate",
+      "suggestion": "Add company context line under SpiderOak header: '($X ARR, Y employees, serving Z enterprise customers)'",
+      "id": "706802e7-a538-4179-8c7f-1d6771e64bfd"
+    },
+    {
+      "area": "Freelance Section Weakness",
+      "detail": "'Advised 10+ founders' over 11 years averages less than 1 client per year - either remove or make it more impressive",
+      "suggestion": "Either quantify the impact ('Generated $X in new revenue across portfolio') or remove this section entirely",
+      "id": "bb8d3673-b359-4f4b-823d-97b7299d6fa7"
+    },
+    {
+      "area": "Tools Section Overload",
+      "detail": "The massive tools list reads like keyword stuffing and dilutes executive positioning",
+      "suggestion": "Cut to 5-6 most relevant tools or reframe as 'Technical fluency enables me to...'",
+      "id": "3f84b504-b12f-4d0c-9b52-e703676fac33"
+    }
+  ],
+  "questions": [
+    {
+      "question": "What was SpiderOak's revenue/employee count when you started vs now?",
+      "context": "Shows the scale of operations you've managed and growth trajectory",
+      "id": "57a739b9-d4ed-4ede-a70d-51ac6c31b6e1",
+      "answer": ""
+    },
+    {
+      "question": "For the $13M Series C, what specific operational metrics or models did you create that convinced investors?",
+      "context": "Demonstrates strategic thinking and ability to translate operations to business value",
+      "id": "102e2561-cca4-490b-a742-e83d3caaa710",
+      "answer": ""
+    },
+    {
+      "question": "How many people were in the 5 departments you led, and what was your direct vs indirect report structure?",
+      "context": "Clarifies actual management scope and complexity",
+      "id": "2d5207f1-759e-4de4-bcba-1a07a13fc0e7",
+      "answer": ""
+    },
+    {
+      "question": "What was the actual dollar impact of the 25% retention improvement?",
+      "context": "Translates percentage to business impact hiring managers care about",
+      "id": "03802d45-e82f-4aed-9771-a47566bf3da3",
+      "answer": ""
+    },
+    {
+      "question": "Why are you looking to leave SpiderOak after 10 years of growth?",
+      "context": "This will be the first question any recruiter asks - address it proactively",
+      "id": "e2689b06-3692-4f72-8dfc-ca52265de571",
+      "answer": ""
+    }
+  ],
+  "resumeFile": "resume.md",
+  "reviewedAt": "2025-12-11T18:48:13.602Z"
+}

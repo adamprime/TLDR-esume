@@ -58,7 +58,7 @@ describe('prompts', () => {
     });
 
     it('should specify word limit', () => {
-      expect(COVER_LETTER_PROMPT).toContain('300 words');
+      expect(COVER_LETTER_PROMPT).toContain('350 words');
     });
 
     it('should mention avoiding cliches', () => {

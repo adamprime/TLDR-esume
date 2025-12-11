@@ -14,6 +14,7 @@ export interface Application {
 
 export type ApplicationStatus = 
   | 'draft' 
+  | 'closed'
   | 'submitted' 
   | 'interviewing' 
   | 'rejected' 
@@ -36,6 +37,13 @@ export interface ApplicationQuestion {
   id: string;
   question: string;
   answer: string;
+}
+
+export interface CoverLetterHooks {
+  whyThisCompany: string;
+  personalConnection: string;
+  uniqueValue: string;
+  memorableNote: string;
 }
 
 export interface FitStrength {
@@ -102,6 +110,7 @@ export const STYLE_OPTIONS: { value: StyleOption; label: string; font: string }[
 
 export const STATUS_OPTIONS: { value: ApplicationStatus; label: string; color: string }[] = [
   { value: 'draft', label: 'Draft', color: 'bg-gray-500' },
+  { value: 'closed', label: 'Closed', color: 'bg-gray-600' },
   { value: 'submitted', label: 'Submitted', color: 'bg-blue-500' },
   { value: 'interviewing', label: 'Interviewing', color: 'bg-yellow-500' },
   { value: 'rejected', label: 'Rejected', color: 'bg-red-500' },

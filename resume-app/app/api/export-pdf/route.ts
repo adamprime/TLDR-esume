@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 import { exportResumePDF, exportCoverLetterPDF } from '@/lib/pdf';
+
+const execAsync = promisify(exec);
 
 export async function POST(request: NextRequest) {
   try {
-    const { applicationId, type } = await request.json();
+    const { applicationId, type, openAfterExport = true } = await request.json();
     
     if (!applicationId || !type) {
       return NextResponse.json(
@@ -23,6 +27,16 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid type. Use "resume" or "cover-letter"' },
         { status: 400 }
       );
+    }
+    
+    // Open the PDF in the default viewer (macOS)
+    if (openAfterExport) {
+      try {
+        await execAsync(`open "${outputPath}"`);
+      } catch (openError) {
+        console.error('Failed to open PDF:', openError);
+        // Don't fail the request if opening fails
+      }
     }
     
     return NextResponse.json({ 

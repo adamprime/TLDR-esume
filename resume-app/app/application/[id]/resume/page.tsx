@@ -71,7 +71,7 @@ export default function ResumeEditor({ params }: { params: Promise<{ id: string 
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      alert(`PDF exported to:\n${data.path}`);
+      // PDF opens automatically, no alert needed
     } catch (error) {
       console.error('Error exporting:', error);
       alert('Failed to export PDF. Please try again.');

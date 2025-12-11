@@ -42,8 +42,13 @@ export async function generateCoverLetter(params: {
   role: string;
   jobUrl: string;
   gapContext?: string;
+  hookContext?: string;
 }): Promise<string> {
-  const prompt = interpolate(COVER_LETTER_PROMPT, { ...params, gapContext: params.gapContext || '' });
+  const prompt = interpolate(COVER_LETTER_PROMPT, { 
+    ...params, 
+    gapContext: params.gapContext || '',
+    hookContext: params.hookContext || '',
+  });
   
   const response = await anthropic.messages.create({
     model: MODEL,

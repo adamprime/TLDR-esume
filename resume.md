@@ -21,9 +21,9 @@ version: "1.0"
 
 ## Summary
 
-Versatile, people-centric executive with 10+ years of progressive leadership at SpiderOak, scaling from individual contributor to Vice President. Proven operator across engineering, HR, DevOps, support, and product, with deep experience in building high-trust teams, streamlining operations, and delivering customer-obsessed solutions in complex SaaS ecosystems.
+VP Operations at SpiderOak with 10+ years scaling from individual contributor to executive leadership. Built and led 5 departments while driving 15% ARR growth and 25% improvement in customer retention. Deep operational expertise across engineering, DevOps, HR, finance, and customer success in complex SaaS environments.
 
-A systems thinker fluent in both technical execution and human dynamics. Equally at home leading engineers, shaping product strategy, or coaching emerging leaders. Adept at scaling processes, navigating fundraises, and driving alignment across distributed teams.
+Systems thinker who bridges technical execution and team development. Track record of reducing operational friction while building high-trust, distributed teams. Experienced in fundraising support, process automation, and cross-functional alignment.
 
 ---
 
@@ -43,31 +43,31 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 
 ## Professional Experience
 
-### **SpiderOak**  
+### **SpiderOak** *(Zero-knowledge encrypted storage and collaboration platform)*
 #### *Vice President, Operations*  
 
 **Aug 2022 – Present**  
 
- - Directed company-wide operations across Engineering, DevOps, IT, HR, Assurance, and Customer Success.
-- Led hiring revamp post-Series C, cutting time-to-hire to 45 days and doubling pipeline quality.  
-- Partnered with finance and CEO to secure $13M in Series C funding (2022), aligning ops KPIs with board goals.  
-- Designed internal leadership training, supporting high-performing teams in a fully remote environment.
+- Led cross-functional operations team across Engineering, DevOps, IT, HR, Finance, Assurance, and Customer Success departments to drive 15% ARR growth through process automation and team restructuring.
+- Co-led Series C fundraise, developing operational models and board decks that secured $13M (2022) through preparation of KPIs and operational metrics.
+- Reduced time-to-hire from previous baseline to 45 days post-Series C while doubling qualified candidate pipeline quality.  
+- Designed and implemented internal leadership training program for distributed teams in fully remote environment.
 
 #### *Vice President, Customer Success*  
 **Oct 2018 – Jul 2022**  
 
-- Built customer success org from scratch, raising customer retention by 25% and growing ARR by 15%.  
-- Served as product owner for CrossClave, shaping roadmap based on direct user insight.  
-- Integrated a new SaaS billing system and backend infrastructure, reducing errors and processing time by 30%.  
-- Represented customer voice in executive discussions and board meetings.
+- Built customer success organization from inception, assembling team and implementing processes that improved customer retention by 25% and contributed to 15% ARR growth.  
+- Owned CrossClave product roadmap as product owner, translating customer feedback into feature priorities.  
+- Led implementation of new SaaS billing system and backend infrastructure, reducing processing errors and time by 30%.  
+- Presented customer insights and operational metrics in executive and board meetings.
 
 #### *Customer Success Director*  
 **Jan 2017 – Sep 2018**  
 
-- Introduced queue system that reduced backlog by 80% and resolution times by 60%.  
-- Deployed AI-driven support chat and ML-powered help center, cutting average customer wait time in half.  
-- Integrated support with marketing and sales for unified GTM motion.  
-- Designed and led training for all CSMs and support agents.
+- Implemented queue management system that reduced support backlog by 80% and cut resolution times by 60%.  
+- Deployed AI-driven chat support and ML-powered help center, reducing average customer wait time by 50%.  
+- Aligned support operations with marketing and sales teams to create unified go-to-market approach.  
+- Developed and delivered training curriculum for all customer success managers and support agents.
 
 #### *Support Engineer*  
 **Jan 2014 – Jan 2017**  
@@ -81,8 +81,8 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 ### **Freelance Consultant**  
 **Jul 2013 – Present**  
 
-- Supported 10+ founders across education, solar, insurance, and publishing in optimizing web funnels, automating operations, and building scalable digital systems.  
-- Delivered end-to-end projects including copywriting, workflow automation, and WordPress builds to improve lead conversion and reduce manual workload.
+- Advised 10+ founders across education, solar, insurance, and publishing sectors on web funnel optimization, operations automation, and digital system architecture.  
+- Executed end-to-end projects including copywriting, workflow automation, and WordPress development to increase lead conversion and reduce manual processes.
 
 ---
 
@@ -92,14 +92,14 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 *Bishop – Rush Creek Ward*  
 **Aug 2023 – Present**  
 
-- Lead a congregation of 375 members, overseeing spiritual, temporal, and operational welfare.  
-- Provide pastoral counseling, organize community outreach, and develop youth leadership programs.  
+- Lead congregation of 375 members, managing spiritual guidance, community welfare, and operational oversight.  
+- Provide pastoral counseling, coordinate community outreach programs, and develop youth leadership initiatives.  
 
 ### **Kansas City Jazz Academy**  
 *Jazz Bass Instructor*  
 **Sep 2018 – Present**  
 
-- Teach jazz bass and mentor youth ensembles as part of the American Jazz Museum’s education program.
+- Teach jazz bass and mentor youth ensembles as part of the American Jazz Museum's education program.
 
 ### **Many Moods Choir & Orchestra**  
 *President, Board of Directors*  
@@ -120,14 +120,22 @@ A systems thinker fluent in both technical execution and human dynamics. Equally
 
 ## Tools & Technologies
 
-**Programming & Data**  
-Python (pandas) • JavaScript • HTML/CSS • Jupyter • REST APIs
+**Technical Summary:** Hands-on technical operator fluent in modern AI-enabled development, automation, and cross-functional systems—bridging engineering, data, product, and operations.
 
-**AI & Automation**  
-OpenAI (ChatGPT, Whisper APIs) • Claude • Cursor • AI-driven coding workflows
+**AI & Automation:** OpenAI, Claude, Whisper, Cursor, Windsurfer, AI-assisted coding workflows, Python/JS automation, API integrations, early RAG implementations.
 
-**Web & Publishing**  
-WordPress • Substack • Ghost • Beehiiv • Static site generators • Podcast production
+**Engineering & DevOps:** GitHub Actions, GitLab CI, Docker, Kubernetes, Datadog, AWS, Azure, DigitalOcean, Okta (SSO/MFA), Clerk, O365 administration.
 
-**Collaboration & Ops**  
-GitHub • JIRA • Google Workspace • Microsoft 365 • Zoom • Slack
+**Data & Analytics:** Power BI, Mixpanel, GA4, SQL (Postgres), Python (pandas, analytics tooling).
+
+**Web & Systems Development:** Astro, Next.js, React, Hugo, Netlify, Cloudflare Pages, Cloudflare R2, Vercel, Tailwind CSS, HTML/CSS/JS/TS, Python APIs and backend services.
+
+**Product & Program Systems:** Jira, Asana, Confluence, Notion, Figma.
+
+**Security & Identity:** Okta (org-wide rollout), Clerk, MFA, SSO implementations, coordinated vulnerability intake & remediation workflows.
+
+**GTM, CRM & Marketing:** Salesforce (unified sales/marketing stack), HubSpot, Stripe, PayPal, Google Analytics, Google Ads, subscription + billing integrations.
+
+**Creative & Media:** Adobe Creative Cloud, Canva, Affinity Suite.
+
+**Collaboration & Enterprise:** Slack, Teams, Zoom, Loom, Atlassian suite, O365, Google Workspace.

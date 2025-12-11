@@ -32,6 +32,9 @@ export default function ReviewPage() {
   const [applying, setApplying] = useState(false);
   const [saving, setSaving] = useState(false);
   const [showDiff, setShowDiff] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
+  const [editedImprovedResume, setEditedImprovedResume] = useState('');
+  const [selectedWeaknesses, setSelectedWeaknesses] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchBaseResumes();
@@ -64,6 +67,16 @@ export default function ReviewPage() {
       const data = await res.json();
       setReview(data.review);
       setCurrentResume(data.resume || '');
+      // Select all weaknesses by default
+      if (data.review?.weaknesses) {
+        setSelectedWeaknesses(new Set(data.review.weaknesses.map((w: { id: string }) => w.id)));
+      }
+      // Reset editor state
+      if (data.review?.improvedResume) {
+        setEditedImprovedResume(data.review.improvedResume);
+      } else {
+        setEditedImprovedResume('');
+      }
     } catch (error) {
       console.error('Error fetching review:', error);
     }
@@ -81,6 +94,12 @@ export default function ReviewPage() {
       const data = await res.json();
       setReview(data.review);
       setShowDiff(false);
+      setShowEditor(false);
+      setEditedImprovedResume('');
+      // Select all weaknesses by default
+      if (data.review?.weaknesses) {
+        setSelectedWeaknesses(new Set(data.review.weaknesses.map((w: { id: string }) => w.id)));
+      }
     } catch (error) {
       console.error('Error reviewing:', error);
       alert('Failed to review resume.');
@@ -95,12 +114,18 @@ export default function ReviewPage() {
       const res = await fetch('/api/review-resume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resumeFile: selectedResume, action: 'improve' }),
+        body: JSON.stringify({ 
+          resumeFile: selectedResume, 
+          action: 'improve',
+          selectedWeaknessIds: Array.from(selectedWeaknesses),
+        }),
       });
       if (!res.ok) throw new Error('Improvement failed');
       const data = await res.json();
       setReview(prev => prev ? { ...prev, improvedResume: data.improvedResume } : null);
+      setEditedImprovedResume(data.improvedResume);
       setShowDiff(true);
+      setShowEditor(true);
     } catch (error) {
       console.error('Error improving:', error);
       alert('Failed to generate improved resume.');
@@ -110,7 +135,7 @@ export default function ReviewPage() {
   }
 
   async function applyImprovements() {
-    if (!confirm('This will archive your current resume and replace it with the improved version. Continue?')) {
+    if (!confirm('This will archive your current resume and replace it with your edited version. Continue?')) {
       return;
     }
     setApplying(true);
@@ -118,20 +143,50 @@ export default function ReviewPage() {
       const res = await fetch('/api/review-resume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resumeFile: selectedResume, action: 'apply' }),
+        body: JSON.stringify({ 
+          resumeFile: selectedResume, 
+          action: 'apply',
+          editedResume: editedImprovedResume,
+        }),
       });
       if (!res.ok) throw new Error('Apply failed');
       const data = await res.json();
       alert(data.message);
-      // Refresh to show updated resume
-      await fetchReview();
+      // Clear review state since old review was archived
+      setReview(null);
       setShowDiff(false);
+      setShowEditor(false);
+      setEditedImprovedResume('');
+      // Refresh to get updated resume content
+      await fetchReview();
     } catch (error) {
       console.error('Error applying:', error);
       alert('Failed to apply improvements.');
     } finally {
       setApplying(false);
     }
+  }
+
+  function toggleWeakness(id: string) {
+    setSelectedWeaknesses(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }
+
+  function selectAllWeaknesses() {
+    if (review) {
+      setSelectedWeaknesses(new Set(review.weaknesses.map(w => w.id)));
+    }
+  }
+
+  function deselectAllWeaknesses() {
+    setSelectedWeaknesses(new Set());
   }
 
   async function saveQuestions() {
@@ -162,9 +217,9 @@ export default function ReviewPage() {
   }
 
   function renderDiff() {
-    if (!review?.improvedResume || !currentResume) return null;
+    if (!editedImprovedResume || !currentResume) return null;
     
-    const diff = Diff.diffLines(currentResume, review.improvedResume);
+    const diff = Diff.diffLines(currentResume, editedImprovedResume);
     
     return (
       <div className="font-mono text-sm overflow-x-auto">
@@ -293,22 +348,59 @@ export default function ReviewPage() {
 
             {/* Weaknesses */}
             <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-100 mb-4 flex items-center gap-2">
-                <span className="text-red-500">✗</span> Weaknesses
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-100 flex items-center gap-2">
+                  <span className="text-red-500">✗</span> Weaknesses to Address
+                </h2>
+                {review.weaknesses.length > 0 && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <button
+                      onClick={selectAllWeaknesses}
+                      className="text-blue-400 hover:text-blue-300"
+                    >
+                      Select All
+                    </button>
+                    <span className="text-gray-600">|</span>
+                    <button
+                      onClick={deselectAllWeaknesses}
+                      className="text-blue-400 hover:text-blue-300"
+                    >
+                      Deselect All
+                    </button>
+                  </div>
+                )}
+              </div>
               {review.weaknesses.length === 0 ? (
                 <p className="text-gray-500 text-sm">No significant weaknesses identified.</p>
               ) : (
                 <div className="space-y-4">
                   {review.weaknesses.map((w) => (
-                    <div key={w.id} className="border-l-2 border-red-600 pl-4">
-                      <h3 className="font-medium text-red-400">{w.area}</h3>
-                      <p className="text-sm text-gray-400 mb-2">{w.detail}</p>
-                      <p className="text-sm text-blue-400">💡 {w.suggestion}</p>
-                    </div>
+                    <label
+                      key={w.id}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
+                        selectedWeaknesses.has(w.id)
+                          ? 'bg-red-900/20 border border-red-800'
+                          : 'bg-[#0f0f0f] border border-[#2a2a2a] opacity-60'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedWeaknesses.has(w.id)}
+                        onChange={() => toggleWeakness(w.id)}
+                        className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-red-500 focus:ring-red-500"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-medium text-red-400">{w.area}</h3>
+                        <p className="text-sm text-gray-400 mb-2">{w.detail}</p>
+                        <p className="text-sm text-blue-400">💡 {w.suggestion}</p>
+                      </div>
+                    </label>
                   ))}
                 </div>
               )}
+              <p className="text-xs text-gray-500 mt-4">
+                {selectedWeaknesses.size} of {review.weaknesses.length} weaknesses selected for improvement
+              </p>
             </div>
 
             {/* Questions */}
@@ -352,22 +444,14 @@ export default function ReviewPage() {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-100">Generate Improved Resume</h2>
                 <div className="flex items-center gap-2">
-                  {review.improvedResume && (
-                    <button
-                      onClick={() => setShowDiff(!showDiff)}
-                      className="px-4 py-2 bg-gray-700 text-gray-200 rounded hover:bg-gray-600 text-sm"
-                    >
-                      {showDiff ? 'Hide Diff' : 'Show Diff'}
-                    </button>
-                  )}
                   <button
                     onClick={generateImproved}
-                    disabled={improving}
+                    disabled={improving || selectedWeaknesses.size === 0}
                     className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 disabled:opacity-50"
                   >
-                    {improving ? <LoadingText text="Generating" /> : review.improvedResume ? 'Regenerate' : 'Generate Improved Version'}
+                    {improving ? <LoadingText text="Generating" /> : editedImprovedResume ? 'Regenerate' : 'Generate Improved Version'}
                   </button>
-                  {review.improvedResume && (
+                  {editedImprovedResume && (
                     <button
                       onClick={applyImprovements}
                       disabled={applying}
@@ -380,23 +464,66 @@ export default function ReviewPage() {
               </div>
               
               <p className="text-sm text-gray-400 mb-4">
-                Answer the questions above, then generate an improved version. The AI will incorporate your answers and address the weaknesses.
+                Select weaknesses above, answer questions, then generate. You can edit the result before applying.
               </p>
 
-              {showDiff && review.improvedResume && (
-                <div className="border border-[#2a2a2a] rounded-lg p-4 bg-[#0f0f0f] max-h-[600px] overflow-y-auto">
-                  <div className="flex items-center gap-4 mb-4 text-sm">
-                    <span className="flex items-center gap-1">
-                      <span className="w-3 h-3 bg-red-900/50 border border-red-500"></span>
-                      <span className="text-gray-400">Removed</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span className="w-3 h-3 bg-green-900/50 border border-green-500"></span>
-                      <span className="text-gray-400">Added</span>
-                    </span>
+              {editedImprovedResume && (
+                <>
+                  {/* View toggle */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <button
+                      onClick={() => { setShowDiff(true); setShowEditor(false); }}
+                      className={`px-3 py-1.5 rounded text-sm ${showDiff && !showEditor ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                    >
+                      View Diff
+                    </button>
+                    <button
+                      onClick={() => { setShowEditor(true); setShowDiff(false); }}
+                      className={`px-3 py-1.5 rounded text-sm ${showEditor && !showDiff ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                    >
+                      Edit Resume
+                    </button>
+                    <button
+                      onClick={() => { setShowDiff(true); setShowEditor(true); }}
+                      className={`px-3 py-1.5 rounded text-sm ${showDiff && showEditor ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                    >
+                      Both
+                    </button>
                   </div>
-                  {renderDiff()}
-                </div>
+
+                  <div className={`grid gap-4 ${showDiff && showEditor ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    {/* Diff view */}
+                    {showDiff && (
+                      <div className="border border-[#2a2a2a] rounded-lg p-4 bg-[#0f0f0f] max-h-[600px] overflow-y-auto">
+                        <div className="flex items-center gap-4 mb-4 text-sm">
+                          <span className="flex items-center gap-1">
+                            <span className="w-3 h-3 bg-red-900/50 border border-red-500"></span>
+                            <span className="text-gray-400">Removed</span>
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <span className="w-3 h-3 bg-green-900/50 border border-green-500"></span>
+                            <span className="text-gray-400">Added</span>
+                          </span>
+                        </div>
+                        {renderDiff()}
+                      </div>
+                    )}
+
+                    {/* Editor */}
+                    {showEditor && (
+                      <div className="border border-[#2a2a2a] rounded-lg bg-[#0f0f0f]">
+                        <div className="px-4 py-2 border-b border-[#2a2a2a] text-sm text-gray-400">
+                          Edit the improved resume below. Changes will be reflected in the diff.
+                        </div>
+                        <textarea
+                          value={editedImprovedResume}
+                          onChange={(e) => setEditedImprovedResume(e.target.value)}
+                          className="w-full h-[550px] px-4 py-3 bg-transparent text-gray-100 font-mono text-sm focus:outline-none resize-none"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           </div>

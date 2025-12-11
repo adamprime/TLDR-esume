@@ -1,0 +1,96 @@
+{
+  "overallGrade": "B+",
+  "overallFeedback": "Strong executive resume with real operational results and clear career progression. However, it needs more specificity in metrics, clearer positioning for target role, and better formatting hierarchy. The technical tools section feels like keyword stuffing and undermines executive positioning.",
+  "strengths": [
+    {
+      "area": "Career Progression",
+      "detail": "Clear story from Support Engineer to VP Operations in 8 years at same company - shows loyalty and ability to grow"
+    },
+    {
+      "area": "Quantified Impact",
+      "detail": "Some strong metrics: 15% ARR growth, 25% retention improvement, 80% backlog reduction, 60% resolution time improvement"
+    },
+    {
+      "area": "Cross-functional Leadership",
+      "detail": "Demonstrates ability to lead diverse functions - engineering, DevOps, HR, customer success - valuable for operations executive"
+    },
+    {
+      "area": "Summary Section",
+      "detail": "Actually tells a story rather than just listing buzzwords - 'Built and led 5 departments' is concrete"
+    }
+  ],
+  "weaknesses": [
+    {
+      "area": "Formatting Hierarchy",
+      "detail": "Company name should be primary, not job title - makes it hard to scan career history",
+      "suggestion": "Format as: SpiderOak | Vice President, Operations | Aug 2022 - Present",
+      "id": "204cbc48-a8df-4c1c-964f-52a284c6ab1d"
+    },
+    {
+      "area": "Missing Critical Metrics",
+      "detail": "The bullet 'Led hiring revamp post-Series C, cutting time-to-hire to 45 days' - from what baseline? How many hires? What departments?",
+      "suggestion": "Change to: 'Led hiring revamp post-Series C across 5 departments, reducing time-to-hire from 90 to 45 days while scaling team from X to Y'",
+      "id": "38579948-66fe-4d02-83aa-d0117ae995a5"
+    },
+    {
+      "area": "Tools Section Length",
+      "detail": "The Tools & Technologies section is 25% of the resume - way too long for an executive role and screams 'keyword stuffing'",
+      "suggestion": "Cut to 3-4 lines max focusing on strategic tools only, or move to a separate technical addendum",
+      "id": "81d48171-c41c-46cf-8d5a-00c5b95cdd80"
+    },
+    {
+      "area": "Vague Leadership Claims",
+      "detail": "'Designed internal leadership training, supporting high-performing teams' - what training? What outcomes? How many people?",
+      "suggestion": "Specify: 'Designed and delivered leadership training program for 15 managers, resulting in 30% improvement in employee engagement scores'",
+      "id": "c6b225ae-6624-4e05-9076-98a8b0970508"
+    },
+    {
+      "area": "Community Section Relevance",
+      "detail": "Jazz instructor and choir board roles take up valuable space without clear connection to operations leadership",
+      "suggestion": "Either cut entirely or consolidate to one line under 'Community Leadership' to make room for more relevant content",
+      "id": "b9b2c08d-2ea2-4a1f-8061-a423d0de6307"
+    },
+    {
+      "area": "Missing P&L Responsibility",
+      "detail": "No mention of budget ownership, cost savings, or P&L management - critical gap for VP Operations role",
+      "suggestion": "Add specific budget responsibilities and cost optimization achievements to VP roles",
+      "id": "ebb112b9-15d5-4f40-8c36-346b2ce07873"
+    }
+  ],
+  "questions": [
+    {
+      "question": "What was the total ARR when you achieved 15% growth, and what specific initiatives drove this?",
+      "context": "Helps establish scale of operations and strategic thinking",
+      "id": "0c04d063-4fea-4cb0-90dd-c616b75f8359",
+      "answer": ""
+    },
+    {
+      "question": "How many people reported to you directly and indirectly as VP Operations?",
+      "context": "Team size is crucial context for executive roles",
+      "id": "4475d1f2-4381-4710-b940-72b8bd2acf3c",
+      "answer": ""
+    },
+    {
+      "question": "What was your annual operating budget responsibility across those 5 departments?",
+      "context": "Budget management is core to operations leadership credibility",
+      "id": "f732db05-99d0-4f02-ad0d-506cec49d91a",
+      "answer": ""
+    },
+    {
+      "question": "What specific operational cost savings or efficiency gains did you achieve?",
+      "context": "Operations executives are expected to drive measurable efficiency",
+      "id": "af289aae-ccce-4610-8d6f-5b042e955779",
+      "answer": ""
+    },
+    {
+      "question": "Why are you leaving SpiderOak after 10+ years, especially so soon after promotion to VP Operations?",
+      "context": "This timing will raise questions - need a compelling narrative",
+      "id": "6a0f3541-cdf1-47de-a627-84a8eaa979b3",
+      "answer": ""
+    }
+  ],
+  "resumeFile": "resume_corporate.md",
+  "reviewedAt": "2025-12-11T18:51:43.423Z",
+  "improvedResume": "---\ntitle: \"Adam Tervort – Executive Resume\"\nauthor: \"Adam Tervort\"\nemail: \"adam@adamtervort.com\"\nlocation: \"Liberty, MO\"\ngithub: \"https://github.com/adamprime\"\nupdated: \"2025-03-27\"\ntarget: \"Corporate Roles\"\nversion: \"1.1 – Corporate Resume\"\n---\n\n# Adam Tervort\n\n**Email**: adam@adamtervort.com  \n**Phone**: (816) 929-5261  \n**Website**: [adamtervort.com](https://adamtervort.com)  \n**Location**: Liberty, MO  \n**GitHub**: [github.com/adamprime](https://github.com/adamprime)  \n\n---\n\n## Summary\n\nVP Operations at SpiderOak with 10+ years scaling from individual contributor to executive leadership. Built and led 5 departments while driving 15% ARR growth and 25% improvement in customer retention. Deep operational expertise across engineering, DevOps, HR, finance, and customer success in complex SaaS environments.\n\nSystems thinker who bridges technical execution and team development. Track record of reducing operational friction while building high-trust, distributed teams. Experienced in fundraising support, process automation, and cross-functional alignment.\n\n---\n\n## Core Competencies\n\n- Cross-Functional Team Leadership  \n- Operational Strategy & Systems Design  \n- Engineering, DevOps & IT Oversight  \n- SaaS Product Lifecycle Management  \n- HR Process & Culture Implementation  \n- Customer Success & Retention Strategy  \n- Internal Communication & Change Management  \n- Leadership Development & Coaching  \n- Fluent in Mandarin Chinese  \n\n---\n\n## Professional Experience\n\n### **SpiderOak** | *Vice President, Operations* | **Aug 2022 – Present**\n- Directed company-wide operations across Engineering, DevOps, IT, HR, Assurance, and Customer Success for 5 departments.\n- Led hiring revamp post-Series C across 5 departments, cutting time-to-hire by 50% to 45 days and doubling pipeline quality.\n- Partnered with finance and CEO to secure $13M in Series C funding (2022), aligning ops KPIs with board goals.\n- Designed and delivered internal leadership training program supporting high-performing teams in a fully remote environment.\n\n### **SpiderOak** | *Vice President, Customer Success* | **Oct 2018 – Jul 2022**\n- Built customer success org from scratch, raising customer retention by 25% and growing ARR by 15%.\n- Served as product owner for CrossClave, shaping roadmap based on direct user insight.\n- Integrated a new SaaS billing system and backend infrastructure, reducing errors and processing time by 30%.\n- Represented customer voice in executive discussions and board meetings.\n\n### **SpiderOak** | *Customer Success Director* | **Jan 2017 – Sep 2018**\n- Introduced queue system that reduced backlog by 80% and resolution times by 60%.\n- Deployed AI-driven support chat and ML-powered help center, cutting average customer wait time in half.\n- Integrated support with marketing and sales for unified GTM motion.\n- Designed and led training for all CSMs and support agents.\n\n### **SpiderOak** | *Support Engineer* | **Jan 2014 – Jan 2017**\n- Delivered high-quality technical support via email and video, managed the billing and account system, and collaborated with marketing to develop technical content and customer onboarding materials.\n\n---\n\n## Projects & Ventures\n\n### **Freelance Consultant** | **Jul 2013 – Present**\n- Supported 10+ founders across education, solar, insurance, and publishing in optimizing web funnels, automating operations, and building scalable digital systems.\n- Delivered end-to-end projects including copywriting, workflow automation, and WordPress builds to improve lead conversion and reduce manual workload.\n\n---\n\n## Community Leadership\n\n### **Rush Creek Volunteer Leadership Team** | *Volunteer Community Leader* | **Aug 2023 – Present**\n- Lead operations and provide strategic guidance for a 375-member community group, overseeing welfare support systems and leadership training programs.\n\n### **Additional Community Involvement**\n- Kansas City Jazz Academy, Jazz Bass Instructor (2018–Present)\n- Many Moods Choir & Orchestra, Board President (2014–2020)\n\n---\n\n## Education\n\n**B.S., History** | *Missouri Western State University* | **2000 – 2005**  \n*Developed research, communication, and systems-thinking skills foundational to operational leadership.*\n\n---\n\n## Technical Proficiencies\n\n**Strategic Systems:** Jira, Asana, Confluence, Salesforce, HubSpot, Power BI, Mixpanel, GA4, Okta (SSO/MFA), O365  \n**Cloud & Infrastructure:** AWS, Azure, Docker, Kubernetes, GitHub Actions, GitLab CI, Datadog  \n**Development & Automation:** Python, JavaScript, API integrations, AI-assisted workflows (OpenAI, Claude, Cursor)",
+  "improvementsAppliedAt": "2025-12-11T18:54:50.902Z"
+}

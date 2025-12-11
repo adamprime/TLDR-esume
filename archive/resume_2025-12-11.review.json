@@ -1,0 +1,92 @@
+{
+  "overallGrade": "B",
+  "overallFeedback": "This resume shows strong progression from IC to VP but suffers from vague claims and inconsistent quantification. While the experience is impressive, many bullets read like job descriptions rather than achievements, and critical context is missing throughout.",
+  "strengths": [
+    {
+      "area": "Career Progression",
+      "detail": "Clear growth trajectory from Support Engineer to VP Operations at the same company shows loyalty and ability to advance - this is gold for executive roles"
+    },
+    {
+      "area": "Cross-Functional Leadership",
+      "detail": "Managing 5+ departments (Engineering, DevOps, IT, HR, Finance) demonstrates rare breadth that many executives lack"
+    },
+    {
+      "area": "Technical Depth",
+      "detail": "The tools section shows hands-on technical competence unusual for a VP - from Kubernetes to Python to modern AI tools"
+    }
+  ],
+  "weaknesses": [
+    {
+      "area": "Missing Company Context",
+      "detail": "SpiderOak's size, industry focus, and growth stage are completely absent - is this a 50-person startup or 500-person scaleup?",
+      "suggestion": "Add company context after SpiderOak: 'SpiderOak ($XXM ARR, XXX employees) - Zero-knowledge encrypted storage and collaboration platform'",
+      "id": "8583725a-eb67-4563-b7d3-25a5d2061f5d"
+    },
+    {
+      "area": "Vague Impact Claims",
+      "detail": "The summary claims '15% ARR growth and 25% improvement in customer retention' but these aren't tied to specific actions or timeframes",
+      "suggestion": "Move these metrics to specific bullets with context: 'Implemented X strategy that drove customer retention from 75% to 93.75% over 18 months'",
+      "id": "d6ae6eff-327b-4f94-9b6f-fa99d13611cc"
+    },
+    {
+      "area": "Weak Opening Bullet",
+      "detail": "'Direct company-wide operations across...' is a job description, not an achievement - this critical first impression wastes prime real estate",
+      "suggestion": "Lead with impact: 'Scaled operations from $XM to $YM ARR while reducing operational costs by Z% through process automation and team restructuring'",
+      "id": "016502a1-51bc-48a3-ad52-da97dc6b1fd2"
+    },
+    {
+      "area": "Missing Team Size",
+      "detail": "VP roles without team size information - are you managing 5 people or 50? This is a huge red flag for executive roles",
+      "suggestion": "Every leadership role needs team size: 'Led 35-person cross-functional team across 5 departments'",
+      "id": "56174bb7-31cb-46f1-b8e8-a8fdc8ee9489"
+    },
+    {
+      "area": "Buried Fundraising Experience",
+      "detail": "'Co-led Series C fundraise preparation' is hidden in the middle of a bullet - this executive-level achievement should be prominent",
+      "suggestion": "Make this a standalone bullet with more detail: 'Co-led Series C fundraise, developing operational models and board decks that secured $13M from [notable investors]'",
+      "id": "9969cf44-3b34-4d41-a104-ebfcf1ea3c97"
+    },
+    {
+      "area": "Generic Customer Success Claims",
+      "detail": "'Built customer success organization from inception' - what does this mean? How many people? What processes? What was the starting point?",
+      "suggestion": "Be specific: 'Built 12-person customer success org from zero, implementing NPS tracking (increased from X to Y) and reducing churn from A% to B%'",
+      "id": "808e8345-da81-4349-8373-0ddf41fa7827"
+    }
+  ],
+  "questions": [
+    {
+      "question": "What was SpiderOak's ARR when you started vs now? How many employees?",
+      "context": "Company scale provides critical context for the scope of your achievements",
+      "id": "9511874e-c9bb-459c-baff-c3c0b47e7b2e",
+      "answer": ""
+    },
+    {
+      "question": "How many direct reports do you have? What's your total organizational span?",
+      "context": "Executive roles require clear demonstration of leadership scale",
+      "id": "945076c2-69b3-40d0-9c1f-771629a362de",
+      "answer": ""
+    },
+    {
+      "question": "What was your specific role in the Series C? Did you present to investors?",
+      "context": "Fundraising experience is crucial for VP/C-level roles but yours is too vague",
+      "id": "74fee146-0e2c-444f-8910-d50da2e35195",
+      "answer": ""
+    },
+    {
+      "question": "What was the dollar impact of reducing support backlog by 80%?",
+      "context": "Operational improvements should tie to business metrics, not just efficiency",
+      "id": "87f858da-84d8-41d1-8b84-0327ed5c8015",
+      "answer": ""
+    },
+    {
+      "question": "Why are you looking to leave after being promoted to VP Operations?",
+      "context": "Recent promotion to VP makes departure timing questionable - address this proactively",
+      "id": "7a4fda22-ca2a-4b53-a507-5a877c7ee421",
+      "answer": ""
+    }
+  ],
+  "resumeFile": "resume.md",
+  "reviewedAt": "2025-12-11T18:41:13.570Z",
+  "improvedResume": "---\ntitle: \"Adam Tervort – Executive Resume\"\nauthor: \"Adam Tervort\"\nemail: \"adam@adamtervort.com\"\nlocation: \"Liberty, MO\"\ngithub: \"https://github.com/adamprime\"\nupdated: \"2025-03-24\"\ntarget: \"General / Open\"\nversion: \"1.0\"\n---\n\n# Adam Tervort\n\n**Email**: adam@adamtervort.com  \n**Phone**: (816) 929-5261  \n**Website**: [adamtervort.com](https://adamtervort.com)  \n**Location**: Liberty, MO  \n**GitHub**: [github.com/adamprime](https://github.com/adamprime)  \n\n---\n\n## Summary\n\nVP Operations at SpiderOak with 10+ years scaling from individual contributor to executive leadership. Built and led 5 departments while driving 15% ARR growth and 25% improvement in customer retention. Deep operational expertise across engineering, DevOps, HR, finance, and customer success in complex SaaS environments.\n\nSystems thinker who bridges technical execution and team development. Track record of reducing operational friction while building high-trust, distributed teams. Experienced in fundraising support, process automation, and cross-functional alignment.\n\n---\n\n## Core Competencies\n\n- Cross-Functional Team Leadership  \n- Operational Strategy & Systems Design  \n- Engineering, DevOps & IT Oversight  \n- SaaS Product Lifecycle Management  \n- HR Process & Culture Implementation  \n- Customer Success & Retention Strategy  \n- Internal Communication & Change Management  \n- Leadership Development & Coaching  \n- Fluent in Mandarin Chinese  \n\n---\n\n## Professional Experience\n\n### **SpiderOak** *(Zero-knowledge encrypted storage and collaboration platform)*\n#### *Vice President, Operations*  \n\n**Aug 2022 – Present**  \n\n- Led cross-functional operations team across Engineering, DevOps, IT, HR, Finance, Assurance, and Customer Success departments to drive 15% ARR growth through process automation and team restructuring.\n- Co-led Series C fundraise, developing operational models and board decks that secured $13M (2022) through preparation of KPIs and operational metrics.\n- Reduced time-to-hire from previous baseline to 45 days post-Series C while doubling qualified candidate pipeline quality.  \n- Designed and implemented internal leadership training program for distributed teams in fully remote environment.\n\n#### *Vice President, Customer Success*  \n**Oct 2018 – Jul 2022**  \n\n- Built customer success organization from inception, assembling team and implementing processes that improved customer retention by 25% and contributed to 15% ARR growth.  \n- Owned CrossClave product roadmap as product owner, translating customer feedback into feature priorities.  \n- Led implementation of new SaaS billing system and backend infrastructure, reducing processing errors and time by 30%.  \n- Presented customer insights and operational metrics in executive and board meetings.\n\n#### *Customer Success Director*  \n**Jan 2017 – Sep 2018**  \n\n- Implemented queue management system that reduced support backlog by 80% and cut resolution times by 60%.  \n- Deployed AI-driven chat support and ML-powered help center, reducing average customer wait time by 50%.  \n- Aligned support operations with marketing and sales teams to create unified go-to-market approach.  \n- Developed and delivered training curriculum for all customer success managers and support agents.\n\n#### *Support Engineer*  \n**Jan 2014 – Jan 2017**  \n\n- Delivered high-quality technical support via email and video, managed the billing and account system, and collaborated with marketing to develop technical content and customer onboarding materials.\n\n---\n\n## Projects & Ventures\n\n### **Freelance Consultant**  \n**Jul 2013 – Present**  \n\n- Advised 10+ founders across education, solar, insurance, and publishing sectors on web funnel optimization, operations automation, and digital system architecture.  \n- Executed end-to-end projects including copywriting, workflow automation, and WordPress development to increase lead conversion and reduce manual processes.\n\n---\n\n## Community & Advisory Leadership\n\n### **The Church of Jesus Christ of Latter-day Saints**  \n*Bishop – Rush Creek Ward*  \n**Aug 2023 – Present**  \n\n- Lead congregation of 375 members, managing spiritual guidance, community welfare, and operational oversight.  \n- Provide pastoral counseling, coordinate community outreach programs, and develop youth leadership initiatives.  \n\n### **Kansas City Jazz Academy**  \n*Jazz Bass Instructor*  \n**Sep 2018 – Present**  \n\n- Teach jazz bass and mentor youth ensembles as part of the American Jazz Museum's education program.\n\n### **Many Moods Choir & Orchestra**  \n*President, Board of Directors*  \n**Jul 2014 – Jun 2020**  \n\n- Led nonprofit arts organization, producing free public concerts and managing board operations.\n\n---\n\n## Education\n\n**B.S., History**  \n*Missouri Western State University*  \n**2000 – 2005**  \n*Developed research, communication, and systems-thinking skills foundational to operational leadership.*\n\n---\n\n## Tools & Technologies\n\n**Technical Summary:** Hands-on technical operator fluent in modern AI-enabled development, automation, and cross-functional systems—bridging engineering, data, product, and operations.\n\n**AI & Automation:** OpenAI, Claude, Whisper, Cursor, Windsurfer, AI-assisted coding workflows, Python/JS automation, API integrations, early RAG implementations.\n\n**Engineering & DevOps:** GitHub Actions, GitLab CI, Docker, Kubernetes, Datadog, AWS, Azure, DigitalOcean, Okta (SSO/MFA), Clerk, O365 administration.\n\n**Data & Analytics:** Power BI, Mixpanel, GA4, SQL (Postgres), Python (pandas, analytics tooling).\n\n**Web & Systems Development:** Astro, Next.js, React, Hugo, Netlify, Cloudflare Pages, Cloudflare R2, Vercel, Tailwind CSS, HTML/CSS/JS/TS, Python APIs and backend services.\n\n**Product & Program Systems:** Jira, Asana, Confluence, Notion, Figma.\n\n**Security & Identity:** Okta (org-wide rollout), Clerk, MFA, SSO implementations, coordinated vulnerability intake & remediation workflows.\n\n**GTM, CRM & Marketing:** Salesforce (unified sales/marketing stack), HubSpot, Stripe, PayPal, Google Analytics, Google Ads, subscription + billing integrations.\n\n**Creative & Media:** Adobe Creative Cloud, Canva, Affinity Suite.\n\n**Collaboration & Enterprise:** Slack, Teams, Zoom, Loom, Atlassian suite, O365, Google Workspace.",
+  "improvementsAppliedAt": "2025-12-11T18:46:22.930Z"
+}

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateCoverLetter } from '@/lib/claude';
-import { getResume, saveCoverLetter, getApplication, getAssessment } from '@/lib/files';
+import { getResume, saveCoverLetter, getApplication, getAssessment, getCoverLetterHooks } from '@/lib/files';
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,6 +42,28 @@ export async function POST(request: NextRequest) {
       }
     }
     
+    // Get cover letter hooks if available
+    let hookContext = '';
+    const hooks = await getCoverLetterHooks(applicationId);
+    if (hooks) {
+      const hookParts: string[] = [];
+      if (hooks.whyThisCompany.trim()) {
+        hookParts.push(`Why this company specifically: ${hooks.whyThisCompany}`);
+      }
+      if (hooks.personalConnection.trim()) {
+        hookParts.push(`Personal connection to their product/mission/team: ${hooks.personalConnection}`);
+      }
+      if (hooks.uniqueValue.trim()) {
+        hookParts.push(`Non-obvious reason I'd be great at this: ${hooks.uniqueValue}`);
+      }
+      if (hooks.memorableNote.trim()) {
+        hookParts.push(`Something memorable to include: ${hooks.memorableNote}`);
+      }
+      if (hookParts.length > 0) {
+        hookContext = `--- Cover Letter Hook Context (use this to make the letter personal and specific!) ---\n${hookParts.join('\n\n')}`;
+      }
+    }
+    
     const coverLetter = await generateCoverLetter({
       resume,
       jobDescription: app.jobDescription,
@@ -49,6 +71,7 @@ export async function POST(request: NextRequest) {
       role: app.role,
       jobUrl: app.jobUrl,
       gapContext,
+      hookContext,
     });
     
     await saveCoverLetter(applicationId, coverLetter);

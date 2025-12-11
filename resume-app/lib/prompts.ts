@@ -34,20 +34,37 @@ Output ONLY the markdown resume, no explanations or commentary.
 
 {gapContext}`;
 
-export const COVER_LETTER_PROMPT = `Write a cover letter tailored for this job application. Use an approachable but professional tone — clear, warm, and curious.
+export const COVER_LETTER_PROMPT = `Write a cover letter that sounds like a smart, interesting human wrote it — not a corporate drone or an AI.
 
-CRITICAL RULES:
-1. ONLY reference accomplishments, experiences, and facts from the provided resume
-2. NEVER invent statistics, metrics, or achievements not in the resume
-3. Do not fabricate details about the candidate's background
-4. Be specific but truthful - if a metric isn't available, describe impact qualitatively
+TONE GUIDELINES:
+- Be conversational and slightly irreverent, but still professional
+- Write like someone you'd want to grab coffee with — curious, opinionated, self-aware
+- Show personality. A little wit, a little edge. Not trying too hard, but not boring either.
+- Avoid corporate buzzwords, clichés, and phrases that make hiring managers' eyes glaze over
+- No "I'm excited to apply" or "I believe I would be a great fit" — find a more interesting way in
+- End with something memorable, not a generic "I look forward to hearing from you"
 
-Guidelines:
-- Be no longer than 300 words
-- Avoid clichés and generic phrases
-- Connect the candidate's ACTUAL experience directly to what the company is looking for
-- End with a light, human call to action
-- Output in markdown format
+CRITICAL RULES - DO NOT VIOLATE:
+1. NEVER invent statistics, numbers, percentages, or metrics not in the resume
+2. NEVER fabricate accomplishments, projects, or experiences
+3. NEVER claim skills, certifications, or expertise not demonstrated in the resume
+4. ONLY reference facts that exist in the provided resume or hook context
+5. If the hook context mentions something, you CAN use it — that's real information from the candidate
+6. If you need to show impact and no metric exists, describe it qualitatively
+7. When in doubt, be honest about what you don't know rather than making something up
+
+FORMAT:
+- 250-350 words maximum
+- Use markdown format
+- No headers or formal structure — just flowing paragraphs
+- Address it appropriately based on what you know (if a hiring manager name is given, use it)
+
+WHAT MAKES A GREAT COVER LETTER:
+- A hook that makes them want to keep reading (use the hook context if provided!)
+- Specific connections between YOUR experience and THEIR needs
+- Evidence you actually researched this company, not just copied the job title
+- A reason why THIS role at THIS company, not just any job
+- Personality that makes you memorable
 
 --- Candidate Resume ---
 {resume}
@@ -65,6 +82,8 @@ Guidelines:
 {jobUrl}
 
 {gapContext}
+
+{hookContext}
 
 Output ONLY the cover letter in markdown, no explanations.`;
 

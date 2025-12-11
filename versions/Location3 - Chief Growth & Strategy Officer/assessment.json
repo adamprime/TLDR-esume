@@ -1,0 +1,66 @@
+{
+  "overallAssessment": "You're a VP Ops at a SaaS company applying for a C-level role at a digital marketing agency - that's a significant industry pivot and level jump. While you have the operational chops and revenue experience, you lack the deep digital marketing expertise and agency background this role explicitly requires.",
+  "fitScore": 4,
+  "recommendation": "stretch",
+  "strengths": [
+    {
+      "area": "Revenue Growth Experience",
+      "evidence": "Led customer success org that drove 15% ARR growth and 25% improvement in retention at SpiderOak"
+    },
+    {
+      "area": "Cross-Functional Leadership",
+      "evidence": "Currently directing 5 departments including Engineering, DevOps, IT, HR, and Customer Success"
+    },
+    {
+      "area": "Team Building",
+      "evidence": "Built customer success org from scratch and led hiring revamp post-Series C, cutting time-to-hire by 50%"
+    },
+    {
+      "area": "Strategic Planning",
+      "evidence": "Partnered with finance and CEO to secure $13M Series C funding, aligning ops KPIs with board goals"
+    }
+  ],
+  "gaps": [
+    {
+      "area": "Digital Marketing Expertise",
+      "concern": "No evidence of deep expertise in SEO, paid media, analytics, or marketing technology - the core competencies this agency sells",
+      "question": "Have you led digital marketing initiatives or worked directly with SEO/SEM strategies in any of your roles?",
+      "id": "8a2a3450-e7f0-4832-bfe5-9041b380ba25",
+      "userContext": ""
+    },
+    {
+      "area": "Agency Experience",
+      "concern": "Zero agency background in a role that requires understanding agency economics, client services, and professional services delivery",
+      "question": "Have you worked with or managed relationships with marketing agencies or professional services firms?",
+      "id": "d01217eb-6710-4f0a-bbba-c23e9a39268f",
+      "userContext": ""
+    },
+    {
+      "area": "Franchise Marketing Knowledge",
+      "concern": "No experience with franchise or multi-location businesses, which is strongly preferred and appears to be their core market",
+      "question": "Have you worked with franchise systems or multi-location retail brands in any capacity?",
+      "id": "7314c5f9-c8c1-40b9-86de-a6bb6faa1e15",
+      "userContext": ""
+    },
+    {
+      "area": "Sales Leadership",
+      "concern": "Limited direct sales experience - you've built customer success but haven't led business development or closed enterprise deals",
+      "question": "What's your experience with enterprise sales cycles, RFP processes, or closing six-figure marketing contracts?",
+      "id": "3c7e86ee-0a9b-4538-8c89-ef78b5682ff2",
+      "userContext": ""
+    },
+    {
+      "area": "External Thought Leadership",
+      "concern": "No evidence of speaking at conferences, publishing, or representing companies as an industry expert",
+      "question": "Have you presented at industry events or published content related to digital transformation or marketing?",
+      "id": "a708de9b-7f58-404b-8d53-b089261f32b6",
+      "userContext": ""
+    }
+  ],
+  "dealbreakers": [
+    "12+ years in digital marketing or agency leadership - you have neither",
+    "Deep expertise in digital marketing disciplines (SEO, paid media, analytics) - your background is SaaS operations",
+    "Proven track record scaling revenue in professional services/agency environment - all your experience is in SaaS"
+  ],
+  "assessedAt": "2025-12-11T20:12:17.389Z"
+}

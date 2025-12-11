@@ -1,0 +1,55 @@
+{
+  "overallAssessment": "This candidate has solid operational experience but lacks the strategic business acumen and founder mindset Warp explicitly wants. They've built ops functions at a small SaaS company but haven't demonstrated the high-level business strategy, partnerships, or pricing expertise this role demands. This is fundamentally a Chief of Staff/strategy role, not a traditional ops role.",
+  "fitScore": 4,
+  "recommendation": "stretch",
+  "strengths": [
+    {
+      "area": "Executive Leadership",
+      "evidence": "VP Operations at SpiderOak managing 5 departments, member of executive team, supported Series C fundraising"
+    },
+    {
+      "area": "Cross-functional Management",
+      "evidence": "Managed Engineering, DevOps, IT, HR, and Customer Success departments simultaneously"
+    },
+    {
+      "area": "Scaling Operations",
+      "evidence": "Built customer success org from scratch, reduced time-to-hire by 50%, improved retention by 25%"
+    },
+    {
+      "area": "Technical Context",
+      "evidence": "Hands-on experience with modern dev tools, APIs, automation, and SaaS infrastructure"
+    }
+  ],
+  "gaps": [
+    {
+      "area": "Strategic Business Leadership",
+      "concern": "Resume shows operational execution but limited evidence of high-level business strategy, partnerships, or pricing work that Warp specifically needs",
+      "question": "Can you describe a time when you led a major business strategy initiative like exploring new partnerships, redesigning pricing models, or evaluating new business lines?",
+      "id": "58579f16-831d-4779-b064-b339adc32004",
+      "userContext": ""
+    },
+    {
+      "area": "Founder Experience",
+      "concern": "Job explicitly states 'Founder experience is strongly preferred' - candidate shows none",
+      "question": "Have you worked directly with founders in early-stage environments or had any entrepreneurial experiences that would help you understand the challenges of scaling a startup?",
+      "id": "180a6939-098b-4c4a-84f7-87ce224fa043",
+      "userContext": ""
+    },
+    {
+      "area": "Chief of Staff Experience",
+      "concern": "Role is more Chief of Staff than traditional ops - no evidence of serving as strategic advisor to CEO or managing board relationships",
+      "question": "Have you served in a Chief of Staff capacity where you were the CEO's primary strategic thought partner on company-wide initiatives?",
+      "id": "b4f9b178-f5c4-461c-b3cd-a3305cea071d",
+      "userContext": ""
+    },
+    {
+      "area": "High-Growth Scale",
+      "concern": "SpiderOak appears to be a smaller, slower-growth company compared to Warp's 20x revenue growth trajectory",
+      "question": "What's the fastest growth rate you've operated in, and how did you adapt processes when things were changing rapidly?",
+      "id": "709fa98b-259c-4810-a34c-76bf819e9bef",
+      "userContext": ""
+    }
+  ],
+  "dealbreakers": [],
+  "assessedAt": "2025-12-11T19:04:26.054Z"
+}

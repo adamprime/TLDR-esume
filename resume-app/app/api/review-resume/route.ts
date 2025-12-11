@@ -5,13 +5,14 @@ import {
   saveResumeReview, 
   getResumeReview, 
   archiveResume,
-  saveImprovedResume 
+  saveImprovedResume,
+  archiveResumeReview
 } from '@/lib/files';
 import { ResumeReview } from '@/lib/types';
 
 export async function POST(request: NextRequest) {
   try {
-    const { resumeFile, action } = await request.json();
+    const { resumeFile, action, selectedWeaknessIds, editedResume } = await request.json();
     
     if (!resumeFile) {
       return NextResponse.json(
@@ -45,13 +46,18 @@ export async function POST(request: NextRequest) {
       
       const originalResume = await readBaseResume(resumeFile);
       
+      // Filter weaknesses to only selected ones
+      const selectedWeaknesses = selectedWeaknessIds && selectedWeaknessIds.length > 0
+        ? review.weaknesses.filter(w => selectedWeaknessIds.includes(w.id))
+        : review.weaknesses;
+      
       // Build review feedback string
       const reviewFeedback = `
 Grade: ${review.overallGrade}
 Feedback: ${review.overallFeedback}
 
 Weaknesses to address:
-${review.weaknesses.map(w => `- ${w.area}: ${w.detail} (Suggestion: ${w.suggestion})`).join('\n')}
+${selectedWeaknesses.map(w => `- ${w.area}: ${w.detail} (Suggestion: ${w.suggestion})`).join('\n')}
 `;
       
       // Build question answers string
@@ -78,24 +84,33 @@ ${review.weaknesses.map(w => `- ${w.area}: ${w.detail} (Suggestion: ${w.suggesti
     }
     
     if (action === 'apply') {
-      const review = await getResumeReview(resumeFile);
-      if (!review?.improvedResume) {
-        return NextResponse.json(
-          { error: 'No improved resume found. Generate improvements first.' },
-          { status: 400 }
-        );
+      // Use edited resume from request, or fall back to stored improved resume
+      let resumeToApply = editedResume;
+      
+      if (!resumeToApply) {
+        const review = await getResumeReview(resumeFile);
+        if (!review?.improvedResume) {
+          return NextResponse.json(
+            { error: 'No improved resume found. Generate improvements first.' },
+            { status: 400 }
+          );
+        }
+        resumeToApply = review.improvedResume;
       }
       
       // Archive the original
       const archivedName = await archiveResume(resumeFile);
       
-      // Save the improved version
-      await saveImprovedResume(resumeFile, review.improvedResume);
+      // Save the edited/improved version
+      await saveImprovedResume(resumeFile, resumeToApply);
+      
+      // Archive the old review alongside the resume
+      await archiveResumeReview(resumeFile);
       
       return NextResponse.json({ 
         success: true,
         archivedAs: archivedName,
-        message: `Original archived as ${archivedName}. Resume updated.`
+        message: `Original archived as ${archivedName}. Resume updated. Run a new review to see your updated score.`
       });
     }
     

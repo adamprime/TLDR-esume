@@ -10,6 +10,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | 'all'>('all');
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkStatus, setBulkStatus] = useState<ApplicationStatus>('closed');
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     fetchApplications();
@@ -39,6 +42,53 @@ export default function Dashboard() {
     acc[app.status] = (acc[app.status] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+
+  function toggleSelection(id: string) {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }
+
+  function selectAllVisible() {
+    setSelectedIds(new Set(filteredApplications.map(a => a.id)));
+  }
+
+  function deselectAll() {
+    setSelectedIds(new Set());
+  }
+
+  async function bulkUpdateStatus() {
+    if (selectedIds.size === 0) return;
+    
+    setUpdating(true);
+    try {
+      const res = await fetch('/api/applications/bulk-update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: Array.from(selectedIds), status: bulkStatus }),
+      });
+      
+      if (!res.ok) throw new Error('Bulk update failed');
+      
+      const data = await res.json();
+      alert(data.message);
+      
+      // Refresh and clear selection
+      await fetchApplications();
+      setSelectedIds(new Set());
+    } catch (error) {
+      console.error('Error bulk updating:', error);
+      alert('Failed to update applications.');
+    } finally {
+      setUpdating(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
@@ -108,6 +158,47 @@ export default function Dashboard() {
           </select>
         </div>
 
+        {/* Bulk Actions Bar */}
+        <div className="flex items-center justify-between mb-4 p-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={selectedIds.size === filteredApplications.length ? deselectAll : selectAllVisible}
+              className="text-sm text-blue-400 hover:text-blue-300"
+            >
+              {selectedIds.size === filteredApplications.length ? 'Deselect All' : `Select All (${filteredApplications.length})`}
+            </button>
+            {selectedIds.size > 0 && (
+              <span className="text-sm text-gray-400">
+                {selectedIds.size} selected
+              </span>
+            )}
+          </div>
+          
+          {selectedIds.size > 0 && (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-400">Set status to:</span>
+              <select
+                value={bulkStatus}
+                onChange={(e) => setBulkStatus(e.target.value as ApplicationStatus)}
+                className="px-3 py-1.5 text-sm border border-[#3a3a3a] bg-[#0f0f0f] text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {STATUS_OPTIONS.map(status => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={bulkUpdateStatus}
+                disabled={updating}
+                className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50"
+              >
+                {updating ? 'Updating...' : 'Apply'}
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Applications Grid */}
         {loading ? (
           <div className="text-center py-12 text-gray-400">Loading applications...</div>
@@ -130,7 +221,38 @@ export default function Dashboard() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredApplications.map(app => (
-              <ApplicationCard key={app.id} application={app} />
+              <div 
+                key={app.id} 
+                className={`bg-[#1a1a1a] border rounded-lg hover:border-[#3a3a3a] hover:bg-[#1f1f1f] transition-all ${
+                  selectedIds.has(app.id) ? 'border-blue-500 ring-2 ring-blue-500/30' : 'border-[#2a2a2a]'
+                }`}
+              >
+                <div className="flex items-start p-4 gap-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.has(app.id)}
+                    onChange={() => toggleSelection(app.id)}
+                    className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-blue-500 cursor-pointer flex-shrink-0"
+                  />
+                  <Link href={`/application/${app.id}`} className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-semibold text-gray-100 truncate pr-2">
+                        {app.company}
+                      </h3>
+                      <span className={`${STATUS_OPTIONS.find(s => s.value === app.status)?.color || 'bg-gray-500'} text-white text-xs px-2 py-0.5 rounded-full whitespace-nowrap`}>
+                        {STATUS_OPTIONS.find(s => s.value === app.status)?.label || app.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-400 mb-3 line-clamp-2">
+                      {app.role}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <span>Updated {new Date(app.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                      {app.jobUrl && <span className="text-blue-400">Has link</span>}
+                    </div>
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         )}

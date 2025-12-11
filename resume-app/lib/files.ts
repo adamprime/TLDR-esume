@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
-import { Application, BaseResume, ApplicationQuestion, FitAssessment, ResumeReview } from './types';
+import { Application, BaseResume, ApplicationQuestion, FitAssessment, ResumeReview, CoverLetterHooks } from './types';
 
 const PROJECT_PATH = process.env.RESUME_PROJECT_PATH || '/Users/adam/coding/2025-resume-project';
 
@@ -83,6 +83,9 @@ export async function getAllApplications(): Promise<Application[]> {
           // Ignore parsing errors
         }
       }
+      
+      // Save the generated manifest so future updates work
+      await fs.writeFile(manifestPath, JSON.stringify(app, null, 2));
       
       applications.push(app);
     }
@@ -304,6 +307,29 @@ export async function updateAssessmentGaps(id: string, gaps: FitAssessment['gaps
   await saveAssessment(id, assessment);
 }
 
+// Cover Letter Hooks functions
+export async function saveCoverLetterHooks(id: string, hooks: CoverLetterHooks): Promise<void> {
+  const folderPath = await getApplicationFolder(id);
+  if (!folderPath) throw new Error('Application folder not found');
+  
+  await fs.writeFile(
+    path.join(folderPath, 'cover-letter-hooks.json'),
+    JSON.stringify(hooks, null, 2)
+  );
+}
+
+export async function getCoverLetterHooks(id: string): Promise<CoverLetterHooks | null> {
+  const folderPath = await getApplicationFolder(id);
+  if (!folderPath) return null;
+  
+  try {
+    const content = await fs.readFile(path.join(folderPath, 'cover-letter-hooks.json'), 'utf-8');
+    return JSON.parse(content) as CoverLetterHooks;
+  } catch {
+    return null;
+  }
+}
+
 // Resume Review functions
 export function getReviewPath(resumeFilename: string): string {
   const baseName = resumeFilename.replace('.md', '');
@@ -341,4 +367,23 @@ export async function archiveResume(resumeFilename: string): Promise<string> {
 export async function saveImprovedResume(resumeFilename: string, content: string): Promise<void> {
   const resumePath = path.join(PROJECT_PATH, resumeFilename);
   await fs.writeFile(resumePath, content);
+}
+
+export async function archiveResumeReview(resumeFilename: string): Promise<string | null> {
+  const reviewPath = getReviewPath(resumeFilename);
+  try {
+    const archivePath = path.join(PROJECT_PATH, 'archive');
+    await fs.mkdir(archivePath, { recursive: true });
+    
+    const baseName = resumeFilename.replace('.md', '');
+    const timestamp = new Date().toISOString().split('T')[0];
+    const archiveFilename = `${baseName}_${timestamp}.review.json`;
+    const destPath = path.join(archivePath, archiveFilename);
+    
+    await fs.rename(reviewPath, destPath);
+    return archiveFilename;
+  } catch {
+    // File doesn't exist, that's fine
+    return null;
+  }
 }
