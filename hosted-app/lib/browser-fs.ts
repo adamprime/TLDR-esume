@@ -97,7 +97,7 @@ export async function writeFile(
 }
 
 /**
- * Check if a file exists
+ * Check if a file OR directory exists
  */
 export async function fileExists(
   handle: FileSystemDirectoryHandle,
@@ -105,21 +105,26 @@ export async function fileExists(
 ): Promise<boolean> {
   try {
     const parts = path.split('/');
-    const filename = parts.pop()!;
+    const name = parts.pop()!;
     const dirParts = parts;
     
     const dirHandle = await getNestedHandle(handle, dirParts);
-    await dirHandle.getFileHandle(filename);
-    return true;
-  } catch (error) {
-    if (error instanceof DOMException && error.name === 'NotFoundError') {
-      return false;
+    
+    // Try as file first
+    try {
+      await dirHandle.getFileHandle(name);
+      return true;
+    } catch {
+      // Not a file, try as directory
+      try {
+        await dirHandle.getDirectoryHandle(name);
+        return true;
+      } catch {
+        return false;
+      }
     }
-    // Directory doesn't exist
-    if (error instanceof DOMException && error.name === 'TypeMismatchError') {
-      return false;
-    }
-    // For other errors during path traversal
+  } catch {
+    // Parent directory doesn't exist
     return false;
   }
 }
