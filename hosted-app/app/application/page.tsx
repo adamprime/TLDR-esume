@@ -6,6 +6,8 @@ import { readFile, writeFile, fileExists, createDirectory } from '@/lib/browser-
 import { getSavedFolderHandle } from '@/lib/folder-handle';
 import { callAI } from '@/lib/browser-ai';
 import { FIT_ASSESSMENT_PROMPT, RESUME_PROMPT, COVER_LETTER_PROMPT } from '@/lib/prompts';
+import MarkdownEditor from '@/components/MarkdownEditor';
+import LoadingText from '@/components/LoadingText';
 
 // Types
 interface Application {
@@ -191,18 +193,29 @@ function AssessmentView({ appId }: { appId: string }) {
 
   if (!assessment && !isAssessing) return (
     <div className="min-h-screen flex items-center justify-center p-6"><div className="max-w-lg w-full text-center">
-      <h1 className="text-2xl font-bold mb-4">Fit Assessment</h1><p className="text-gray-400 mb-8">Assess how well you match this role.</p>
+      <h1 className="text-2xl font-bold mb-4">Fit Assessment</h1><p className="text-gray-400 mb-8">Assess how well you match this role before investing time.</p>
       <button onClick={runAssessment} className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 mb-4">Run Assessment</button>
       <button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="w-full py-3 bg-[#2a2a2a] text-white rounded-lg hover:bg-[#3a3a3a]">Cancel</button>
       {error && <p className="mt-4 text-red-400">{error}</p>}
     </div></div>
   );
-  if (isAssessing) return <div className="min-h-screen flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Analyzing Fit...</h1></div></div>;
+
+  if (isAssessing) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-4"><LoadingText text="Analyzing Fit" /></h1>
+        <p className="text-gray-400">Comparing your resume against the job requirements...</p>
+      </div>
+    </div>
+  );
 
   const badge = badges[assessment!.recommendation] || { label: assessment!.recommendation, color: 'bg-gray-600' };
   return (
     <div className="min-h-screen p-6"><div className="max-w-3xl mx-auto">
-      <div className="flex items-center gap-4 mb-6"><button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-white">← Back</button></div>
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-white">← Back</button>
+        <button onClick={runAssessment} disabled={isAssessing} className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-500 disabled:opacity-50">Re-run Assessment</button>
+      </div>
       <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 mb-6 text-center">
         <div className={`text-5xl font-bold ${getScoreColor(assessment!.fitScore)}`}>{assessment!.fitScore}/10</div>
         <span className={`inline-block mt-3 px-4 py-1 rounded-full text-sm font-medium ${badge.color}`}>{badge.label}</span>
@@ -210,7 +223,7 @@ function AssessmentView({ appId }: { appId: string }) {
       </div>
       {assessment!.dealbreakers.length > 0 && <div className="bg-red-900/20 border border-red-900 rounded-lg p-6 mb-6"><h2 className="font-semibold text-red-400 mb-3">Dealbreakers</h2><ul className="space-y-2">{assessment!.dealbreakers.map((db, i) => <li key={i} className="flex items-start gap-2"><span className="text-red-400">✗</span><span className="text-gray-300">{db}</span></li>)}</ul></div>}
       <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 mb-6"><h2 className="font-semibold text-green-400 mb-3">Strengths</h2><ul className="space-y-3">{assessment!.strengths.map((s, i) => <li key={i}><div className="flex items-start gap-2"><span className="text-green-400">✓</span><span className="font-medium text-gray-200">{s.area}</span></div><p className="ml-5 text-sm text-gray-400">{s.evidence}</p></li>)}</ul></div>
-      {assessment!.gaps.length > 0 && <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 mb-6"><h2 className="font-semibold text-yellow-400 mb-3">Gaps to Address</h2><div className="space-y-6">{assessment!.gaps.map((gap, i) => (
+      {assessment!.gaps.length > 0 && <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 mb-6"><h2 className="font-semibold text-yellow-400 mb-3">Gaps to Address</h2><p className="text-gray-400 text-sm mb-4">Answer these questions to provide context for resume generation.</p><div className="space-y-6">{assessment!.gaps.map((gap, i) => (
         <div key={i} className="border-t border-[#2a2a2a] pt-4 first:border-0 first:pt-0"><div className="flex items-start gap-2 mb-2"><span className="text-yellow-400">!</span><span className="font-medium text-gray-200">{gap.area}</span></div><p className="ml-5 text-sm text-gray-400 mb-2">{gap.concern}</p>
         <label className="block ml-5"><span className="text-sm text-gray-300">{gap.question}</span><textarea value={gapAnswers[i]?.answer || ''} onChange={(e) => { const u = [...gapAnswers]; u[i] = { ...u[i], answer: e.target.value }; setGapAnswers(u); }} onBlur={saveGapAnswers} placeholder="Your answer..." rows={2} className="w-full mt-1 px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm resize-none" /></label></div>))}</div></div>}
       <button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500">Continue to Application</button>
@@ -218,148 +231,396 @@ function AssessmentView({ appId }: { appId: string }) {
   );
 }
 
-// Resume View
+// Resume View - Uses MarkdownEditor
 function ResumeView({ appId }: { appId: string }) {
   const router = useRouter();
   const [content, setContent] = useState('');
+  const [originalContent, setOriginalContent] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [handle, setHandle] = useState<FileSystemDirectoryHandle | null>(null);
-  const [hasExisting, setHasExisting] = useState(false);
+  const [appInfo, setAppInfo] = useState<{ company: string; role: string } | null>(null);
 
   useEffect(() => {
     async function init() {
       const h = await getSavedFolderHandle();
       if (!h) { router.push('/'); return; }
       setHandle(h);
-      if (await fileExists(h, `versions/${appId}/resume.md`)) { setContent(await readFile(h, `versions/${appId}/resume.md`)); setHasExisting(true); }
+      
+      // Load app info
+      try {
+        const appJson = await readFile(h, `versions/${appId}/application.json`);
+        const app = JSON.parse(appJson);
+        setAppInfo({ company: app.company, role: app.role });
+      } catch {}
+      
+      // Load existing resume
+      if (await fileExists(h, `versions/${appId}/resume.md`)) {
+        const existing = await readFile(h, `versions/${appId}/resume.md`);
+        setContent(existing);
+        setOriginalContent(existing);
+      }
     }
     init();
   }, [appId, router]);
 
   async function generateResume() {
     if (!handle) return;
-    setError(null); setIsGenerating(true);
+    setError(null);
+    setIsGenerating(true);
     try {
-      const [baseResume, appJson, configJson] = await Promise.all([readFile(handle, 'resume.md'), readFile(handle, `versions/${appId}/application.json`), readFile(handle, 'config.json')]);
-      const app = JSON.parse(appJson), config = JSON.parse(configJson);
+      const [baseResume, appJson, configJson] = await Promise.all([
+        readFile(handle, 'resume.md'),
+        readFile(handle, `versions/${appId}/application.json`),
+        readFile(handle, 'config.json'),
+      ]);
+      const app = JSON.parse(appJson);
+      const config = JSON.parse(configJson);
+      
+      // Build gap context
       let gapContext = '';
-      try { const { gapAnswers } = JSON.parse(await readFile(handle, `versions/${appId}/assessment.json`)); const a = gapAnswers?.filter((g: { answer: string }) => g.answer.trim()) || []; if (a.length) gapContext = '\n--- Additional Context ---\n' + a.map((g: { question: string; answer: string }) => `Q: ${g.question}\nA: ${g.answer}`).join('\n\n'); } catch {}
-      const prompt = RESUME_PROMPT.replace('{baseResume}', baseResume).replace('{jobDescription}', app.jobDescription).replace('{company}', app.company).replace('{role}', app.role).replace('{gapContext}', gapContext);
+      try {
+        const assessmentJson = await readFile(handle, `versions/${appId}/assessment.json`);
+        const { gapAnswers } = JSON.parse(assessmentJson);
+        const answered = gapAnswers?.filter((g: { answer: string }) => g.answer.trim()) || [];
+        if (answered.length) {
+          gapContext = '\n--- Additional Context from Candidate ---\n';
+          answered.forEach((g: { question: string; answer: string }) => {
+            gapContext += `Q: ${g.question}\nA: ${g.answer}\n\n`;
+          });
+        }
+      } catch {}
+      
+      const prompt = RESUME_PROMPT
+        .replace('{baseResume}', baseResume)
+        .replace('{jobDescription}', app.jobDescription)
+        .replace('{company}', app.company)
+        .replace('{role}', app.role)
+        .replace('{gapContext}', gapContext);
+
       const generated = await callAI(config, prompt);
-      setContent(generated); setHasExisting(true);
+      setContent(generated);
+      setOriginalContent(generated);
       await writeFile(handle, `versions/${appId}/resume.md`, generated);
-    } catch (err) { setError('Failed to generate resume'); console.error(err); }
-    finally { setIsGenerating(false); }
-  }
-
-  async function saveResume() { if (handle && content.trim()) await writeFile(handle, `versions/${appId}/resume.md`, content); }
-
-  function exportPDF() {
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      const html = content.replace(/^---[\s\S]*?---\n?/, '').replace(/^### (.*)$/gm, '<h3>$1</h3>').replace(/^## (.*)$/gm, '<h2>$1</h2>').replace(/^# (.*)$/gm, '<h1>$1</h1>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^- (.*)$/gm, '<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-      printWindow.document.write(`<!DOCTYPE html><html><head><title>Resume</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.5}h1{font-size:24px}h2{font-size:18px;margin-top:24px;border-bottom:1px solid #ccc}h3{font-size:14px}ul{padding-left:20px}li{margin-bottom:4px}@media print{body{margin:0;padding:20px}}</style></head><body>${html}</body></html>`);
-      printWindow.document.close(); printWindow.print();
+    } catch (err) {
+      setError('Failed to generate resume. Please try again.');
+      console.error(err);
+    } finally {
+      setIsGenerating(false);
     }
   }
 
+  async function saveResume() {
+    if (!handle || !content.trim()) return;
+    setIsSaving(true);
+    try {
+      await writeFile(handle, `versions/${appId}/resume.md`, content);
+      setOriginalContent(content);
+    } catch (err) {
+      console.error('Failed to save:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  function exportPDF() {
+    if (!content.trim()) return;
+    setIsExporting(true);
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      const html = content
+        .replace(/^---[\s\S]*?---\n?/, '')
+        .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/^- (.*)$/gm, '<li>$1</li>')
+        .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+      printWindow.document.write(`<!DOCTYPE html><html><head><title>Resume - ${appInfo?.company || ''}</title><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.5;color:#333}h1{font-size:24px;margin-bottom:8px}h2{font-size:18px;margin-top:24px;border-bottom:1px solid #ddd;padding-bottom:4px}h3{font-size:14px;margin-top:16px}ul{padding-left:20px}li{margin-bottom:4px}strong{font-weight:600}@media print{body{margin:0;padding:20px}}</style></head><body>${html}</body></html>`);
+      printWindow.document.close();
+      printWindow.print();
+    }
+    setIsExporting(false);
+  }
+
+  const hasUnsavedChanges = content !== originalContent;
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="p-4 border-b border-[#2a2a2a] flex items-center justify-between">
-        <div className="flex items-center gap-4"><button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-white">← Back</button><h1 className="font-semibold">Resume</h1></div>
-        <div className="flex items-center gap-2">
-          <button onClick={generateResume} disabled={isGenerating} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50">{isGenerating ? 'Generating...' : hasExisting ? 'Regenerate' : 'Generate with AI'}</button>
-          {hasExisting && <button onClick={exportPDF} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500">Export PDF</button>}
+    <div className="h-screen flex flex-col bg-[#0f0f0f]">
+      <header className="bg-[#1a1a1a] border-b border-[#2a2a2a] flex-shrink-0">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-gray-200">← Back</button>
+            <div>
+              <h1 className="font-semibold text-gray-100">Resume: {appInfo?.company}</h1>
+              <p className="text-xs text-gray-400">{appInfo?.role}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {hasUnsavedChanges && <span className="text-xs text-amber-500 mr-2">Unsaved changes</span>}
+            {!content && (
+              <button onClick={generateResume} disabled={isGenerating} className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50">
+                {isGenerating ? <LoadingText text="Generating" /> : 'Generate with AI'}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-      {error && <div className="p-4 bg-red-900/20 border-b border-red-900"><p className="text-red-400 text-center">{error}</p></div>}
-      <div className="flex-1 p-4">
-        {!hasExisting && !isGenerating ? <div className="h-full flex items-center justify-center"><div className="text-center"><p className="text-gray-400 mb-4">No resume generated yet</p><button onClick={generateResume} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Generate Resume</button></div></div>
-        : <textarea value={content} onChange={(e) => setContent(e.target.value)} onBlur={saveResume} className="w-full h-full min-h-[60vh] px-4 py-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 font-mono text-sm resize-none" />}
-      </div>
+      </header>
+      {error && <div className="p-3 bg-red-900/20 border-b border-red-900 text-red-400 text-center text-sm">{error}</div>}
+      <main className="flex-1 overflow-hidden">
+        {content ? (
+          <MarkdownEditor
+            value={content}
+            onChange={setContent}
+            onSave={saveResume}
+            onExportPDF={exportPDF}
+            onRegenerate={generateResume}
+            saving={isSaving}
+            exporting={isExporting}
+            regenerating={isGenerating}
+          />
+        ) : (
+          <div className="h-full flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-gray-400 mb-4">No resume yet for this application.</p>
+              <button onClick={generateResume} disabled={isGenerating} className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50">
+                {isGenerating ? <LoadingText text="Generating" /> : 'Generate Resume with AI'}
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
 
-// Cover Letter View
+// Cover Letter View - Uses MarkdownEditor
 function CoverLetterView({ appId }: { appId: string }) {
   const router = useRouter();
   const [content, setContent] = useState('');
+  const [originalContent, setOriginalContent] = useState('');
   const [hooks, setHooks] = useState<CoverLetterHooks>({ whatDrewYou: '', personalConnection: '', whyNow: '', uniqueValue: '' });
   const [showHooks, setShowHooks] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [handle, setHandle] = useState<FileSystemDirectoryHandle | null>(null);
-  const [hasExisting, setHasExisting] = useState(false);
+  const [appInfo, setAppInfo] = useState<{ company: string; role: string } | null>(null);
 
   useEffect(() => {
     async function init() {
       const h = await getSavedFolderHandle();
       if (!h) { router.push('/'); return; }
       setHandle(h);
-      if (await fileExists(h, `versions/${appId}/cover-letter.md`)) { setContent(await readFile(h, `versions/${appId}/cover-letter.md`)); setHasExisting(true); setShowHooks(false); }
-      if (await fileExists(h, `versions/${appId}/cover-letter-hooks.json`)) try { setHooks(JSON.parse(await readFile(h, `versions/${appId}/cover-letter-hooks.json`))); } catch {}
+      
+      // Load app info
+      try {
+        const appJson = await readFile(h, `versions/${appId}/application.json`);
+        const app = JSON.parse(appJson);
+        setAppInfo({ company: app.company, role: app.role });
+      } catch {}
+      
+      // Load existing cover letter
+      if (await fileExists(h, `versions/${appId}/cover-letter.md`)) {
+        const existing = await readFile(h, `versions/${appId}/cover-letter.md`);
+        setContent(existing);
+        setOriginalContent(existing);
+        setShowHooks(false);
+      }
+      
+      // Load hooks
+      if (await fileExists(h, `versions/${appId}/cover-letter-hooks.json`)) {
+        try {
+          const hooksJson = await readFile(h, `versions/${appId}/cover-letter-hooks.json`);
+          setHooks(JSON.parse(hooksJson));
+        } catch {}
+      }
     }
     init();
   }, [appId, router]);
 
-  async function saveHooks() { if (handle) await writeFile(handle, `versions/${appId}/cover-letter-hooks.json`, JSON.stringify(hooks, null, 2)); }
-
-  async function generateCoverLetter() {
+  async function saveHooks() {
     if (!handle) return;
-    setError(null); setIsGenerating(true);
     try {
-      await saveHooks();
-      const [resume, appJson, configJson] = await Promise.all([readFile(handle, 'resume.md'), readFile(handle, `versions/${appId}/application.json`), readFile(handle, 'config.json')]);
-      const app = JSON.parse(appJson), config = JSON.parse(configJson);
-      let hookContext = '';
-      if (hooks.whatDrewYou || hooks.personalConnection || hooks.whyNow || hooks.uniqueValue) {
-        hookContext = '\n--- Personal Context (USE THIS!) ---\n';
-        if (hooks.whatDrewYou) hookContext += `What drew me: ${hooks.whatDrewYou}\n`;
-        if (hooks.personalConnection) hookContext += `Personal connection: ${hooks.personalConnection}\n`;
-        if (hooks.whyNow) hookContext += `Why now: ${hooks.whyNow}\n`;
-        if (hooks.uniqueValue) hookContext += `Unique value: ${hooks.uniqueValue}\n`;
-      }
-      let gapContext = '';
-      try { const { gapAnswers } = JSON.parse(await readFile(handle, `versions/${appId}/assessment.json`)); const a = gapAnswers?.filter((g: { answer: string }) => g.answer.trim()) || []; if (a.length) gapContext = '\n--- Additional Context ---\n' + a.map((g: { question: string; answer: string }) => `Q: ${g.question}\nA: ${g.answer}`).join('\n\n'); } catch {}
-      const prompt = COVER_LETTER_PROMPT.replace('{resume}', resume).replace('{jobDescription}', app.jobDescription).replace('{company}', app.company).replace('{role}', app.role).replace('{jobUrl}', app.url || 'Not provided').replace('{gapContext}', gapContext).replace('{hookContext}', hookContext);
-      const generated = await callAI(config, prompt);
-      setContent(generated); setHasExisting(true); setShowHooks(false);
-      await writeFile(handle, `versions/${appId}/cover-letter.md`, generated);
-    } catch (err) { setError('Failed to generate cover letter'); console.error(err); }
-    finally { setIsGenerating(false); }
-  }
-
-  async function saveCoverLetter() { if (handle && content.trim()) await writeFile(handle, `versions/${appId}/cover-letter.md`, content); }
-
-  function exportPDF() {
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(`<!DOCTYPE html><html><head><title>Cover Letter</title><style>body{font-family:system-ui,sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.6}p{margin-bottom:16px}@media print{body{margin:0;padding:40px}}</style></head><body>${content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>')}</body></html>`);
-      printWindow.document.close(); printWindow.print();
+      await writeFile(handle, `versions/${appId}/cover-letter-hooks.json`, JSON.stringify(hooks, null, 2));
+    } catch (err) {
+      console.error('Failed to save hooks:', err);
     }
   }
 
-  const hookFields = [{ key: 'whatDrewYou', label: 'What drew you to this company?', placeholder: 'A specific product, article, person...' }, { key: 'personalConnection', label: 'Personal connection to their mission?', placeholder: 'How their work relates to your life' }, { key: 'whyNow', label: 'Why this role, why now?', placeholder: 'Career transition, passion...' }, { key: 'uniqueValue', label: 'What do you uniquely bring?', placeholder: 'Unusual skills, perspective...' }] as const;
+  async function generateCoverLetter() {
+    if (!handle) return;
+    setError(null);
+    setIsGenerating(true);
+    try {
+      await saveHooks();
+      const [resume, appJson, configJson] = await Promise.all([
+        readFile(handle, 'resume.md'),
+        readFile(handle, `versions/${appId}/application.json`),
+        readFile(handle, 'config.json'),
+      ]);
+      const app = JSON.parse(appJson);
+      const config = JSON.parse(configJson);
+      
+      // Build hook context
+      let hookContext = '';
+      if (hooks.whatDrewYou || hooks.personalConnection || hooks.whyNow || hooks.uniqueValue) {
+        hookContext = '\n--- Personal Context from Candidate (USE THIS!) ---\n';
+        if (hooks.whatDrewYou) hookContext += `What drew me to this company: ${hooks.whatDrewYou}\n\n`;
+        if (hooks.personalConnection) hookContext += `Personal connection to their mission: ${hooks.personalConnection}\n\n`;
+        if (hooks.whyNow) hookContext += `Why this role now: ${hooks.whyNow}\n\n`;
+        if (hooks.uniqueValue) hookContext += `What I uniquely bring: ${hooks.uniqueValue}\n\n`;
+      }
+      
+      // Build gap context
+      let gapContext = '';
+      try {
+        const assessmentJson = await readFile(handle, `versions/${appId}/assessment.json`);
+        const { gapAnswers } = JSON.parse(assessmentJson);
+        const answered = gapAnswers?.filter((g: { answer: string }) => g.answer.trim()) || [];
+        if (answered.length) {
+          gapContext = '\n--- Additional Context from Candidate ---\n';
+          answered.forEach((g: { question: string; answer: string }) => {
+            gapContext += `Q: ${g.question}\nA: ${g.answer}\n\n`;
+          });
+        }
+      } catch {}
+
+      const prompt = COVER_LETTER_PROMPT
+        .replace('{resume}', resume)
+        .replace('{jobDescription}', app.jobDescription)
+        .replace('{company}', app.company)
+        .replace('{role}', app.role)
+        .replace('{jobUrl}', app.url || 'Not provided')
+        .replace('{gapContext}', gapContext)
+        .replace('{hookContext}', hookContext);
+
+      const generated = await callAI(config, prompt);
+      setContent(generated);
+      setOriginalContent(generated);
+      setShowHooks(false);
+      await writeFile(handle, `versions/${appId}/cover-letter.md`, generated);
+    } catch (err) {
+      setError('Failed to generate cover letter. Please try again.');
+      console.error(err);
+    } finally {
+      setIsGenerating(false);
+    }
+  }
+
+  async function saveCoverLetter() {
+    if (!handle || !content.trim()) return;
+    setIsSaving(true);
+    try {
+      await writeFile(handle, `versions/${appId}/cover-letter.md`, content);
+      setOriginalContent(content);
+    } catch (err) {
+      console.error('Failed to save:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  function exportPDF() {
+    if (!content.trim()) return;
+    setIsExporting(true);
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(`<!DOCTYPE html><html><head><title>Cover Letter - ${appInfo?.company || ''}</title><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.6;color:#333}p{margin-bottom:16px}@media print{body{margin:0;padding:40px}}</style></head><body>${content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>')}</body></html>`);
+      printWindow.document.close();
+      printWindow.print();
+    }
+    setIsExporting(false);
+  }
+
+  const hasUnsavedChanges = content !== originalContent;
+  const hookFields = [
+    { key: 'whatDrewYou' as const, label: 'What drew you to this company?', placeholder: 'A specific product, article, person, news...' },
+    { key: 'personalConnection' as const, label: 'Personal connection to their mission?', placeholder: 'How their work relates to your life or values' },
+    { key: 'whyNow' as const, label: 'Why this role, why now?', placeholder: 'Career transition, passion project, timing...' },
+    { key: 'uniqueValue' as const, label: 'What do you uniquely bring?', placeholder: 'Unusual combination of skills, perspective...' },
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="p-4 border-b border-[#2a2a2a] flex items-center justify-between">
-        <div className="flex items-center gap-4"><button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-white">← Back</button><h1 className="font-semibold">Cover Letter</h1></div>
-        <div className="flex items-center gap-2">
-          {hasExisting && <button onClick={() => setShowHooks(!showHooks)} className="px-4 py-2 bg-[#2a2a2a] text-white rounded-lg hover:bg-[#3a3a3a]">{showHooks ? 'Hide' : 'Edit'} Hooks</button>}
-          <button onClick={generateCoverLetter} disabled={isGenerating} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50">{isGenerating ? 'Generating...' : hasExisting ? 'Regenerate' : 'Generate with AI'}</button>
-          {hasExisting && <button onClick={exportPDF} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500">Export PDF</button>}
+    <div className="h-screen flex flex-col bg-[#0f0f0f]">
+      <header className="bg-[#1a1a1a] border-b border-[#2a2a2a] flex-shrink-0">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button onClick={() => router.push(`/application?id=${encodeURIComponent(appId)}`)} className="text-gray-400 hover:text-gray-200">← Back</button>
+            <div>
+              <h1 className="font-semibold text-gray-100">Cover Letter: {appInfo?.company}</h1>
+              <p className="text-xs text-gray-400">{appInfo?.role}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {hasUnsavedChanges && <span className="text-xs text-amber-500 mr-2">Unsaved changes</span>}
+            {content && (
+              <button onClick={() => setShowHooks(!showHooks)} className="px-3 py-1.5 text-sm bg-[#2a2a2a] text-white rounded hover:bg-[#3a3a3a]">
+                {showHooks ? 'Hide' : 'Show'} Hooks
+              </button>
+            )}
+            {!content && (
+              <button onClick={generateCoverLetter} disabled={isGenerating} className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50">
+                {isGenerating ? <LoadingText text="Generating" /> : 'Generate with AI'}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-      {error && <div className="p-4 bg-red-900/20 border-b border-red-900"><p className="text-red-400 text-center">{error}</p></div>}
-      <div className="flex-1 flex">
-        {showHooks && <div className="w-96 p-4 border-r border-[#2a2a2a] overflow-y-auto"><h2 className="font-semibold mb-4">Cover Letter Hooks</h2><p className="text-gray-400 text-sm mb-4">Personal details that make your letter stand out.</p><div className="space-y-4">{hookFields.map(f => <div key={f.key}><label className="block text-sm font-medium mb-1">{f.label}</label><textarea value={hooks[f.key]} onChange={(e) => setHooks({ ...hooks, [f.key]: e.target.value })} onBlur={saveHooks} placeholder={f.placeholder} rows={2} className="w-full px-3 py-2 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm resize-none" /></div>)}</div></div>}
-        <div className="flex-1 p-4">
-          {!hasExisting && !isGenerating ? <div className="h-full flex items-center justify-center"><div className="text-center"><p className="text-gray-400 mb-4">No cover letter generated yet</p><p className="text-gray-500 text-sm mb-4">Fill in hooks on the left for a more personalized letter</p><button onClick={generateCoverLetter} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Generate Cover Letter</button></div></div>
-          : <textarea value={content} onChange={(e) => setContent(e.target.value)} onBlur={saveCoverLetter} className="w-full h-full min-h-[60vh] px-4 py-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 font-mono text-sm resize-none" />}
-        </div>
+      </header>
+      {error && <div className="p-3 bg-red-900/20 border-b border-red-900 text-red-400 text-center text-sm">{error}</div>}
+      
+      <div className="flex-1 flex overflow-hidden">
+        {/* Hooks Panel */}
+        {showHooks && (
+          <div className="w-80 border-r border-[#2a2a2a] p-4 overflow-y-auto flex-shrink-0">
+            <h2 className="font-semibold mb-2">Cover Letter Hooks</h2>
+            <p className="text-gray-400 text-xs mb-4">These personal details make your cover letter stand out. The AI will weave them in naturally.</p>
+            <div className="space-y-4">
+              {hookFields.map(f => (
+                <div key={f.key}>
+                  <label className="block text-sm font-medium mb-1">{f.label}</label>
+                  <textarea
+                    value={hooks[f.key]}
+                    onChange={(e) => setHooks({ ...hooks, [f.key]: e.target.value })}
+                    onBlur={saveHooks}
+                    placeholder={f.placeholder}
+                    rows={2}
+                    className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm resize-none"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Editor */}
+        <main className="flex-1 overflow-hidden">
+          {content ? (
+            <MarkdownEditor
+              value={content}
+              onChange={setContent}
+              onSave={saveCoverLetter}
+              onExportPDF={exportPDF}
+              onRegenerate={generateCoverLetter}
+              saving={isSaving}
+              exporting={isExporting}
+              regenerating={isGenerating}
+            />
+          ) : (
+            <div className="h-full flex items-center justify-center">
+              <div className="text-center">
+                <p className="text-gray-400 mb-2">No cover letter yet for this application.</p>
+                <p className="text-gray-500 text-sm mb-4">Fill in the hooks on the left for a more personalized letter.</p>
+                <button onClick={generateCoverLetter} disabled={isGenerating} className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50">
+                  {isGenerating ? <LoadingText text="Generating" /> : 'Generate Cover Letter with AI'}
+                </button>
+              </div>
+            </div>
+          )}
+        </main>
       </div>
     </div>
   );
