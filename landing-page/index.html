@@ -3,237 +3,325 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TLDR;esume - AI-Powered Resume Tailoring</title>
+  <title>TLDR;esume - The Daily Job Hunt Solved</title>
   <meta name="description" content="Free, local-first resume customization. AI that tailors your resume without making things up.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            mono: ['"Courier Prime"', 'monospace'],
+          },
           colors: {
-            dark: {
-              bg: '#0f0f0f',
-              card: '#1a1a1a',
-              border: '#2a2a2a',
-              hover: '#3a3a3a',
-            }
+            paper: '#1a1a1a',
+            ink: '#e5e5e5',
+            accent: '#facc15', // Yellow-400
+            'accent-hover': '#eab308', // Yellow-500
+          },
+          boxShadow: {
+            'hard': '6px 6px 0px 0px #e5e5e5',
+            'hard-sm': '3px 3px 0px 0px #e5e5e5',
           }
         }
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      background-image: radial-gradient(#2a2a2a 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
   <link rel="icon" type="image/png" href="icon.png">
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4b71d7b43bd4af29f5a9dcb06388042"}'></script>
 </head>
-<body class="bg-dark-bg text-gray-100 min-h-screen">
+<body class="text-ink min-h-screen font-mono selection:bg-accent selection:text-black">
   
   <!-- Nav Header -->
-  <nav class="border-b border-dark-border">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <span class="text-xl font-bold text-blue-400">TLDR;esume</span>
-      <div class="flex items-center gap-6">
-        <a href="/about.html" class="text-gray-400 hover:text-gray-300">About</a>
-        <a href="/faq.html" class="text-gray-400 hover:text-gray-300">FAQ</a>
-        <a href="https://app.tldresume.com" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors text-sm font-medium">
-          Launch App
+  <nav class="border-b-4 border-ink bg-paper sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-3xl font-serif font-black italic tracking-tighter">TLDR;esume</span>
+        <span class="hidden sm:inline-block px-2 py-0.5 border border-ink text-xs transform -rotate-2">EST. 2025</span>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-8">
+        <a href="/about.html" class="hover:underline underline-offset-4 decoration-2 decoration-accent">About</a>
+        <a href="/faq.html" class="hover:underline underline-offset-4 decoration-2 decoration-accent">FAQ</a>
+        <a href="https://app.tldresume.com" class="px-6 py-2 bg-accent text-black font-bold border-2 border-transparent hover:border-ink hover:shadow-hard-sm transition-all transform hover:-translate-y-0.5">
+          LAUNCH APP
         </a>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <header class="max-w-4xl mx-auto px-6 py-20 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-      Job hunting is hard.<br>
-      <span class="text-blue-400">Your resume shouldn't make it harder.</span>
-    </h1>
-    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-      AI-powered resume tailoring that keeps your data local and won't make up fake accomplishments about your career.
-    </p>
-    <a href="https://app.tldresume.com" 
-       class="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors">
-      Get Started — Free
-    </a>
-    <p class="mt-4 text-sm text-gray-500">No account required. No credit card. Your data stays on your computer.</p>
+  <header class="max-w-5xl mx-auto px-6 py-16 sm:py-24">
+    <div class="border-4 border-ink p-8 sm:p-12 bg-paper shadow-hard relative overflow-hidden">
+      <!-- "Extra! Extra!" badge -->
+      <div class="absolute -top-12 -right-12 bg-accent text-black w-32 h-32 transform rotate-45 flex items-end justify-center pb-2 z-10 border-b-4 border-ink">
+        <span class="font-bold text-sm">FREE!</span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+        <div class="md:col-span-2 space-y-6">
+          <div class="inline-block border-b-2 border-accent mb-2">
+            <span class="font-bold text-accent uppercase tracking-widest text-sm">Breaking News</span>
+          </div>
+          <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-black leading-[0.9] mb-4">
+            JOB HUNTING <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white italic">IS HARD.</span>
+          </h1>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold border-l-4 border-accent pl-4 text-gray-300">
+            Your resume shouldn't make it harder.
+          </h2>
+          <p class="text-lg text-gray-400 max-w-xl leading-relaxed">
+            AI-powered resume tailoring that keeps your data local and won't make up fake accomplishments about your career.
+          </p>
+          <div class="pt-4 flex flex-col sm:flex-row gap-4">
+            <a href="https://app.tldresume.com" 
+               class="inline-block px-8 py-4 bg-ink text-black text-lg font-bold border-2 border-ink hover:bg-accent hover:shadow-hard transition-all text-center">
+              GET STARTED — FREE
+            </a>
+            <p class="text-xs text-gray-500 max-w-xs self-center">
+              * No account required.<br/>* Data stays on your computer.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Hero Visual/Panel -->
+        <div class="hidden md:block border-2 border-ink p-4 transform rotate-2 bg-neutral-900 shadow-hard-sm">
+          <div class="border-b-2 border-ink pb-2 mb-4 text-center font-bold text-xs uppercase tracking-widest">
+            The Old Way
+          </div>
+          <div class="space-y-4 opacity-75 grayscale">
+             <div class="h-2 bg-gray-700 w-3/4"></div>
+             <div class="h-2 bg-gray-700 w-full"></div>
+             <div class="h-2 bg-gray-700 w-5/6"></div>
+             <div class="h-20 bg-gray-800 w-full border border-dashed border-gray-600 flex items-center justify-center text-xs text-gray-500">
+               Generic Resume
+             </div>
+             <div class="flex justify-center text-4xl">🗑️</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- Problem Section -->
-  <section class="bg-dark-card border-y border-dark-border py-16">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-2xl font-bold mb-8 text-center">The Problem</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
-          <div class="text-3xl mb-3">📊</div>
-          <h3 class="font-semibold mb-2">Hundreds of applicants per role</h3>
-          <p class="text-gray-400 text-sm">Every job posting is flooded. Standing out matters more than ever.</p>
+  <!-- Problem Section as "Classifieds" or "Columns" -->
+  <section class="max-w-5xl mx-auto px-6 py-12">
+    <div class="flex items-center gap-4 mb-12">
+      <div class="h-1 bg-ink flex-grow"></div>
+      <h2 class="text-3xl font-serif font-bold uppercase tracking-widest bg-accent text-black px-4 py-1 transform -rotate-1">The Problem</h2>
+      <div class="h-1 bg-ink flex-grow"></div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Card 1 -->
+      <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm hover:shadow-hard transition-all group">
+        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📊</div>
+        <h3 class="font-serif font-bold text-xl mb-3 border-b-2 border-gray-700 pb-2">The Numbers Game</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Hundreds of applicants per role. Every job posting is flooded. Standing out matters more than ever.
+        </p>
+      </div>
+      <!-- Card 2 -->
+      <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm hover:shadow-hard transition-all group">
+        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🤖</div>
+        <h3 class="font-serif font-bold text-xl mb-3 border-b-2 border-gray-700 pb-2">Robot Gatekeepers</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          ATS systems scan your resume with cold, unfeeling algorithms before human eyes ever see it.
+        </p>
+      </div>
+      <!-- Card 3 -->
+      <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm hover:shadow-hard transition-all group">
+        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📝</div>
+        <h3 class="font-serif font-bold text-xl mb-3 border-b-2 border-gray-700 pb-2">Generic Fails</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          One-size-fits-all resumes get filtered out immediately. Customization is no longer optional.
+        </p>
+      </div>
+      <!-- Card 4 -->
+      <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm hover:shadow-hard transition-all group">
+        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">😫</div>
+        <h3 class="font-serif font-bold text-xl mb-3 border-b-2 border-gray-700 pb-2">Burnout City</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Copy-pasting into ChatGPT for every single application is tedious, slow, and soul-crushing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section - "The Feature Story" -->
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <div class="bg-paper border-4 border-ink p-8 md:p-12 relative">
+      <h2 class="text-4xl font-serif font-black mb-12 text-center decoration-accent underline decoration-4 underline-offset-8">THE SOLUTION</h2>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-8">
+          <div class="flex gap-4 items-start">
+            <div class="bg-accent text-black font-bold font-serif text-xl w-10 h-10 flex items-center justify-center border-2 border-ink flex-shrink-0 shadow-hard-sm">01</div>
+            <div>
+              <h3 class="font-bold text-xl mb-1">Fit Assessment</h3>
+              <p class="text-gray-400 text-sm">Honest feedback on your match strength before you apply. Don't waste time on long-shots.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="bg-accent text-black font-bold font-serif text-xl w-10 h-10 flex items-center justify-center border-2 border-ink flex-shrink-0 shadow-hard-sm">02</div>
+            <div>
+              <h3 class="font-bold text-xl mb-1">AI-Tailored Resumes</h3>
+              <p class="text-gray-400 text-sm">Customized for each job, using your actual data. No hallucinations, no fake metrics.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="bg-accent text-black font-bold font-serif text-xl w-10 h-10 flex items-center justify-center border-2 border-ink flex-shrink-0 shadow-hard-sm">03</div>
+            <div>
+              <h3 class="font-bold text-xl mb-1">Personality Covers</h3>
+              <p class="text-gray-400 text-sm">Cover letters that sound like a human, not a corporate drone. Quirky, professional, or balanced.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="bg-accent text-black font-bold font-serif text-xl w-10 h-10 flex items-center justify-center border-2 border-ink flex-shrink-0 shadow-hard-sm">04</div>
+            <div>
+              <h3 class="font-bold text-xl mb-1">Polished Exports</h3>
+              <p class="text-gray-400 text-sm">Professional PDF formatting in multiple styles (Modern, Serif, Monospace). Ready to submit.</p>
+            </div>
+          </div>
         </div>
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
-          <div class="text-3xl mb-3">🤖</div>
-          <h3 class="font-semibold mb-2">ATS systems filter with AI</h3>
-          <p class="text-gray-400 text-sm">Your resume gets scanned by algorithms before human eyes ever see it.</p>
-        </div>
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
-          <div class="text-3xl mb-3">📝</div>
-          <h3 class="font-semibold mb-2">Generic resumes don't cut it</h3>
-          <p class="text-gray-400 text-sm">One-size-fits-all resumes get filtered out. Customization is essential.</p>
-        </div>
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
-          <div class="text-3xl mb-3">😫</div>
-          <h3 class="font-semibold mb-2">Customizing each one is exhausting</h3>
-          <p class="text-gray-400 text-sm">Copy-pasting into ChatGPT for every application gets old fast.</p>
+
+        <!-- Graphic Element -->
+        <div class="border-2 border-ink bg-neutral-900 p-6 shadow-hard flex flex-col items-center justify-center text-center transform rotate-1">
+          <div class="text-6xl mb-6">🚀</div>
+          <p class="font-serif italic text-2xl mb-4">"It's like having a career coach in your browser."</p>
+          <div class="w-16 h-1 bg-accent mb-4"></div>
+          <p class="text-xs uppercase tracking-widest text-gray-500">Satisfied (Hypothetical) User</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Solution Section -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-2xl font-bold mb-8 text-center">The Solution</h2>
-      <div class="space-y-6">
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-          <div>
-            <h3 class="font-semibold mb-1">Fit Assessment Before You Apply</h3>
-            <p class="text-gray-400">Get honest feedback on how well you match a role before investing time. No more applying to jobs you won't get.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-          <div>
-            <h3 class="font-semibold mb-1">AI-Tailored Resumes (Without the BS)</h3>
-            <p class="text-gray-400">Your resume, customized for each job. But unlike ChatGPT, it won't invent fake metrics or accomplishments you never had.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-          <div>
-            <h3 class="font-semibold mb-1">Cover Letters With Personality</h3>
-            <p class="text-gray-400">Not corporate drone speak. Actual human-sounding letters that make recruiters want to keep reading.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-          <div>
-            <h3 class="font-semibold mb-1">Export Polished PDFs</h3>
-            <p class="text-gray-400">Professional formatting, multiple styles. Ready to submit.</p>
-          </div>
-        </div>
+  <!-- How It Works - "The Process" -->
+  <section class="max-w-5xl mx-auto px-6 py-12">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-serif font-bold inline-block border-b-4 border-accent px-4 pb-1">HOW IT WORKS</h2>
+    </div>
+    
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="text-center p-4">
+        <div class="w-16 h-16 bg-paper border-2 border-ink flex items-center justify-center mx-auto mb-4 shadow-hard-sm text-2xl font-bold rounded-full">1</div>
+        <h3 class="font-bold mb-2">Select Folder</h3>
+        <p class="text-xs text-gray-400">Your data lives on your computer.</p>
+      </div>
+      <div class="hidden md:block absolute left-1/4 top-1/2 w-12 border-t-2 border-dashed border-gray-600"></div> <!-- Connector line idea, tricky to implement simply without absolute positioning mess -->
+      
+      <div class="text-center p-4">
+        <div class="w-16 h-16 bg-paper border-2 border-ink flex items-center justify-center mx-auto mb-4 shadow-hard-sm text-2xl font-bold rounded-full">2</div>
+        <h3 class="font-bold mb-2">Import Data</h3>
+        <p class="text-xs text-gray-400">Paste your resume. AI formats it.</p>
+      </div>
+      
+      <div class="text-center p-4">
+        <div class="w-16 h-16 bg-paper border-2 border-ink flex items-center justify-center mx-auto mb-4 shadow-hard-sm text-2xl font-bold rounded-full">3</div>
+        <h3 class="font-bold mb-2">Add Job</h3>
+        <p class="text-xs text-gray-400">Paste job description. Get tailored docs.</p>
+      </div>
+      
+      <div class="text-center p-4">
+        <div class="w-16 h-16 bg-accent text-black border-2 border-ink flex items-center justify-center mx-auto mb-4 shadow-hard-sm text-2xl font-bold rounded-full">4</div>
+        <h3 class="font-bold mb-2">Apply</h3>
+        <p class="text-xs text-gray-400">Download PDF. Send it off.</p>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="bg-dark-card border-y border-dark-border py-16">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-2xl font-bold mb-10 text-center">How It Works</h2>
-      <div class="grid md:grid-cols-4 gap-6 text-center">
-        <div>
-          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-          <h3 class="font-semibold mb-2">Select a Folder</h3>
-          <p class="text-gray-400 text-sm">Choose where to store your data on your computer.</p>
-        </div>
-        <div>
-          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-          <h3 class="font-semibold mb-2">Import Your Resume</h3>
-          <p class="text-gray-400 text-sm">Paste your existing resume. AI formats it automatically.</p>
-        </div>
-        <div>
-          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-          <h3 class="font-semibold mb-2">Add a Job</h3>
-          <p class="text-gray-400 text-sm">Paste the job description. Get a fit assessment and generate tailored materials.</p>
-        </div>
-        <div>
-          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
-          <h3 class="font-semibold mb-2">Export & Apply</h3>
-          <p class="text-gray-400 text-sm">Download polished PDFs. Go land that interview.</p>
-        </div>
+  <!-- Privacy Section - "Top Secret" -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="bg-paper border-2 border-ink p-8 shadow-hard transform -rotate-1">
+      <div class="flex items-center justify-between mb-8 border-b-2 border-gray-800 pb-4">
+        <h2 class="text-2xl font-serif font-bold">CONFIDENTIAL DOSSIER</h2>
+        <div class="bg-red-900 text-red-100 px-3 py-1 text-xs font-bold border border-red-500 uppercase tracking-widest">Top Secret</div>
       </div>
-    </div>
-  </section>
-
-  <!-- Privacy Section -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-2xl font-bold mb-8 text-center">Your Data Stays Yours</h2>
-      <div class="bg-dark-card border border-dark-border rounded-lg p-8">
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="font-semibold text-green-400 mb-4">What we DO:</h3>
-            <ul class="space-y-2 text-gray-300">
-              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Store everything locally on your computer</li>
-              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Let you use your own AI API key</li>
-              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Work entirely in your browser</li>
-              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Give you full control over your data</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-semibold text-red-400 mb-4">What we DON'T:</h3>
-            <ul class="space-y-2 text-gray-300">
-              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> See your resume</li>
-              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Store your API keys</li>
-              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Require an account</li>
-              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Have a mailing list</li>
-              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Track you (beyond basic page views)</li>
-            </ul>
-          </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-bold text-accent mb-4 uppercase tracking-wider text-sm border-b border-gray-800 pb-1">Authorized Actions</h3>
+          <ul class="space-y-3 text-sm">
+            <li class="flex gap-3"><span class="text-accent font-bold">✓</span> Stores data locally on HD</li>
+            <li class="flex gap-3"><span class="text-accent font-bold">✓</span> Uses your personal API key</li>
+            <li class="flex gap-3"><span class="text-accent font-bold">✓</span> Runs entirely in browser</li>
+            <li class="flex gap-3"><span class="text-accent font-bold">✓</span> You own 100% of the output</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-red-500 mb-4 uppercase tracking-wider text-sm border-b border-gray-800 pb-1">Strictly Prohibited</h3>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li class="flex gap-3"><span class="text-red-500 font-bold">✗</span> No cloud storage</li>
+            <li class="flex gap-3"><span class="text-red-500 font-bold">✗</span> No hidden server costs</li>
+            <li class="flex gap-3"><span class="text-red-500 font-bold">✗</span> No account creation</li>
+            <li class="flex gap-3"><span class="text-red-500 font-bold">✗</span> No tracking or spying</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Requirements -->
-  <section class="bg-dark-card border-y border-dark-border py-16">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-2xl font-bold mb-8 text-center">What You'll Need</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6 text-center">
-          <div class="text-3xl mb-3">🌐</div>
-          <h3 class="font-semibold mb-2">A Chromium-Based Browser</h3>
-          <p class="text-gray-400 text-sm mb-3">Required for local file access.</p>
-          <a href="https://brave.com/download" target="_blank" rel="noopener" 
-             class="text-blue-400 hover:text-blue-300 text-sm">
-            Download Brave (recommended) →
-          </a>
+  <section class="max-w-5xl mx-auto px-6 py-12">
+    <div class="border-y-4 border-ink py-12 bg-paper">
+      <h2 class="text-2xl font-serif font-bold text-center mb-8">EQUIPMENT REQUIRED</h2>
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div class="flex gap-4 items-center p-4 border-2 border-gray-800 hover:border-accent transition-colors">
+          <div class="text-4xl">🌐</div>
+          <div>
+            <h3 class="font-bold">Chromium Browser</h3>
+            <p class="text-xs text-gray-400 mb-1">Chrome, Edge, Brave, Arc</p>
+            <a href="https://brave.com/download" class="text-accent text-xs hover:underline">Download Brave →</a>
+          </div>
         </div>
-        <div class="bg-dark-bg border border-dark-border rounded-lg p-6 text-center">
-          <div class="text-3xl mb-3">🔑</div>
-          <h3 class="font-semibold mb-2">An AI API Key</h3>
-          <p class="text-gray-400 text-sm mb-3">From Anthropic (Claude) or OpenAI (GPT).</p>
-          <p class="text-gray-500 text-xs">We'll help you set this up. Cost: ~$0.05-0.20 per application.</p>
+        <div class="flex gap-4 items-center p-4 border-2 border-gray-800 hover:border-accent transition-colors">
+          <div class="text-4xl">🔑</div>
+          <div>
+            <h3 class="font-bold">AI API Key</h3>
+            <p class="text-xs text-gray-400 mb-1">Anthropic (Claude) or OpenAI</p>
+            <p class="text-[10px] text-gray-500">Cost: ~$0.05-0.20 per application</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section class="py-20">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-6">Ready to stop dreading job applications?</h2>
-      <p class="text-xl text-gray-400 mb-10">It's free. No account needed. Takes about 5 minutes to set up.</p>
-      <a href="https://app.tldresume.com" 
-         class="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors">
-        Get Started — Free
-      </a>
-    </div>
+  <section class="py-24 text-center px-6">
+    <h2 class="text-4xl md:text-5xl font-serif font-black mb-8">Ready to change the narrative?</h2>
+    <a href="https://app.tldresume.com" 
+       class="inline-block px-12 py-5 bg-accent text-black text-xl font-bold border-4 border-ink shadow-hard hover:translate-y-1 hover:shadow-none transition-all">
+      LAUNCH TLDR;ESUME
+    </a>
+    <p class="mt-6 text-sm text-gray-500 font-mono">Free • Local • Open Source</p>
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-dark-border py-8">
-    <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-500 text-sm">
-        Built by <a href="https://github.com/adamprime" class="text-gray-400 hover:text-gray-300">Adam Tervort</a>
-      </p>
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/adamprime/TLDR-esume" target="_blank" rel="noopener"
-           class="text-gray-500 hover:text-gray-300 text-sm">
-          GitHub
-        </a>
-        <span class="text-gray-600">|</span>
-        <span class="text-gray-500 text-sm">
-          <a href="https://github.com/adamprime/TLDR-esume/blob/main/LICENSE" class="hover:text-gray-300">Elastic License 2.0</a>
-        </span>
+  <footer class="border-t-4 border-ink bg-paper pt-12 pb-8">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="font-serif font-bold text-xl">TLDR;esume</p>
+          <p class="text-xs text-gray-500 mt-1">Built by <a href="https://github.com/adamprime" class="text-accent hover:underline">Adam Tervort</a></p>
+        </div>
+        
+        <div class="flex items-center gap-6">
+          <a href="https://github.com/adamprime/TLDR-esume" target="_blank" class="text-gray-400 hover:text-accent transition-colors">GitHub</a>
+          <a href="/about.html" class="text-gray-400 hover:text-accent transition-colors">About</a>
+          <a href="/faq.html" class="text-gray-400 hover:text-accent transition-colors">FAQ</a>
+        </div>
+      </div>
+      <div class="mt-8 text-center text-[10px] text-gray-600 uppercase tracking-widest">
+        Released under Elastic License 2.0 • 2025 Edition
       </div>
     </div>
   </footer>

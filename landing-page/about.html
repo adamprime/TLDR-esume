@@ -6,188 +6,260 @@
   <title>About the Builder - TLDR;esume</title>
   <meta name="description" content="Meet Adam Tervort, the builder behind TLDR;esume. A zero-to-one generalist who turns ambiguous problems into working systems.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            mono: ['"Courier Prime"', 'monospace'],
+          },
           colors: {
-            dark: {
-              bg: '#0f0f0f',
-              card: '#1a1a1a',
-              border: '#2a2a2a',
-              hover: '#3a3a3a',
-            }
+            paper: '#1a1a1a',
+            ink: '#e5e5e5',
+            accent: '#facc15', // Yellow-400
+            'accent-hover': '#eab308', // Yellow-500
+          },
+          boxShadow: {
+            'hard': '6px 6px 0px 0px #e5e5e5',
+            'hard-sm': '3px 3px 0px 0px #e5e5e5',
           }
         }
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      background-image: radial-gradient(#2a2a2a 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
   <link rel="icon" type="image/png" href="icon.png">
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4b71d7b43bd4af29f5a9dcb06388042"}'></script>
 </head>
-<body class="bg-dark-bg text-gray-100 min-h-screen">
+<body class="text-ink min-h-screen font-mono selection:bg-accent selection:text-black">
   
   <!-- Header -->
-  <header class="border-b border-dark-border">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="text-xl font-bold text-blue-400 hover:text-blue-300">TLDR;esume</a>
-      <nav class="flex items-center gap-6">
-        <a href="/about.html" class="text-gray-300 hover:text-white font-medium">About</a>
-        <a href="/faq.html" class="text-gray-400 hover:text-gray-300">FAQ</a>
-        <a href="https://app.tldresume.com" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors text-sm font-medium">
-          Launch App
+  <nav class="border-b-4 border-ink bg-paper sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="/" class="text-3xl font-serif font-black italic tracking-tighter hover:text-accent transition-colors">TLDR;esume</a>
+        <span class="hidden sm:inline-block px-2 py-0.5 border border-ink text-xs transform -rotate-2">EST. 2025</span>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-8">
+        <a href="/about.html" class="hover:underline underline-offset-4 decoration-2 decoration-accent font-bold">About</a>
+        <a href="/faq.html" class="hover:underline underline-offset-4 decoration-2 decoration-accent">FAQ</a>
+        <a href="https://app.tldresume.com" class="px-6 py-2 bg-accent text-black font-bold border-2 border-transparent hover:border-ink hover:shadow-hard-sm transition-all transform hover:-translate-y-0.5">
+          LAUNCH APP
         </a>
-      </nav>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <!-- Main Content -->
-  <main class="max-w-3xl mx-auto px-6 py-16">
+  <main class="max-w-4xl mx-auto px-6 py-12 md:py-20">
     
     <!-- Intro -->
-    <section class="mb-16">
-      <h1 class="text-4xl font-bold mb-6">About the Builder</h1>
-      <p class="text-xl text-gray-300 mb-6">
-        TLDR;esume was built by <strong class="text-white">Adam Tervort</strong> during an active job search. The problem was personal: copying resumes into ChatGPT for every application was tedious, error-prone, and slow. So he built a tool to fix it.
-      </p>
-      <p class="text-xl text-gray-300 mb-6">
-        That's what Adam does. He builds the first version of things.
-      </p>
-      <p class="text-gray-400 italic">
-        (He also sometimes talks about himself in the third person, but we'll forgive that quirk for the moment.)
-      </p>
+    <section class="mb-12 relative">
+      <div class="bg-paper border-4 border-ink p-8 md:p-12 shadow-hard relative z-10">
+        <div class="absolute -top-6 left-8 bg-accent text-black px-4 py-1 font-bold font-serif border-2 border-ink transform -rotate-1">
+          MEET THE BUILDER
+        </div>
+        
+        <h1 class="text-5xl font-serif font-black mb-8 border-b-2 border-gray-800 pb-4">
+          The Man Behind The Code
+        </h1>
+        
+        <div class="prose prose-invert prose-lg max-w-none font-serif leading-relaxed text-gray-300">
+          <p class="first-letter:text-5xl first-letter:font-bold first-letter:text-accent first-letter:mr-3 first-letter:float-left">
+            TLDR;esume was built by <strong class="text-white border-b-2 border-accent">Adam Tervort</strong> during an active job search. The problem was personal: copying resumes into ChatGPT for every application was tedious, error-prone, and slow. So he built a tool to fix it.
+          </p>
+          <p>
+            That's what Adam does. He builds the first version of things.
+          </p>
+          <p class="text-sm font-mono text-gray-500 border-l-2 border-accent pl-4 italic">
+            (He also sometimes talks about himself in the third person, but we'll forgive that quirk for the moment.)
+          </p>
+        </div>
+      </div>
+      
+      <!-- Decorative element behind -->
+      <div class="absolute top-4 left-4 w-full h-full border-2 border-gray-800 bg-transparent -z-0"></div>
     </section>
-
-    <hr class="border-dark-border mb-16">
 
     <!-- 0 to 1 Builder -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold mb-6">0 to 1 Builder</h2>
-      <p class="text-gray-300 mb-6">
-        Adam is a generalist who turns ambiguous problems into working systems. Over 11 years, he's led operations, engineering, support, and HR at a cybersecurity startup—helping it grow from a scrappy team into a global SaaS company.
-      </p>
-      <p class="text-gray-300 mb-6">But the through-line has always been building:</p>
-      <ul class="space-y-3 mb-6">
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">TLDR;esume</strong> — AI-powered resume tailoring (you're using it)</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Alignment Engines</strong> — Production SaaS for AI-powered coaching (<a href="https://alignmentengines.com" class="text-blue-400 hover:text-blue-300">alignmentengines.com</a>)</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">ComicCaster</strong> — RSS feeds for 500+ webcomics (<a href="https://comiccaster.xyz" class="text-blue-400 hover:text-blue-300">comiccaster.xyz</a>)</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Bishopric OS</strong> — Notion-based operating system for volunteer leadership</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Internal tools, automations, and workflows</strong> — Too many to list</span>
-        </li>
-      </ul>
-      <p class="text-gray-300">
-        Adam builds with whatever gets the job done: Next.js, Python, SvelteKit, FastAPI, single-file HTML tools, Notion databases, AI integrations. The tech doesn't matter as much as shipping something useful.
-      </p>
-    </section>
+    <section class="mb-12 grid md:grid-cols-12 gap-8">
+      <!-- Side Column / Stats -->
+      <div class="md:col-span-4 space-y-6">
+        <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm">
+          <h3 class="font-bold text-accent border-b border-gray-700 pb-2 mb-4 text-sm uppercase tracking-widest">Vitals</h3>
+          <ul class="space-y-4 text-sm">
+            <li>
+              <span class="block text-gray-500 text-xs">ROLE</span>
+              <span class="font-bold">0 to 1 Generalist</span>
+            </li>
+            <li>
+              <span class="block text-gray-500 text-xs">EXPERIENCE</span>
+              <span class="font-bold">11+ Years</span>
+            </li>
+            <li>
+              <span class="block text-gray-500 text-xs">SPECIALTY</span>
+              <span class="font-bold">Systems & Ops</span>
+            </li>
+            <li>
+              <span class="block text-gray-500 text-xs">LOCATION</span>
+              <span class="font-bold">Remote</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-paper border-2 border-ink p-6 shadow-hard-sm transform rotate-1">
+          <h3 class="font-bold text-accent border-b border-gray-700 pb-2 mb-4 text-sm uppercase tracking-widest">Tech Stack</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">Next.js</span>
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">Python</span>
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">SvelteKit</span>
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">FastAPI</span>
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">AI/LLMs</span>
+            <span class="px-2 py-1 bg-gray-800 text-xs border border-gray-600">Notion</span>
+          </div>
+        </div>
+      </div>
 
-    <hr class="border-dark-border mb-16">
-
-    <!-- What Adam's Looking For -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold mb-6">What Adam's Looking For</h2>
-      <p class="text-gray-300 mb-6">Roles where building is the job:</p>
-      <ul class="space-y-3 mb-6">
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Zero-to-one products</strong> that need someone who can do everything</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Internal tools</strong> that make teams faster</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">AI workflows</strong> that solve real problems</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-blue-400 mt-1">•</span>
-          <span><strong class="text-white">Ops/enablement roles</strong> that need technical fluency</span>
-        </li>
-      </ul>
-      <p class="text-gray-300">
-        Early-stage, mission-driven, remote-friendly teams are especially interesting.
-      </p>
-    </section>
-
-    <hr class="border-dark-border mb-16">
-
-    <!-- How to Help -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold mb-6">How to Help</h2>
-      <p class="text-gray-300 mb-6">
-        I'm not looking for donations or email newsletter signups.
-      </p>
-      <p class="text-gray-300">
-        <strong class="text-white">What I'd love:</strong> If you know someone who needs a 0-to-1 builder—someone to take a messy problem and turn it into a working system—I'd be grateful for an introduction.
-      </p>
-    </section>
-
-    <hr class="border-dark-border mb-16">
-
-    <!-- Connect -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold mb-6">Connect</h2>
-      <div class="bg-dark-card border border-dark-border rounded-lg p-6">
-        <ul class="space-y-3">
-          <li class="flex items-center gap-3">
-            <span class="text-gray-400 w-20">Portfolio:</span>
-            <a href="https://adamtervort.com" class="text-blue-400 hover:text-blue-300">adamtervort.com</a>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-gray-400 w-20">GitHub:</span>
-            <a href="https://github.com/adamprime" class="text-blue-400 hover:text-blue-300">github.com/adamprime</a>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-gray-400 w-20">LinkedIn:</span>
-            <a href="https://linkedin.com/in/adamtervort" class="text-blue-400 hover:text-blue-300">linkedin.com/in/adamtervort</a>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-gray-400 w-20">Email:</span>
-            <span class="text-gray-300">adam&#64;adamtervort&#46;com</span>
-          </li>
-        </ul>
+      <!-- Main Column -->
+      <div class="md:col-span-8">
+        <div class="bg-paper border-2 border-ink p-8">
+          <h2 class="text-3xl font-serif font-bold mb-6">A History of Building</h2>
+          <p class="text-gray-300 mb-6 font-serif">
+            Adam is a generalist who turns ambiguous problems into working systems. Over 11 years, he's led operations, engineering, support, and HR at a cybersecurity startup—helping it grow from a scrappy team into a global SaaS company.
+          </p>
+          <p class="text-gray-300 mb-6 font-serif">But the through-line has always been building:</p>
+          
+          <div class="space-y-4">
+            <div class="border-l-4 border-accent pl-4 py-1">
+              <h4 class="font-bold text-white">TLDR;esume</h4>
+              <p class="text-sm text-gray-400">AI-powered resume tailoring (you're using it)</p>
+            </div>
+            <div class="border-l-4 border-gray-700 pl-4 py-1 hover:border-accent transition-colors">
+              <h4 class="font-bold text-white">Alignment Engines</h4>
+              <p class="text-sm text-gray-400">Production SaaS for AI-powered coaching (<a href="https://alignmentengines.com" class="text-accent hover:underline">alignmentengines.com</a>)</p>
+            </div>
+            <div class="border-l-4 border-gray-700 pl-4 py-1 hover:border-accent transition-colors">
+              <h4 class="font-bold text-white">ComicCaster</h4>
+              <p class="text-sm text-gray-400">RSS feeds for 500+ webcomics (<a href="https://comiccaster.xyz" class="text-accent hover:underline">comiccaster.xyz</a>)</p>
+            </div>
+            <div class="border-l-4 border-gray-700 pl-4 py-1 hover:border-accent transition-colors">
+              <h4 class="font-bold text-white">Bishopric OS</h4>
+              <p class="text-sm text-gray-400">Notion-based operating system for volunteer leadership</p>
+            </div>
+          </div>
+          
+          <div class="mt-8 pt-6 border-t border-dashed border-gray-700">
+            <p class="text-sm text-gray-400 italic">
+              "Adam builds with whatever gets the job done. The tech doesn't matter as much as shipping something useful."
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <hr class="border-dark-border mb-16">
+    <!-- What Adam's Looking For -->
+    <section class="mb-12">
+      <div class="bg-paper border-2 border-ink p-8 md:p-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-4 opacity-10 font-serif text-9xl font-bold leading-none select-none">JOBS</div>
+        
+        <h2 class="text-3xl font-serif font-bold mb-8 relative z-10">What Adam's Looking For</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8 relative z-10">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-accent mt-1 text-xl">▪</span>
+              <span><strong class="text-white block font-serif text-lg">Zero-to-one products</strong> <span class="text-sm text-gray-400">that need someone who can do everything</span></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-accent mt-1 text-xl">▪</span>
+              <span><strong class="text-white block font-serif text-lg">Internal tools</strong> <span class="text-sm text-gray-400">that make teams faster</span></span>
+            </li>
+          </ul>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-accent mt-1 text-xl">▪</span>
+              <span><strong class="text-white block font-serif text-lg">AI workflows</strong> <span class="text-sm text-gray-400">that solve real problems</span></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-accent mt-1 text-xl">▪</span>
+              <span><strong class="text-white block font-serif text-lg">Ops/enablement roles</strong> <span class="text-sm text-gray-400">that need technical fluency</span></span>
+            </li>
+          </ul>
+        </div>
+        
+        <p class="mt-8 text-center text-gray-300 font-serif border-t border-gray-800 pt-6">
+          Early-stage, mission-driven, remote-friendly teams are especially interesting.
+        </p>
+      </div>
+    </section>
 
-    <!-- License Note -->
-    <p class="text-gray-500 italic text-center">
-      TLDR;esume is available under the Elastic License 2.0. If it helps you land a job, please pay it forward by connecting good people with good opportunities.
-    </p>
+    <!-- How to Help & Connect -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Help -->
+      <section class="bg-paper border-2 border-ink p-8 shadow-hard-sm">
+        <h2 class="text-2xl font-serif font-bold mb-6">How to Help</h2>
+        <p class="text-gray-300 mb-6 text-sm">
+          I'm not looking for donations or email newsletter signups.
+        </p>
+        <p class="text-gray-300 border-l-2 border-accent pl-4">
+          <strong class="text-white">What I'd love:</strong> If you know someone who needs a 0-to-1 builder—someone to take a messy problem and turn it into a working system—I'd be grateful for an introduction.
+        </p>
+      </section>
+
+      <!-- Connect -->
+      <section class="bg-paper border-2 border-ink p-8 shadow-hard-sm">
+        <h2 class="text-2xl font-serif font-bold mb-6">Contact Card</h2>
+        <ul class="space-y-4 font-mono text-sm">
+          <li class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <span class="text-gray-500">Portfolio</span>
+            <a href="https://adamtervort.com" class="text-accent hover:underline">adamtervort.com</a>
+          </li>
+          <li class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <span class="text-gray-500">GitHub</span>
+            <a href="https://github.com/adamprime" class="text-accent hover:underline">github.com/adamprime</a>
+          </li>
+          <li class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <span class="text-gray-500">LinkedIn</span>
+            <a href="https://linkedin.com/in/adamtervort" class="text-accent hover:underline">/in/adamtervort</a>
+          </li>
+          <li class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <span class="text-gray-500">Email</span>
+            <span class="text-white">adam&#64;adamtervort&#46;com</span>
+          </li>
+        </ul>
+      </section>
+    </div>
 
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-dark-border py-8">
-    <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-500 text-sm">
-        Built by <a href="https://github.com/adamprime" class="text-gray-400 hover:text-gray-300">Adam Tervort</a>
-      </p>
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/adamprime/TLDR-esume" target="_blank" rel="noopener"
-           class="text-gray-500 hover:text-gray-300 text-sm">
-          GitHub
-        </a>
-        <span class="text-gray-600">|</span>
-        <span class="text-gray-500 text-sm">
-          <a href="https://github.com/adamprime/TLDR-esume/blob/main/LICENSE" class="hover:text-gray-300">Elastic License 2.0</a>
-        </span>
+  <footer class="border-t-4 border-ink bg-paper pt-12 pb-8 mt-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="font-serif font-bold text-xl">TLDR;esume</p>
+          <p class="text-xs text-gray-500 mt-1">Built by <a href="https://github.com/adamprime" class="text-accent hover:underline">Adam Tervort</a></p>
+        </div>
+        
+        <div class="flex items-center gap-6">
+          <a href="https://github.com/adamprime/TLDR-esume" target="_blank" class="text-gray-400 hover:text-accent transition-colors">GitHub</a>
+          <a href="/" class="text-gray-400 hover:text-accent transition-colors">Home</a>
+          <a href="/faq.html" class="text-gray-400 hover:text-accent transition-colors">FAQ</a>
+        </div>
+      </div>
+      <div class="mt-8 text-center text-[10px] text-gray-600 uppercase tracking-widest">
+        Released under Elastic License 2.0 • 2025 Edition
       </div>
     </div>
   </footer>
