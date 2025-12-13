@@ -31,8 +31,10 @@ const ANTHROPIC_MODELS = [
 ];
 
 const OPENAI_MODELS = [
-  { id: 'gpt-4o', name: 'GPT-4o (Best)' },
-  { id: 'gpt-4o-mini', name: 'GPT-4o Mini (Fast)' },
+  { id: 'gpt-5.1', name: 'GPT-5.1 (Latest)' },
+  { id: 'gpt-5-pro', name: 'GPT-5 Pro (Best)' },
+  { id: 'gpt-5-mini', name: 'GPT-5 Mini (Recommended)' },
+  { id: 'gpt-5-nano', name: 'GPT-5 Nano (Fast)' },
 ];
 
 export default function SettingsPage() {
@@ -121,7 +123,7 @@ export default function SettingsPage() {
                     <div className="text-xs text-gray-400">Claude</div>
                   </button>
                   <button
-                    onClick={() => updateConfig({ aiProvider: 'openai', aiModel: 'gpt-4o-mini' })}
+                    onClick={() => updateConfig({ aiProvider: 'openai', aiModel: 'gpt-5-mini' })}
                     className={`flex-1 p-3 rounded-lg border transition-colors ${config.aiProvider === 'openai' ? 'border-blue-600 bg-blue-600/10' : 'border-[#2a2a2a] hover:border-gray-600'}`}
                   >
                     <div className="font-medium">OpenAI</div>
