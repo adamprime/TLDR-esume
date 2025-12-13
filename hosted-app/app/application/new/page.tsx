@@ -58,7 +58,7 @@ export default function NewApplicationPage() {
       await writeFile(handle, `${folderPath}/application.json`, JSON.stringify(applicationData, null, 2));
 
       // Navigate to assessment
-      router.push(`/application/${encodeURIComponent(folderName)}/assessment`);
+      router.push(`/application?id=${encodeURIComponent(folderName)}&view=assessment`);
     } catch (err) {
       setError('Failed to create application. Please try again.');
       console.error(err);
