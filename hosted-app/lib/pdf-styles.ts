@@ -65,6 +65,11 @@ h1 + p {
   margin-bottom: 1.5rem;
 }
 
+.sep {
+  color: #d1d5db;
+  margin: 0 0.25rem;
+}
+
 p {
   margin: 0.5rem 0;
 }
@@ -175,6 +180,11 @@ h1 + p {
   margin-bottom: 1.5rem;
 }
 
+.sep {
+  color: #d1d5db;
+  margin: 0 0.25rem;
+}
+
 p {
   margin: 0.5rem 0;
 }
@@ -283,6 +293,11 @@ h1 + p {
   margin-bottom: 1.5rem;
 }
 
+.sep {
+  color: #999;
+  margin: 0 0.25rem;
+}
+
 p {
   margin: 0.5rem 0;
 }
@@ -359,52 +374,92 @@ export function markdownToHtml(markdown: string): string {
   // Strip YAML frontmatter
   let content = markdown.replace(/^---[\s\S]*?---\n?/, '');
   
-  // Convert markdown to HTML
-  content = content
-    // Headers
-    .replace(/^### (.*)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.*)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.*)$/gm, '<h1>$1</h1>')
-    // Bold
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    // Italic
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-    // Horizontal rules
-    .replace(/^---$/gm, '<hr>')
-    // List items - collect consecutive items into ul
-    .replace(/^- (.*)$/gm, '<li>$1</li>');
-  
-  // Wrap consecutive <li> elements in <ul>
-  content = content.replace(/(<li>.*<\/li>\n?)+/g, (match) => `<ul>${match}</ul>`);
-  
-  // Convert remaining lines to paragraphs (skip if already wrapped)
+  // Process line by line for better control
   const lines = content.split('\n');
   const result: string[] = [];
+  let inList = false;
   
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
     const trimmed = line.trim();
+    
+    // Skip empty lines but close list if we're in one
     if (!trimmed) {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
       result.push('');
-    } else if (
-      trimmed.startsWith('<h') ||
-      trimmed.startsWith('<ul') ||
-      trimmed.startsWith('<li') ||
-      trimmed.startsWith('</') ||
-      trimmed.startsWith('<hr') ||
-      trimmed.startsWith('<a') ||
-      trimmed.startsWith('<strong') ||
-      trimmed.startsWith('<em') ||
-      trimmed.startsWith('<p')
-    ) {
-      result.push(trimmed);
-    } else {
-      result.push(`<p>${trimmed}</p>`);
+      continue;
     }
+    
+    // Headers
+    if (trimmed.startsWith('### ')) {
+      if (inList) { result.push('</ul>'); inList = false; }
+      result.push(`<h3>${trimmed.slice(4)}</h3>`);
+      continue;
+    }
+    if (trimmed.startsWith('## ')) {
+      if (inList) { result.push('</ul>'); inList = false; }
+      result.push(`<h2>${trimmed.slice(3)}</h2>`);
+      continue;
+    }
+    if (trimmed.startsWith('# ')) {
+      if (inList) { result.push('</ul>'); inList = false; }
+      result.push(`<h1>${trimmed.slice(2)}</h1>`);
+      continue;
+    }
+    
+    // Horizontal rule
+    if (trimmed === '---') {
+      if (inList) { result.push('</ul>'); inList = false; }
+      result.push('<hr>');
+      continue;
+    }
+    
+    // List items
+    if (trimmed.startsWith('- ')) {
+      if (!inList) {
+        result.push('<ul>');
+        inList = true;
+      }
+      const listContent = applyInlineFormatting(trimmed.slice(2));
+      result.push(`<li>${listContent}</li>`);
+      continue;
+    }
+    
+    // Close list if we hit non-list content
+    if (inList) {
+      result.push('</ul>');
+      inList = false;
+    }
+    
+    // Regular paragraph - apply inline formatting
+    const formatted = applyInlineFormatting(trimmed);
+    result.push(`<p>${formatted}</p>`);
+  }
+  
+  // Close any open list
+  if (inList) {
+    result.push('</ul>');
   }
   
   return result.join('\n');
+}
+
+/**
+ * Apply inline markdown formatting (bold, italic, links)
+ */
+function applyInlineFormatting(text: string): string {
+  return text
+    // Links first (before bold/italic processing)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    // Bold
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    // Italic (single asterisks, but not inside words)
+    .replace(/(?<!\w)\*([^*]+)\*(?!\w)/g, '<em>$1</em>')
+    // Pipe separators -> line breaks (for contact info)
+    .replace(/\s*\|\s*/g, ' <span class="sep">|</span> ');
 }
 
 /**
