@@ -199,6 +199,33 @@ export default function SettingsPage() {
             </div>
           </section>
 
+          {/* Cover Letter Tone */}
+          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
+            <h2 className="font-semibold mb-4">Cover Letter Tone</h2>
+            <p className="text-gray-400 text-sm mb-4">How should your cover letters sound?</p>
+            
+            <div className="flex gap-4">
+              {[
+                { id: 'professional', name: 'Professional', desc: 'Traditional, formal tone' },
+                { id: 'balanced', name: 'Balanced', desc: 'Professional with personality' },
+                { id: 'quirky', name: 'Quirky', desc: 'Witty, personality-forward' },
+              ].map(tone => (
+                <button
+                  key={tone.id}
+                  onClick={() => updateConfig({ tonePreference: tone.id })}
+                  className={`flex-1 p-4 rounded-lg border transition-colors ${
+                    config.tonePreference === tone.id 
+                      ? 'border-blue-600 bg-blue-600/10' 
+                      : 'border-[#2a2a2a] hover:border-gray-600'
+                  }`}
+                >
+                  <div className="font-medium">{tone.name}</div>
+                  <div className="text-xs text-gray-400 mt-1">{tone.desc}</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
           {/* PDF Style */}
           <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
             <h2 className="font-semibold mb-4">PDF Export Style</h2>
@@ -216,9 +243,7 @@ export default function SettingsPage() {
                   }`}
                 >
                   <div className="font-medium">{style.name}</div>
-                  <div className="text-xs text-gray-400 mt-1">
-                    {style.id === 'modern' ? 'Clean, minimal, Inter font' : 'Traditional, elegant, Crimson Pro'}
-                  </div>
+                  <div className="text-xs text-gray-400 mt-1">{style.desc}</div>
                 </button>
               ))}
             </div>

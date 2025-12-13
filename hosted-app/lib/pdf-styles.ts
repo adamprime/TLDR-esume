@@ -2,11 +2,12 @@
  * PDF styling for browser-based export
  */
 
-export type PdfStyle = 'modern' | 'serif';
+export type PdfStyle = 'modern' | 'serif' | 'mono';
 
-export const PDF_STYLES: { id: PdfStyle; name: string }[] = [
-  { id: 'modern', name: 'Modern (Sans-serif)' },
-  { id: 'serif', name: 'Classic (Serif)' },
+export const PDF_STYLES: { id: PdfStyle; name: string; desc: string }[] = [
+  { id: 'modern', name: 'Modern', desc: 'Clean, minimal (Inter)' },
+  { id: 'serif', name: 'Classic', desc: 'Traditional (Crimson Pro)' },
+  { id: 'mono', name: 'Monospace', desc: 'Technical (JetBrains Mono)' },
 ];
 
 const MODERN_CSS = `
@@ -231,10 +232,120 @@ strong {
 }
 `;
 
+const MONO_CSS = `
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+body {
+  font-family: 'JetBrains Mono', 'Courier Prime', 'Courier New', monospace;
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: #111;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.2rem;
+}
+
+h1 {
+  font-size: 18pt;
+  text-align: center;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 12pt;
+}
+
+h3 {
+  font-size: 11pt;
+  font-style: italic;
+  color: #555;
+  border: none;
+  margin-top: 1rem;
+}
+
+h1 + p {
+  text-align: center;
+  font-size: 9pt;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+li {
+  position: relative;
+  margin-bottom: 0.4rem;
+  padding-left: 1.5rem;
+  font-size: 10pt;
+}
+
+li:before {
+  content: "–";
+  position: absolute;
+  left: 0.25rem;
+  color: #333;
+}
+
+a {
+  color: #222;
+  text-decoration: underline dotted;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #bbb;
+  margin: 1.5rem 0;
+}
+
+strong {
+  font-weight: 600;
+  color: #000;
+}
+
+@media print {
+  @page {
+    size: Letter;
+    margin: 0.5in 0.6in;
+  }
+  body {
+    color: #000;
+    background: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+  h1, h2, h3 { color: #000; }
+  a { color: #000; text-decoration: none; }
+}
+`;
+
 export function getStyleCSS(style: PdfStyle): string {
   switch (style) {
     case 'serif':
       return SERIF_CSS;
+    case 'mono':
+      return MONO_CSS;
     case 'modern':
     default:
       return MODERN_CSS;

@@ -34,15 +34,39 @@ Output ONLY the markdown resume, no explanations or commentary.
 
 {gapContext}`;
 
-export const COVER_LETTER_PROMPT = `Write a cover letter that sounds like a smart, interesting human wrote it — not a corporate drone or an AI.
-
-TONE GUIDELINES:
+const TONE_GUIDELINES = {
+  professional: `TONE GUIDELINES:
+- Maintain a formal, polished tone throughout
+- Use professional language appropriate for traditional corporate environments
+- Be confident but not boastful
+- Focus on qualifications and achievements with measured enthusiasm
+- Use standard business letter conventions
+- End with a professional closing that expresses interest in next steps`,
+  
+  balanced: `TONE GUIDELINES:
+- Be professional but personable — show you're a real human
+- Confident without being stiff or overly formal
+- Some personality, but not over the top
+- Avoid the most egregious corporate buzzwords, but don't be too casual
+- Strike a balance between professional polish and authentic voice`,
+  
+  quirky: `TONE GUIDELINES:
 - Be conversational and slightly irreverent, but still professional
 - Write like someone you'd want to grab coffee with — curious, opinionated, self-aware
 - Show personality. A little wit, a little edge. Not trying too hard, but not boring either.
 - Avoid corporate buzzwords, clichés, and phrases that make hiring managers' eyes glaze over
 - No "I'm excited to apply" or "I believe I would be a great fit" — find a more interesting way in
-- End with something memorable, not a generic "I look forward to hearing from you"
+- End with something memorable, not a generic "I look forward to hearing from you"`,
+};
+
+export type TonePreference = 'professional' | 'balanced' | 'quirky';
+
+export function getCoverLetterPrompt(tone: TonePreference = 'balanced'): string {
+  const toneGuidelines = TONE_GUIDELINES[tone] || TONE_GUIDELINES.balanced;
+  
+  return `Write a cover letter that sounds like a smart, interesting human wrote it — not a corporate drone or an AI.
+
+${toneGuidelines}
 
 CRITICAL RULES - DO NOT VIOLATE:
 1. NEVER invent statistics, numbers, percentages, or metrics not in the resume
@@ -86,6 +110,10 @@ WHAT MAKES A GREAT COVER LETTER:
 {hookContext}
 
 Output ONLY the cover letter in markdown, no explanations.`;
+}
+
+// Keep the old export for backwards compatibility
+export const COVER_LETTER_PROMPT = getCoverLetterPrompt('balanced');
 
 export const FIT_ASSESSMENT_PROMPT = `You are a skeptical, experienced hiring manager who has reviewed thousands of resumes. Your job is to give HONEST, CRITICAL feedback about whether this candidate is a good fit for this role.
 

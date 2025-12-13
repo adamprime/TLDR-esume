@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { readFile, writeFile, fileExists, createDirectory } from '@/lib/browser-fs';
 import { getSavedFolderHandle } from '@/lib/folder-handle';
 import { callAI } from '@/lib/browser-ai';
-import { FIT_ASSESSMENT_PROMPT, RESUME_PROMPT, COVER_LETTER_PROMPT } from '@/lib/prompts';
+import { FIT_ASSESSMENT_PROMPT, RESUME_PROMPT, getCoverLetterPrompt, TonePreference } from '@/lib/prompts';
 import { exportToPDF, PdfStyle } from '@/lib/pdf-styles';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import LoadingText from '@/components/LoadingText';
@@ -487,7 +487,8 @@ function CoverLetterView({ appId }: { appId: string }) {
         }
       } catch {}
 
-      const prompt = COVER_LETTER_PROMPT
+      const tone: TonePreference = config.tonePreference || 'balanced';
+      const prompt = getCoverLetterPrompt(tone)
         .replace('{resume}', resume)
         .replace('{jobDescription}', app.jobDescription)
         .replace('{company}', app.company)
