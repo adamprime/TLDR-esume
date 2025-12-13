@@ -6,6 +6,7 @@ import { readFile, writeFile, fileExists, createDirectory } from '@/lib/browser-
 import { getSavedFolderHandle } from '@/lib/folder-handle';
 import { callAI } from '@/lib/browser-ai';
 import { FIT_ASSESSMENT_PROMPT, RESUME_PROMPT, COVER_LETTER_PROMPT } from '@/lib/prompts';
+import { exportToPDF, PdfStyle } from '@/lib/pdf-styles';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import LoadingText from '@/components/LoadingText';
 
@@ -325,24 +326,21 @@ function ResumeView({ appId }: { appId: string }) {
     }
   }
 
-  function exportPDF() {
-    if (!content.trim()) return;
+  async function exportPDF() {
+    if (!content.trim() || !handle) return;
     setIsExporting(true);
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      const html = content
-        .replace(/^---[\s\S]*?---\n?/, '')
-        .replace(/^### (.*)$/gm, '<h3>$1</h3>')
-        .replace(/^## (.*)$/gm, '<h2>$1</h2>')
-        .replace(/^# (.*)$/gm, '<h1>$1</h1>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/^- (.*)$/gm, '<li>$1</li>')
-        .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-      printWindow.document.write(`<!DOCTYPE html><html><head><title>Resume - ${appInfo?.company || ''}</title><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.5;color:#333}h1{font-size:24px;margin-bottom:8px}h2{font-size:18px;margin-top:24px;border-bottom:1px solid #ddd;padding-bottom:4px}h3{font-size:14px;margin-top:16px}ul{padding-left:20px}li{margin-bottom:4px}strong{font-weight:600}@media print{body{margin:0;padding:20px}}</style></head><body>${html}</body></html>`);
-      printWindow.document.close();
-      printWindow.print();
+    try {
+      const configJson = await readFile(handle, 'config.json');
+      const config = JSON.parse(configJson);
+      const style: PdfStyle = config.defaultPdfStyle || 'modern';
+      exportToPDF(content, style, `Resume - ${appInfo?.company || ''}`);
+    } catch (err) {
+      console.error('Failed to export PDF:', err);
+      // Fallback to modern style
+      exportToPDF(content, 'modern', `Resume - ${appInfo?.company || ''}`);
+    } finally {
+      setIsExporting(false);
     }
-    setIsExporting(false);
   }
 
   const hasUnsavedChanges = content !== originalContent;
@@ -524,16 +522,20 @@ function CoverLetterView({ appId }: { appId: string }) {
     }
   }
 
-  function exportPDF() {
-    if (!content.trim()) return;
+  async function exportPDF() {
+    if (!content.trim() || !handle) return;
     setIsExporting(true);
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(`<!DOCTYPE html><html><head><title>Cover Letter - ${appInfo?.company || ''}</title><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.6;color:#333}p{margin-bottom:16px}@media print{body{margin:0;padding:40px}}</style></head><body>${content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>')}</body></html>`);
-      printWindow.document.close();
-      printWindow.print();
+    try {
+      const configJson = await readFile(handle, 'config.json');
+      const config = JSON.parse(configJson);
+      const style: PdfStyle = config.defaultPdfStyle || 'modern';
+      exportToPDF(content, style, `Cover Letter - ${appInfo?.company || ''}`);
+    } catch (err) {
+      console.error('Failed to export PDF:', err);
+      exportToPDF(content, 'modern', `Cover Letter - ${appInfo?.company || ''}`);
+    } finally {
+      setIsExporting(false);
     }
-    setIsExporting(false);
   }
 
   const hasUnsavedChanges = content !== originalContent;

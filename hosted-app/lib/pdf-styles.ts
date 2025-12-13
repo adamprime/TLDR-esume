@@ -1,0 +1,334 @@
+/**
+ * PDF styling for browser-based export
+ */
+
+export type PdfStyle = 'modern' | 'serif';
+
+export const PDF_STYLES: { id: PdfStyle; name: string }[] = [
+  { id: 'modern', name: 'Modern (Sans-serif)' },
+  { id: 'serif', name: 'Classic (Serif)' },
+];
+
+const MODERN_CSS = `
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: #111;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.3rem;
+}
+
+h1 {
+  font-size: 22pt;
+  text-align: center;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #374151;
+}
+
+h3 {
+  font-size: 11pt;
+  font-weight: 500;
+  color: #4b5563;
+  border: none;
+  margin-top: 1rem;
+}
+
+/* Contact info - first paragraph after h1 */
+h1 + p {
+  text-align: center;
+  font-size: 9pt;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+li {
+  position: relative;
+  margin-bottom: 0.4rem;
+  padding-left: 1.25rem;
+  font-size: 10.5pt;
+}
+
+li:before {
+  content: "•";
+  position: absolute;
+  left: 0.25rem;
+  color: #9ca3af;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
+}
+
+strong {
+  font-weight: 600;
+  color: #111;
+}
+
+@media print {
+  @page {
+    size: Letter;
+    margin: 0.5in 0.6in;
+  }
+  body {
+    color: #000;
+    background: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+  h1, h2, h3 { color: #000; }
+  a { color: #000; text-decoration: none; }
+}
+`;
+
+const SERIF_CSS = `
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&display=swap");
+
+body {
+  font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  font-size: 11.5pt;
+  line-height: 1.65;
+  color: #1a1a1a;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 0.3rem;
+}
+
+h1 {
+  font-size: 24pt;
+  text-align: center;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #374151;
+}
+
+h3 {
+  font-size: 11pt;
+  font-weight: 500;
+  color: #4b5563;
+  border: none;
+  margin-top: 1rem;
+}
+
+h1 + p {
+  text-align: center;
+  font-size: 9pt;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+li {
+  position: relative;
+  margin-bottom: 0.4rem;
+  padding-left: 1.25rem;
+  font-size: 11pt;
+}
+
+li:before {
+  content: "•";
+  position: absolute;
+  left: 0.25rem;
+  color: #9ca3af;
+}
+
+a {
+  color: #1e40af;
+  text-decoration: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin: 1.5rem 0;
+}
+
+strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+@media print {
+  @page {
+    size: Letter;
+    margin: 0.5in 0.6in;
+  }
+  body {
+    color: #000;
+    background: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+  h1, h2, h3 { color: #000; }
+  a { color: #000; text-decoration: none; }
+}
+`;
+
+export function getStyleCSS(style: PdfStyle): string {
+  switch (style) {
+    case 'serif':
+      return SERIF_CSS;
+    case 'modern':
+    default:
+      return MODERN_CSS;
+  }
+}
+
+/**
+ * Convert markdown to HTML for PDF export
+ */
+export function markdownToHtml(markdown: string): string {
+  // Strip YAML frontmatter
+  let content = markdown.replace(/^---[\s\S]*?---\n?/, '');
+  
+  // Convert markdown to HTML
+  content = content
+    // Headers
+    .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+    // Bold
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    // Links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    // Horizontal rules
+    .replace(/^---$/gm, '<hr>')
+    // List items - collect consecutive items into ul
+    .replace(/^- (.*)$/gm, '<li>$1</li>');
+  
+  // Wrap consecutive <li> elements in <ul>
+  content = content.replace(/(<li>.*<\/li>\n?)+/g, (match) => `<ul>${match}</ul>`);
+  
+  // Convert remaining lines to paragraphs (skip if already wrapped)
+  const lines = content.split('\n');
+  const result: string[] = [];
+  
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      result.push('');
+    } else if (
+      trimmed.startsWith('<h') ||
+      trimmed.startsWith('<ul') ||
+      trimmed.startsWith('<li') ||
+      trimmed.startsWith('</') ||
+      trimmed.startsWith('<hr') ||
+      trimmed.startsWith('<a') ||
+      trimmed.startsWith('<strong') ||
+      trimmed.startsWith('<em') ||
+      trimmed.startsWith('<p')
+    ) {
+      result.push(trimmed);
+    } else {
+      result.push(`<p>${trimmed}</p>`);
+    }
+  }
+  
+  return result.join('\n');
+}
+
+/**
+ * Generate and trigger PDF download in browser
+ */
+export function exportToPDF(
+  markdown: string,
+  style: PdfStyle,
+  title: string
+): void {
+  const css = getStyleCSS(style);
+  const html = markdownToHtml(markdown);
+  
+  const fullHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${title}</title>
+  <style>${css}</style>
+</head>
+<body>
+  ${html}
+</body>
+</html>
+`;
+
+  const printWindow = window.open('', '_blank');
+  if (printWindow) {
+    printWindow.document.write(fullHtml);
+    printWindow.document.close();
+    
+    // Wait for fonts to load before printing
+    setTimeout(() => {
+      printWindow.print();
+    }, 500);
+  }
+}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { readFile, writeFile } from '@/lib/browser-fs';
 import { getSavedFolderHandle } from '@/lib/folder-handle';
 import { validateApiKey } from '@/lib/browser-ai';
+import { PDF_STYLES, PdfStyle } from '@/lib/pdf-styles';
 
 interface Config {
   userName: string;
@@ -195,6 +196,31 @@ export default function SettingsPage() {
                 <input type="text" value={config.userLocation} onChange={(e) => updateConfig({ userLocation: e.target.value })}
                   className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm" />
               </div>
+            </div>
+          </section>
+
+          {/* PDF Style */}
+          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
+            <h2 className="font-semibold mb-4">PDF Export Style</h2>
+            <p className="text-gray-400 text-sm mb-4">Choose the default style for exported PDFs.</p>
+            
+            <div className="flex gap-4">
+              {PDF_STYLES.map(style => (
+                <button
+                  key={style.id}
+                  onClick={() => updateConfig({ defaultPdfStyle: style.id })}
+                  className={`flex-1 p-4 rounded-lg border transition-colors ${
+                    config.defaultPdfStyle === style.id 
+                      ? 'border-blue-600 bg-blue-600/10' 
+                      : 'border-[#2a2a2a] hover:border-gray-600'
+                  }`}
+                >
+                  <div className="font-medium">{style.name}</div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    {style.id === 'modern' ? 'Clean, minimal, Inter font' : 'Traditional, elegant, Crimson Pro'}
+                  </div>
+                </button>
+              ))}
             </div>
           </section>
 
