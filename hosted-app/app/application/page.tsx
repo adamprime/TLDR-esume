@@ -128,7 +128,7 @@ function ApplicationView({ appId }: { appId: string }) {
         <div className="mb-8">
           <label className="block text-sm font-medium mb-2">Status</label>
           <select value={app.status} onChange={(e) => updateStatus(e.target.value)} className="px-4 py-2 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600">
-            {['draft', 'applied', 'interviewing', 'offered', 'rejected', 'closed'].map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
+            {['draft', 'applied', 'submitted', 'interviewing', 'offered', 'offer', 'rejected', 'closed'].map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
           </select>
         </div>
         <div className="space-y-4">

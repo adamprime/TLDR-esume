@@ -125,9 +125,11 @@ export default function DashboardPage() {
   function getStatusColor(status: string) {
     switch (status.toLowerCase()) {
       case 'draft': return 'bg-gray-600';
-      case 'applied': return 'bg-blue-600';
+      case 'applied': 
+      case 'submitted': return 'bg-blue-600';
       case 'interviewing': return 'bg-purple-600';
-      case 'offered': return 'bg-green-600';
+      case 'offered': 
+      case 'offer': return 'bg-green-600';
       case 'rejected': return 'bg-red-600';
       case 'closed': return 'bg-gray-500';
       default: return 'bg-gray-600';
