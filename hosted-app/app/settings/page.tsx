@@ -130,6 +130,37 @@ export default function SettingsPage() {
                 </div>
               </div>
 
+              {/* API Key Instructions */}
+              <div className="bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg p-4">
+                <p className="text-sm text-gray-300 mb-3">
+                  {config.aiProvider === 'anthropic' 
+                    ? "To use Claude, you'll need an Anthropic API key:"
+                    : "To use GPT, you'll need an OpenAI API key:"}
+                </p>
+                <ol className="text-sm text-gray-400 space-y-2 list-decimal list-inside">
+                  {config.aiProvider === 'anthropic' ? (
+                    <>
+                      <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">console.anthropic.com/settings/keys</a></li>
+                      <li>Create an account or sign in</li>
+                      <li>Click "Create Key" and give it a name</li>
+                      <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-ant-</code>)</li>
+                      <li>Paste it in the API Key field below</li>
+                    </>
+                  ) : (
+                    <>
+                      <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">platform.openai.com/api-keys</a></li>
+                      <li>Create an account or sign in</li>
+                      <li>Click "Create new secret key"</li>
+                      <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-</code>)</li>
+                      <li>Paste it in the API Key field below</li>
+                    </>
+                  )}
+                </ol>
+                <p className="text-xs text-gray-500 mt-3">
+                  💡 Typical cost: $0.05–$0.20 per application (resume + cover letter)
+                </p>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium mb-2">Model</label>
                 <select

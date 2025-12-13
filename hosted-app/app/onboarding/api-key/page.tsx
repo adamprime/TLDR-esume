@@ -122,23 +122,32 @@ export default function ApiKeyPage() {
 
         {/* Instructions */}
         <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-4 mb-6">
-          <h3 className="font-semibold mb-2">Get your API key:</h3>
-          {provider === 'anthropic' ? (
-            <ol className="text-gray-400 text-sm space-y-1">
-              <li>1. Go to <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">console.anthropic.com</a></li>
-              <li>2. Create an account or sign in</li>
-              <li>3. Navigate to API Keys</li>
-              <li>4. Create a new key and copy it</li>
-            </ol>
-          ) : (
-            <ol className="text-gray-400 text-sm space-y-1">
-              <li>1. Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">platform.openai.com/api-keys</a></li>
-              <li>2. Create an account or sign in</li>
-              <li>3. Create a new secret key and copy it</li>
-            </ol>
-          )}
-          <p className="text-xs text-gray-500 mt-2">
-            Cost: ~$0.05-0.20 per application (varies by model)
+          <p className="text-sm text-gray-300 mb-3">
+            {provider === 'anthropic' 
+              ? "To use Claude, you'll need an Anthropic API key:"
+              : "To use GPT, you'll need an OpenAI API key:"}
+          </p>
+          <ol className="text-sm text-gray-400 space-y-2 list-decimal list-inside">
+            {provider === 'anthropic' ? (
+              <>
+                <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">console.anthropic.com/settings/keys</a></li>
+                <li>Create an account or sign in</li>
+                <li>Click "Create Key" and give it a name</li>
+                <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-ant-</code>)</li>
+                <li>Paste it below</li>
+              </>
+            ) : (
+              <>
+                <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">platform.openai.com/api-keys</a></li>
+                <li>Create an account or sign in</li>
+                <li>Click "Create new secret key"</li>
+                <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-</code>)</li>
+                <li>Paste it below</li>
+              </>
+            )}
+          </ol>
+          <p className="text-xs text-gray-500 mt-3">
+            💡 Typical cost: $0.05–$0.20 per application (resume + cover letter)
           </p>
         </div>
 
