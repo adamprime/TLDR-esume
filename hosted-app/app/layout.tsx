@@ -13,7 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0f0f0f] text-gray-100">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-screen bg-paper text-ink font-mono selection:bg-accent selection:text-black">
         {children}
       </body>
     </html>

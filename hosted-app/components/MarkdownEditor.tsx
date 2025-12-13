@@ -28,34 +28,34 @@ export default function MarkdownEditor({
 
   return (
     <div className="flex flex-col h-full" data-color-mode="dark">
-      <div className="flex items-center justify-between px-4 py-2 bg-[#1a1a1a] border-b border-[#2a2a2a]">
+      <div className="flex items-center justify-between px-4 py-2 bg-paper border-b-2 border-ink shadow-sm z-10">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setPreview('edit')}
-            className={`px-3 py-1 text-sm rounded ${
+            className={`px-3 py-1 text-sm font-bold border-2 transition-all ${
               preview === 'edit' 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-[#2a2a2a] border border-[#3a3a3a] text-gray-300 hover:bg-[#3a3a3a]'
+                ? 'bg-accent text-black border-accent shadow-hard-sm transform -translate-y-0.5' 
+                : 'bg-paper text-gray-400 border-gray-600 hover:border-accent hover:text-accent'
             }`}
           >
             Edit
           </button>
           <button
             onClick={() => setPreview('live')}
-            className={`px-3 py-1 text-sm rounded ${
+            className={`px-3 py-1 text-sm font-bold border-2 transition-all ${
               preview === 'live' 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-[#2a2a2a] border border-[#3a3a3a] text-gray-300 hover:bg-[#3a3a3a]'
+                ? 'bg-accent text-black border-accent shadow-hard-sm transform -translate-y-0.5' 
+                : 'bg-paper text-gray-400 border-gray-600 hover:border-accent hover:text-accent'
             }`}
           >
             Split
           </button>
           <button
             onClick={() => setPreview('preview')}
-            className={`px-3 py-1 text-sm rounded ${
+            className={`px-3 py-1 text-sm font-bold border-2 transition-all ${
               preview === 'preview' 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-[#2a2a2a] border border-[#3a3a3a] text-gray-300 hover:bg-[#3a3a3a]'
+                ? 'bg-accent text-black border-accent shadow-hard-sm transform -translate-y-0.5' 
+                : 'bg-paper text-gray-400 border-gray-600 hover:border-accent hover:text-accent'
             }`}
           >
             Preview
@@ -66,7 +66,7 @@ export default function MarkdownEditor({
             <button
               onClick={onRegenerate}
               disabled={regenerating}
-              className="px-4 py-1.5 text-sm bg-amber-600 text-white rounded hover:bg-amber-500 disabled:opacity-50"
+              className="px-4 py-1.5 text-sm bg-paper text-yellow-500 border-2 border-yellow-500 font-bold hover:bg-yellow-500 hover:text-black shadow-sm transition-all disabled:opacity-50"
             >
               {regenerating ? 'Regenerating...' : 'Regenerate'}
             </button>
@@ -75,7 +75,7 @@ export default function MarkdownEditor({
             <button
               onClick={onSave}
               disabled={saving}
-              className="px-4 py-1.5 text-sm bg-gray-700 text-white rounded hover:bg-gray-600 disabled:opacity-50"
+              className="px-4 py-1.5 text-sm bg-paper text-ink border-2 border-ink font-bold hover:bg-ink hover:text-black shadow-sm transition-all disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save'}
             </button>
@@ -84,14 +84,14 @@ export default function MarkdownEditor({
             <button
               onClick={onExportPDF}
               disabled={exporting}
-              className="px-4 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-500 disabled:opacity-50"
+              className="px-4 py-1.5 text-sm bg-accent text-black font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-0.5 transition-all disabled:opacity-50"
             >
               {exporting ? 'Exporting...' : 'Export PDF'}
             </button>
           )}
         </div>
       </div>
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden bg-[#0f0f0f]">
         <MDEditor
           value={value}
           onChange={(val) => onChange(val || '')}
@@ -99,6 +99,7 @@ export default function MarkdownEditor({
           height="100%"
           visibleDragbar={false}
           hideToolbar={false}
+          className="!bg-[#0f0f0f] !border-0"
         />
       </div>
     </div>

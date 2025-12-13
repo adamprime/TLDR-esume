@@ -93,7 +93,7 @@ export default function SettingsPage() {
   }
 
   if (!config) {
-    return <div className="min-h-screen flex items-center justify-center"><p className="text-gray-400">Loading...</p></div>;
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-gray-400 font-mono animate-pulse">Loading settings...</p></div>;
   }
 
   const currentModels = config.aiProvider === 'anthropic' ? ANTHROPIC_MODELS : OPENAI_MODELS;
@@ -102,80 +102,83 @@ export default function SettingsPage() {
     <div className="min-h-screen p-6">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => router.push('/dashboard')} className="text-gray-400 hover:text-white">← Back</button>
-          <h1 className="text-2xl font-bold">Settings</h1>
+          <button onClick={() => router.push('/dashboard')} className="text-gray-500 hover:text-accent font-bold transition-colors">← Back</button>
+          <h1 className="text-3xl font-serif font-black">Settings</h1>
         </div>
 
         <div className="space-y-8">
           {/* AI Provider */}
-          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
-            <h2 className="font-semibold mb-4">AI Configuration</h2>
+          <section className="bg-paper border-2 border-ink shadow-hard p-6">
+            <h2 className="font-serif font-bold text-xl mb-6 border-b-2 border-ink pb-2 inline-block">AI CONFIGURATION</h2>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Provider</label>
+                <label className="block text-sm font-bold mb-2 uppercase tracking-wider text-ink">Provider</label>
                 <div className="flex gap-4">
                   <button
                     onClick={() => updateConfig({ aiProvider: 'anthropic', aiModel: 'claude-sonnet-4-5-20250929' })}
-                    className={`flex-1 p-3 rounded-lg border transition-colors ${config.aiProvider === 'anthropic' ? 'border-blue-600 bg-blue-600/10' : 'border-[#2a2a2a] hover:border-gray-600'}`}
+                    className={`flex-1 p-4 border-2 transition-all shadow-sm ${config.aiProvider === 'anthropic' ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1' : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'}`}
                   >
-                    <div className="font-medium">Anthropic</div>
-                    <div className="text-xs text-gray-400">Claude</div>
+                    <div className="font-bold font-serif text-lg">Anthropic</div>
+                    <div className={`text-xs font-mono ${config.aiProvider === 'anthropic' ? 'text-black' : 'text-gray-400'}`}>Claude</div>
                   </button>
                   <button
                     onClick={() => updateConfig({ aiProvider: 'openai', aiModel: 'gpt-5-mini' })}
-                    className={`flex-1 p-3 rounded-lg border transition-colors ${config.aiProvider === 'openai' ? 'border-blue-600 bg-blue-600/10' : 'border-[#2a2a2a] hover:border-gray-600'}`}
+                    className={`flex-1 p-4 border-2 transition-all shadow-sm ${config.aiProvider === 'openai' ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1' : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'}`}
                   >
-                    <div className="font-medium">OpenAI</div>
-                    <div className="text-xs text-gray-400">GPT</div>
+                    <div className="font-bold font-serif text-lg">OpenAI</div>
+                    <div className={`text-xs font-mono ${config.aiProvider === 'openai' ? 'text-black' : 'text-gray-400'}`}>GPT</div>
                   </button>
                 </div>
               </div>
 
               {/* API Key Instructions */}
-              <div className="bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg p-4">
-                <p className="text-sm text-gray-300 mb-3">
+              <div className="bg-paper border-2 border-gray-700 p-4 shadow-inner">
+                <p className="text-sm text-gray-300 mb-3 font-mono">
                   {config.aiProvider === 'anthropic' 
                     ? "To use Claude, you'll need an Anthropic API key:"
                     : "To use GPT, you'll need an OpenAI API key:"}
                 </p>
-                <ol className="text-sm text-gray-400 space-y-2 list-decimal list-inside">
+                <ol className="text-sm text-gray-400 space-y-2 list-decimal list-inside font-mono">
                   {config.aiProvider === 'anthropic' ? (
                     <>
-                      <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">console.anthropic.com/settings/keys</a></li>
+                      <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-accent hover:underline">console.anthropic.com/settings/keys</a></li>
                       <li>Create an account or sign in</li>
                       <li>Click "Create Key" and give it a name</li>
-                      <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-ant-</code>)</li>
+                      <li>Copy the key (starts with <code className="text-accent bg-black px-1 border border-gray-700">sk-ant-</code>)</li>
                       <li>Paste it in the API Key field below</li>
                     </>
                   ) : (
                     <>
-                      <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">platform.openai.com/api-keys</a></li>
+                      <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-accent hover:underline">platform.openai.com/api-keys</a></li>
                       <li>Create an account or sign in</li>
                       <li>Click "Create new secret key"</li>
-                      <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-</code>)</li>
+                      <li>Copy the key (starts with <code className="text-accent bg-black px-1 border border-gray-700">sk-</code>)</li>
                       <li>Paste it in the API Key field below</li>
                     </>
                   )}
                 </ol>
-                <p className="text-xs text-gray-500 mt-3">
+                <p className="text-xs text-gray-500 mt-3 font-mono border-t border-gray-700 pt-2">
                   💡 Typical cost: $0.05–$0.20 per application (resume + cover letter)
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Model</label>
-                <select
-                  value={config.aiModel}
-                  onChange={(e) => updateConfig({ aiModel: e.target.value })}
-                  className="w-full px-4 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600"
-                >
-                  {currentModels.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                </select>
+                <label className="block text-sm font-bold mb-2 uppercase tracking-wider text-ink">Model</label>
+                <div className="relative">
+                  <select
+                    value={config.aiModel}
+                    onChange={(e) => updateConfig({ aiModel: e.target.value })}
+                    className="w-full px-4 py-3 bg-paper border-2 border-ink appearance-none focus:outline-none focus:border-accent focus:shadow-hard-sm transition-all font-mono text-sm"
+                  >
+                    {currentModels.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ink">▼</div>
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm font-bold mb-2 uppercase tracking-wider text-ink">
                   {config.aiProvider === 'anthropic' ? 'Anthropic' : 'OpenAI'} API Key
                 </label>
                 <div className="flex gap-2">
@@ -187,55 +190,55 @@ export default function SettingsPage() {
                       : { openaiApiKey: e.target.value }
                     )}
                     placeholder={config.aiProvider === 'anthropic' ? 'sk-ant-...' : 'sk-...'}
-                    className="flex-1 px-4 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600"
+                    className="flex-1 px-4 py-3 bg-paper border-2 border-ink focus:outline-none focus:border-accent focus:shadow-hard-sm transition-all font-mono text-sm"
                   />
                   <button
                     onClick={validateKey}
                     disabled={isValidating}
-                    className="px-4 py-2 bg-[#2a2a2a] text-white rounded-lg hover:bg-[#3a3a3a] disabled:opacity-50"
+                    className="px-6 py-2 bg-ink text-black font-bold border-2 border-ink hover:bg-accent hover:border-accent transition-all disabled:opacity-50"
                   >
                     {isValidating ? 'Testing...' : 'Test'}
                   </button>
                 </div>
-                {validationResult === 'valid' && <p className="text-green-400 text-sm mt-1">API key is valid</p>}
-                {validationResult === 'invalid' && <p className="text-red-400 text-sm mt-1">API key is invalid</p>}
+                {validationResult === 'valid' && <p className="text-green-500 text-sm mt-2 font-bold font-mono">✓ API KEY IS VALID</p>}
+                {validationResult === 'invalid' && <p className="text-red-500 text-sm mt-2 font-bold font-mono">✗ API KEY IS INVALID</p>}
               </div>
             </div>
           </section>
 
           {/* User Info */}
-          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
-            <h2 className="font-semibold mb-4">Your Information</h2>
-            <p className="text-gray-400 text-sm mb-4">Used for PDF headers and contact info.</p>
+          <section className="bg-paper border-2 border-ink shadow-hard p-6">
+            <h2 className="font-serif font-bold text-xl mb-6 border-b-2 border-ink pb-2 inline-block">YOUR DOSSIER</h2>
+            <p className="text-gray-400 text-sm mb-6 font-mono">Used for PDF headers and contact info.</p>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-1">Name</label>
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-ink">Name</label>
                 <input type="text" value={config.userName} onChange={(e) => updateConfig({ userName: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm" />
+                  className="w-full px-3 py-2 bg-paper border-2 border-gray-600 focus:border-accent focus:outline-none focus:shadow-hard-sm transition-all text-sm font-mono" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-ink">Email</label>
                 <input type="email" value={config.userEmail} onChange={(e) => updateConfig({ userEmail: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm" />
+                  className="w-full px-3 py-2 bg-paper border-2 border-gray-600 focus:border-accent focus:outline-none focus:shadow-hard-sm transition-all text-sm font-mono" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Phone</label>
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-ink">Phone</label>
                 <input type="tel" value={config.userPhone} onChange={(e) => updateConfig({ userPhone: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm" />
+                  className="w-full px-3 py-2 bg-paper border-2 border-gray-600 focus:border-accent focus:outline-none focus:shadow-hard-sm transition-all text-sm font-mono" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Location</label>
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-ink">Location</label>
                 <input type="text" value={config.userLocation} onChange={(e) => updateConfig({ userLocation: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600 text-sm" />
+                  className="w-full px-3 py-2 bg-paper border-2 border-gray-600 focus:border-accent focus:outline-none focus:shadow-hard-sm transition-all text-sm font-mono" />
               </div>
             </div>
           </section>
 
           {/* Cover Letter Tone */}
-          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
-            <h2 className="font-semibold mb-4">Cover Letter Tone</h2>
-            <p className="text-gray-400 text-sm mb-4">How should your cover letters sound?</p>
+          <section className="bg-paper border-2 border-ink shadow-hard p-6">
+            <h2 className="font-serif font-bold text-xl mb-6 border-b-2 border-ink pb-2 inline-block">TONE OF VOICE</h2>
+            <p className="text-gray-400 text-sm mb-6 font-mono">How should your cover letters sound?</p>
             
             <div className="flex gap-4">
               {[
@@ -246,37 +249,37 @@ export default function SettingsPage() {
                 <button
                   key={tone.id}
                   onClick={() => updateConfig({ tonePreference: tone.id })}
-                  className={`flex-1 p-4 rounded-lg border transition-colors ${
+                  className={`flex-1 p-4 border-2 transition-all shadow-sm ${
                     config.tonePreference === tone.id 
-                      ? 'border-blue-600 bg-blue-600/10' 
-                      : 'border-[#2a2a2a] hover:border-gray-600'
+                      ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1' 
+                      : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'
                   }`}
                 >
-                  <div className="font-medium">{tone.name}</div>
-                  <div className="text-xs text-gray-400 mt-1">{tone.desc}</div>
+                  <div className="font-bold font-serif text-lg">{tone.name}</div>
+                  <div className={`text-xs font-mono mt-1 ${config.tonePreference === tone.id ? 'text-black' : 'text-gray-400'}`}>{tone.desc}</div>
                 </button>
               ))}
             </div>
           </section>
 
           {/* PDF Style */}
-          <section className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6">
-            <h2 className="font-semibold mb-4">PDF Export Style</h2>
-            <p className="text-gray-400 text-sm mb-4">Choose the default style for exported PDFs.</p>
+          <section className="bg-paper border-2 border-ink shadow-hard p-6">
+            <h2 className="font-serif font-bold text-xl mb-6 border-b-2 border-ink pb-2 inline-block">EXPORT STYLE</h2>
+            <p className="text-gray-400 text-sm mb-6 font-mono">Choose the default style for exported PDFs.</p>
             
             <div className="flex gap-4">
               {PDF_STYLES.map(style => (
                 <button
                   key={style.id}
                   onClick={() => updateConfig({ defaultPdfStyle: style.id })}
-                  className={`flex-1 p-4 rounded-lg border transition-colors ${
+                  className={`flex-1 p-4 border-2 transition-all shadow-sm ${
                     config.defaultPdfStyle === style.id 
-                      ? 'border-blue-600 bg-blue-600/10' 
-                      : 'border-[#2a2a2a] hover:border-gray-600'
+                      ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1' 
+                      : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'
                   }`}
                 >
-                  <div className="font-medium">{style.name}</div>
-                  <div className="text-xs text-gray-400 mt-1">{style.desc}</div>
+                  <div className="font-bold font-serif text-lg">{style.name}</div>
+                  <div className={`text-xs font-mono mt-1 ${config.defaultPdfStyle === style.id ? 'text-black' : 'text-gray-400'}`}>{style.desc}</div>
                 </button>
               ))}
             </div>
@@ -286,9 +289,9 @@ export default function SettingsPage() {
           <button
             onClick={saveConfig}
             disabled={isSaving}
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition-colors disabled:opacity-50"
+            className="w-full py-4 bg-accent text-black text-xl font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-1 transition-all disabled:opacity-50"
           >
-            {isSaving ? 'Saving...' : 'Save Settings'}
+            {isSaving ? 'SAVING...' : 'SAVE SETTINGS'}
           </button>
         </div>
       </div>

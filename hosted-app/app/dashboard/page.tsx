@@ -51,7 +51,6 @@ export default function DashboardPage() {
     setIsLoading(true);
     try {
       const versionsExists = await fileExists(h, 'versions');
-      console.log('[Dashboard] versions folder exists:', versionsExists);
       if (!versionsExists) {
         setApplications([]);
         setIsLoading(false);
@@ -59,11 +58,9 @@ export default function DashboardPage() {
       }
 
       const entries = await listDirectory(h, 'versions');
-      console.log('[Dashboard] entries in versions:', entries);
       const apps: Application[] = [];
 
       for (const entry of entries) {
-        console.log('[Dashboard] processing entry:', entry.name, entry.kind);
         if (entry.kind === 'directory') {
           const folderPath = `versions/${entry.name}`;
           let appData;
@@ -71,11 +68,8 @@ export default function DashboardPage() {
           try {
             const appJson = await readFile(h, `${folderPath}/application.json`);
             appData = JSON.parse(appJson);
-            console.log('[Dashboard] loaded app:', entry.name, appData.company);
           } catch (readErr) {
-            console.log('[Dashboard] no application.json for:', entry.name, readErr);
             // No application.json - create one from folder name (legacy support)
-            // Folder name format: "Company - Role"
             const parts = entry.name.split(' - ');
             const company = parts[0] || entry.name;
             const role = parts.slice(1).join(' - ') || 'Unknown Role';
@@ -89,7 +83,6 @@ export default function DashboardPage() {
               createdAt: new Date().toISOString(),
             };
             
-            // Auto-create application.json for this legacy folder
             try {
               await writeFile(h, `${folderPath}/application.json`, JSON.stringify(appData, null, 2));
             } catch (writeErr) {
@@ -123,16 +116,17 @@ export default function DashboardPage() {
   }
 
   function getStatusColor(status: string) {
+    // Return classes for the border/text color of status
     switch (status.toLowerCase()) {
-      case 'draft': return 'bg-gray-600';
+      case 'draft': return 'border-gray-500 text-gray-500';
       case 'applied': 
-      case 'submitted': return 'bg-blue-600';
-      case 'interviewing': return 'bg-purple-600';
+      case 'submitted': return 'border-blue-500 text-blue-500';
+      case 'interviewing': return 'border-purple-500 text-purple-500';
       case 'offered': 
-      case 'offer': return 'bg-green-600';
-      case 'rejected': return 'bg-red-600';
-      case 'closed': return 'bg-gray-500';
-      default: return 'bg-gray-600';
+      case 'offer': return 'border-green-500 text-green-500';
+      case 'rejected': return 'border-red-500 text-red-500';
+      case 'closed': return 'border-gray-600 text-gray-600';
+      default: return 'border-gray-500 text-gray-500';
     }
   }
 
@@ -140,26 +134,29 @@ export default function DashboardPage() {
     <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold">TLDR;esume</h1>
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between mb-12 border-b-4 border-ink pb-4 bg-paper px-6 shadow-hard-sm">
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-serif font-black italic tracking-tighter">TLDR;esume</h1>
+            <span className="text-xs border border-ink px-1 transform -rotate-2">DASHBOARD</span>
+          </div>
+          <div className="flex items-center gap-6">
             <button
               onClick={() => router.push('/review')}
-              className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-accent font-bold hover:underline decoration-2 underline-offset-4 transition-colors"
             >
               Review Resume
             </button>
             <button
               onClick={() => router.push('/settings')}
-              className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-accent font-bold hover:underline decoration-2 underline-offset-4 transition-colors"
             >
               Settings
             </button>
             <button
               onClick={handleDisconnect}
-              className="px-4 py-2 text-gray-500 hover:text-gray-300 text-sm"
+              className="text-xs text-red-400 hover:text-red-300 border border-transparent hover:border-red-400 px-2 py-1 transition-all"
             >
-              Disconnect Folder
+              Disconnect
             </button>
           </div>
         </div>
@@ -167,35 +164,36 @@ export default function DashboardPage() {
         {/* New Application Button */}
         <button
           onClick={() => router.push('/application/new')}
-          className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors mb-8"
+          className="w-full py-4 bg-accent text-black text-xl font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-1 transition-all mb-12 flex items-center justify-center gap-2"
         >
-          + New Application
+          <span>+</span>
+          <span className="font-serif">New Application</span>
         </button>
 
         {/* Applications List */}
         {isLoading ? (
-          <div className="text-center py-12 text-gray-400">Loading applications...</div>
+          <div className="text-center py-12 text-gray-400 font-mono animate-pulse">Scanning local files...</div>
         ) : applications.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400 mb-2">No applications yet</p>
+          <div className="text-center py-12 border-2 border-dashed border-gray-700 rounded-lg">
+            <p className="text-gray-400 mb-2 font-serif text-xl">No active investigations.</p>
             <p className="text-gray-500 text-sm">
               Click &quot;New Application&quot; to start tailoring your resume for a job
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid gap-4">
             {applications.map((app) => (
               <button
                 key={app.id}
                 onClick={() => router.push(`/application?id=${encodeURIComponent(app.id)}`)}
-                className="w-full p-4 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg hover:border-blue-600 transition-colors text-left"
+                className="w-full p-6 bg-paper border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-1 transition-all text-left group"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-semibold">{app.company}</div>
-                    <div className="text-gray-400 text-sm">{app.role}</div>
+                    <div className="font-serif font-bold text-xl group-hover:text-accent transition-colors mb-1">{app.company}</div>
+                    <div className="text-gray-400 font-mono text-sm">{app.role}</div>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(app.status)}`}>
+                  <span className={`px-3 py-1 border-2 text-xs font-bold uppercase tracking-wider ${getStatusColor(app.status)}`}>
                     {app.status}
                   </span>
                 </div>

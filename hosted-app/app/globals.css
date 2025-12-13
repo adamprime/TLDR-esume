@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@theme {
+  --color-paper: #1a1a1a;
+  --color-ink: #e5e5e5;
+  --color-accent: #facc15;
+  --color-accent-hover: #eab308;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-mono: "Courier Prime", monospace;
+  
+  --shadow-hard: 6px 6px 0px 0px #e5e5e5;
+  --shadow-hard-sm: 3px 3px 0px 0px #e5e5e5;
+  --shadow-hard-dark: 6px 6px 0px 0px #000;
+}
+
 :root {
   --bg-primary: #0f0f0f;
   --bg-secondary: #1a1a1a;
@@ -8,44 +22,50 @@
   --text-primary: #f5f5f5;
   --text-secondary: #a0a0a0;
   --text-muted: #707070;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --success: #22c55e;
-  --warning: #eab308;
-  --error: #ef4444;
+  
+  /* Retain these for backward compatibility if needed, or map them to new theme */
+  --accent: #facc15;
+  --accent-hover: #eab308;
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #0f0f0f;
+  background-image: radial-gradient(#2a2a2a 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--color-ink);
 }
 
 /* Markdown editor styles */
 .markdown-preview h1 {
+  font-family: var(--font-serif);
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 900;
   margin-bottom: 0.5rem;
+  font-style: italic;
 }
 
 .markdown-preview h2 {
+  font-family: var(--font-serif);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--color-ink);
   padding-bottom: 0.25rem;
 }
 
 .markdown-preview h3 {
+  font-family: var(--font-serif);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 1rem;
   margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .markdown-preview ul {
-  list-style-type: disc;
+  list-style-type: square;
   padding-left: 1.5rem;
   margin-bottom: 0.5rem;
 }
@@ -56,10 +76,21 @@ body {
 
 .markdown-preview p {
   margin-bottom: 0.5rem;
+  line-height: 1.6;
 }
 
 .markdown-preview strong {
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding-left: 1rem;
+  margin-left: 0;
+  font-style: italic;
+  background: rgba(250, 204, 21, 0.1);
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
 }
 
 /* Loading animation */
@@ -78,4 +109,26 @@ body {
 
 .loading-dot:nth-child(3) {
   animation-delay: 0.4s;
+}
+
+/* Utility for the "Hard" aesthetic */
+.border-hard {
+  border-width: 2px;
+  border-color: var(--color-ink);
+}
+
+.btn-primary {
+  @apply px-4 py-2 bg-accent text-black font-bold border-2 border-transparent hover:border-ink hover:shadow-hard-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-none;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-paper text-ink font-bold border-2 border-ink hover:bg-accent hover:text-black hover:shadow-hard-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-none;
+}
+
+.card-hard {
+  @apply bg-paper border-2 border-ink shadow-hard-sm hover:shadow-hard transition-all duration-300;
+}
+
+.input-hard {
+  @apply bg-paper border-2 border-gray-700 p-2 focus:border-accent focus:outline-none focus:shadow-[3px_3px_0px_0px_#facc15] transition-all;
 }
