@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { readFile, listDirectory, fileExists } from '@/lib/browser-fs';
+import { readFile, writeFile, listDirectory, fileExists } from '@/lib/browser-fs';
 import { getSavedFolderHandle, clearSavedFolderHandle } from '@/lib/folder-handle';
 
 interface Application {
@@ -51,6 +51,7 @@ export default function DashboardPage() {
     setIsLoading(true);
     try {
       const versionsExists = await fileExists(h, 'versions');
+      console.log('[Dashboard] versions folder exists:', versionsExists);
       if (!versionsExists) {
         setApplications([]);
         setIsLoading(false);
@@ -58,23 +59,51 @@ export default function DashboardPage() {
       }
 
       const entries = await listDirectory(h, 'versions');
+      console.log('[Dashboard] entries in versions:', entries);
       const apps: Application[] = [];
 
       for (const entry of entries) {
+        console.log('[Dashboard] processing entry:', entry.name, entry.kind);
         if (entry.kind === 'directory') {
+          const folderPath = `versions/${entry.name}`;
+          let appData;
+          
           try {
-            const appJson = await readFile(h, `versions/${entry.name}/application.json`);
-            const appData = JSON.parse(appJson);
-            apps.push({
-              id: entry.name,
-              company: appData.company || entry.name.split(' - ')[0],
-              role: appData.role || entry.name.split(' - ')[1] || 'Unknown Role',
-              status: appData.status || 'draft',
-              createdAt: appData.createdAt || new Date().toISOString(),
-            });
-          } catch {
-            // Skip folders without application.json
+            const appJson = await readFile(h, `${folderPath}/application.json`);
+            appData = JSON.parse(appJson);
+            console.log('[Dashboard] loaded app:', entry.name, appData.company);
+          } catch (readErr) {
+            console.log('[Dashboard] no application.json for:', entry.name, readErr);
+            // No application.json - create one from folder name (legacy support)
+            // Folder name format: "Company - Role"
+            const parts = entry.name.split(' - ');
+            const company = parts[0] || entry.name;
+            const role = parts.slice(1).join(' - ') || 'Unknown Role';
+            
+            appData = {
+              company,
+              role,
+              url: '',
+              jobDescription: '',
+              status: 'draft',
+              createdAt: new Date().toISOString(),
+            };
+            
+            // Auto-create application.json for this legacy folder
+            try {
+              await writeFile(h, `${folderPath}/application.json`, JSON.stringify(appData, null, 2));
+            } catch (writeErr) {
+              console.error('Failed to create application.json:', writeErr);
+            }
           }
+          
+          apps.push({
+            id: entry.name,
+            company: appData.company || entry.name.split(' - ')[0],
+            role: appData.role || entry.name.split(' - ')[1] || 'Unknown Role',
+            status: appData.status || 'draft',
+            createdAt: appData.createdAt || new Date().toISOString(),
+          });
         }
       }
 
