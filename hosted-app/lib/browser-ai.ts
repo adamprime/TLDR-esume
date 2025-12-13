@@ -65,7 +65,7 @@ export async function callOpenAI(
     },
     body: JSON.stringify({
       model,
-      max_tokens: maxTokens,
+      max_completion_tokens: maxTokens,
       messages: [
         {
           role: 'user',
