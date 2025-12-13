@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - TLDR;esume</title>
+  <meta name="description" content="Frequently asked questions about TLDR;esume - the free, local-first AI resume tailoring tool.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              bg: '#0f0f0f',
+              card: '#1a1a1a',
+              border: '#2a2a2a',
+              hover: '#3a3a3a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4b71d7b43bd4af29f5a9dcb06388042"}'></script>
+</head>
+<body class="bg-dark-bg text-gray-100 min-h-screen">
+  
+  <!-- Header -->
+  <header class="border-b border-dark-border">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold text-blue-400 hover:text-blue-300">TLDR;esume</a>
+      <nav class="flex items-center gap-6">
+        <a href="/about.html" class="text-gray-400 hover:text-gray-300">About</a>
+        <a href="/faq.html" class="text-gray-300 hover:text-white font-medium">FAQ</a>
+        <a href="https://app.tldresume.com" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors text-sm font-medium">
+          Launch App
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    
+    <h1 class="text-4xl font-bold mb-12">TLDR;esume FAQs</h1>
+
+    <!-- FAQ Items -->
+    <div class="space-y-12">
+
+      <!-- Is this really free? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">Is this really free?</h2>
+        <p class="text-gray-300 mb-4">
+          Yes. You don't need to create an account, give any of your personal information, upload anything to this site, or create a subscription. You don't even need to sign up for a mailing list.
+        </p>
+        <p class="text-gray-300">
+          This is 'free as in beer', no strings attached. I hope it's helpful.
+        </p>
+      </section>
+
+      <hr class="border-dark-border">
+
+      <!-- How is security handled? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">How is the security of my data handled?</h2>
+        <p class="text-gray-300 mb-4">
+          The web app asks you for a folder on your computer where all data can be saved. That folder is where your resume lives, as well as all of the customized resumes, cover letters, and metadata the app generates. Nothing goes to the cloud for storage or a server controlled by me.
+        </p>
+        <p class="text-gray-300">
+          The only time API calls are made are to the AI provider you choose to use. You've got two choices here: Anthropic (who makes Claude) and OpenAI (who makes ChatGPT). During onboarding I'll give you instructions on how to get an API key for either service. You will need to pay for the API access you use, but it will be very cheap. Even with the most expensive model, you can have a full customized resume and cover letter for less than $0.50 (at least that's what I've personally found). The less expensive models will do the same thing for $0.05.
+        </p>
+      </section>
+
+      <hr class="border-dark-border">
+
+      <!-- Why Chrome? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">Why do I have to use Chrome?</h2>
+        <p class="text-gray-300 mb-4">
+          Chromium-based browsers (Google Chrome, Edge, Brave, Dia, Vivaldi, Arc, etc.) have a "File system access API" specifically for working with files on your local computer. Unfortunately Firefox and Safari don't have this. If you don't have a Chromium-based browser already, I recommend <a href="https://brave.com/download" class="text-blue-400 hover:text-blue-300">Brave</a>.
+        </p>
+        <p class="text-gray-300 mb-4">
+          I know this isn't the way most apps work today. Usually someone has an idea for an app like this and they want to set up a subscription around it, charge you, etc. Monthly Recurring Revenue! Tech millionaire! (Which is funny, because tech founders generally want to be billionaires, not millionaires, but I digress.)
+        </p>
+        <p class="text-gray-300">
+          It's not that I don't want to make a living. I started this after some close friends were laid off and I wanted to do something to help them. I hope it helps them, and that maybe it can help you (or someone you know who is looking for a job) too.
+        </p>
+      </section>
+
+      <hr class="border-dark-border">
+
+      <!-- Why not phone? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">Why doesn't this work on my phone?</h2>
+        <p class="text-gray-300 mb-4">
+          The security model I chose is to keep all of your data on your computer's filesystem. I don't want to have it on a server somewhere that I have control of (and frankly I don't want to pay for that server!) An application like this could absolutely run on a phone if it is cloud hosted, but TLDR;esume is not.
+        </p>
+        <p class="text-gray-300">
+          Sorry. You get what you pay for, bwahaha! 😈
+        </p>
+      </section>
+
+      <hr class="border-dark-border">
+
+      <!-- Trust AI? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">Trust AI? Surely you're crazy!</h2>
+        <p class="text-gray-300 mb-4">
+          I probably am, and don't call me Shirley! 🥁
+        </p>
+        <p class="text-gray-300 mb-4">
+          My personal experience with AI is that it's a great tool when you're using it the right way. One of the keys to having good outcomes with AI tools is having excellent context.
+        </p>
+        <p class="text-gray-300 mb-4">
+          What we're trying to do here is provide good context on several levels by having an optimized base resume, a very clear job description that you're applying for, and a chance for you to fill in gaps through the Q and A section. It allows the AI to have lots of good context that it can use to generate the content for you.
+        </p>
+        <p class="text-gray-300">
+          But the best context comes from you. Make sure you always review everything, and at every step, there's always a way for you to edit what's been output so that you can put your own spin on things, correct errors, and make this your own. This is a tool to get you from zero to one and help you overcome the hard initial work of starting. It's not supposed to carry you all the way to the finish line on its own. You're going to need to do the work for that part!
+        </p>
+      </section>
+
+      <hr class="border-dark-border">
+
+      <!-- Who are you? -->
+      <section>
+        <h2 class="text-xl font-bold mb-4 text-blue-400">Who are you? Why did you make this?</h2>
+        <p class="text-gray-300 mb-4">
+          I'm just a guy who loves making stuff. The highlight of my day is when I can find a problem that I'm able to chew on for a bit and then find a way to write code that solves that problem. Really, a zero-to-one kind of guy. You'll see that term several times here, and part of that is probably because I'm neurospicy. (If you're neurospicy too, you probably know exactly what I mean.)
+        </p>
+        <p class="text-gray-300 mb-4">
+          Sometimes, zero to one is the hard part. I like using technology to help me get over that hump from zero to one, to go from just having a problem to having a tool that helps solve it.
+        </p>
+        <p class="text-gray-300 mb-4">
+          The other part of this particular story is that I'm a people wrangler at a tech company. Recently, like many companies, we've had to make some hard staffing decisions. A couple of close friends that I dearly love were let go. I wanted to do something to help. I know this isn't the same as having a job for them, but I wanted to make something that would hopefully make their lives a little easier. And I figured other people might be able to use it too.
+        </p>
+        <p class="text-gray-300">
+          My name is Adam Tervort. I'm always on the lookout for more chances to make cool things, especially zero to one projects. If you think there's a chance for us to work together, you can find my contact details on the <a href="/about.html" class="text-blue-400 hover:text-blue-300">About page</a>.
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-dark-border py-8 mt-16">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-sm">
+        Built by <a href="https://github.com/adamprime" class="text-gray-400 hover:text-gray-300">Adam Tervort</a>
+      </p>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/adamprime/TLDR-esume" target="_blank" rel="noopener"
+           class="text-gray-500 hover:text-gray-300 text-sm">
+          GitHub
+        </a>
+        <span class="text-gray-600">|</span>
+        <span class="text-gray-500 text-sm">
+          <a href="https://github.com/adamprime/TLDR-esume/blob/main/LICENSE" class="hover:text-gray-300">Elastic License 2.0</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
