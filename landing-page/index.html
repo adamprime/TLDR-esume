@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLDR;esume - AI-Powered Resume Tailoring</title>
+  <meta name="description" content="Free, local-first resume customization. AI that tailors your resume without making things up.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              bg: '#0f0f0f',
+              card: '#1a1a1a',
+              border: '#2a2a2a',
+              hover: '#3a3a3a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <!-- Cloudflare Web Analytics -->
+  <!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "YOUR_TOKEN"}'></script> -->
+</head>
+<body class="bg-dark-bg text-gray-100 min-h-screen">
+  
+  <!-- Hero Section -->
+  <header class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+      Job hunting is hard.<br>
+      <span class="text-blue-400">Your resume shouldn't make it harder.</span>
+    </h1>
+    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+      AI-powered resume tailoring that keeps your data local and won't make up fake accomplishments about your career.
+    </p>
+    <a href="https://app.tldresume.com" 
+       class="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors">
+      Get Started — Free
+    </a>
+    <p class="mt-4 text-sm text-gray-500">No account required. No credit card. Your data stays on your computer.</p>
+  </header>
+
+  <!-- Problem Section -->
+  <section class="bg-dark-card border-y border-dark-border py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-8 text-center">The Problem</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
+          <div class="text-3xl mb-3">📊</div>
+          <h3 class="font-semibold mb-2">Hundreds of applicants per role</h3>
+          <p class="text-gray-400 text-sm">Every job posting is flooded. Standing out matters more than ever.</p>
+        </div>
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
+          <div class="text-3xl mb-3">🤖</div>
+          <h3 class="font-semibold mb-2">ATS systems filter with AI</h3>
+          <p class="text-gray-400 text-sm">Your resume gets scanned by algorithms before human eyes ever see it.</p>
+        </div>
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
+          <div class="text-3xl mb-3">📝</div>
+          <h3 class="font-semibold mb-2">Generic resumes don't cut it</h3>
+          <p class="text-gray-400 text-sm">One-size-fits-all resumes get filtered out. Customization is essential.</p>
+        </div>
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6">
+          <div class="text-3xl mb-3">😫</div>
+          <h3 class="font-semibold mb-2">Customizing each one is exhausting</h3>
+          <p class="text-gray-400 text-sm">Copy-pasting into ChatGPT for every application gets old fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-8 text-center">The Solution</h2>
+      <div class="space-y-6">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+          <div>
+            <h3 class="font-semibold mb-1">Fit Assessment Before You Apply</h3>
+            <p class="text-gray-400">Get honest feedback on how well you match a role before investing time. No more applying to jobs you won't get.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+          <div>
+            <h3 class="font-semibold mb-1">AI-Tailored Resumes (Without the BS)</h3>
+            <p class="text-gray-400">Your resume, customized for each job. But unlike ChatGPT, it won't invent fake metrics or accomplishments you never had.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+          <div>
+            <h3 class="font-semibold mb-1">Cover Letters With Personality</h3>
+            <p class="text-gray-400">Not corporate drone speak. Actual human-sounding letters that make recruiters want to keep reading.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+          <div>
+            <h3 class="font-semibold mb-1">Export Polished PDFs</h3>
+            <p class="text-gray-400">Professional formatting, multiple styles. Ready to submit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="bg-dark-card border-y border-dark-border py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-10 text-center">How It Works</h2>
+      <div class="grid md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+          <h3 class="font-semibold mb-2">Select a Folder</h3>
+          <p class="text-gray-400 text-sm">Choose where to store your data on your computer.</p>
+        </div>
+        <div>
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+          <h3 class="font-semibold mb-2">Import Your Resume</h3>
+          <p class="text-gray-400 text-sm">Paste your existing resume. AI formats it automatically.</p>
+        </div>
+        <div>
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+          <h3 class="font-semibold mb-2">Add a Job</h3>
+          <p class="text-gray-400 text-sm">Paste the job description. Get a fit assessment and generate tailored materials.</p>
+        </div>
+        <div>
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+          <h3 class="font-semibold mb-2">Export & Apply</h3>
+          <p class="text-gray-400 text-sm">Download polished PDFs. Go land that interview.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Section -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-8 text-center">Your Data Stays Yours</h2>
+      <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-semibold text-green-400 mb-4">What we DO:</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Store everything locally on your computer</li>
+              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Let you use your own AI API key</li>
+              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Work entirely in your browser</li>
+              <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Give you full control over your data</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-red-400 mb-4">What we DON'T:</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> See your resume</li>
+              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Store your API keys</li>
+              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Require an account</li>
+              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Have a mailing list</li>
+              <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Track you (beyond basic page views)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requirements -->
+  <section class="bg-dark-card border-y border-dark-border py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-8 text-center">What You'll Need</h2>
+      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6 text-center">
+          <div class="text-3xl mb-3">🌐</div>
+          <h3 class="font-semibold mb-2">A Chromium-Based Browser</h3>
+          <p class="text-gray-400 text-sm mb-3">Required for local file access.</p>
+          <a href="https://brave.com/download" target="_blank" rel="noopener" 
+             class="text-blue-400 hover:text-blue-300 text-sm">
+            Download Brave (recommended) →
+          </a>
+        </div>
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-6 text-center">
+          <div class="text-3xl mb-3">🔑</div>
+          <h3 class="font-semibold mb-2">An AI API Key</h3>
+          <p class="text-gray-400 text-sm mb-3">From Anthropic (Claude) or OpenAI (GPT).</p>
+          <p class="text-gray-500 text-xs">We'll help you set this up. Cost: ~$0.05-0.20 per application.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to stop dreading job applications?</h2>
+      <p class="text-xl text-gray-400 mb-10">It's free. No account needed. Takes about 5 minutes to set up.</p>
+      <a href="https://app.tldresume.com" 
+         class="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors">
+        Get Started — Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-dark-border py-8">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-sm">
+        Built by <a href="https://github.com/adamprime" class="text-gray-400 hover:text-gray-300">Adam Tervort</a>
+      </p>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/adamprime/TLDR-esume" target="_blank" rel="noopener"
+           class="text-gray-500 hover:text-gray-300 text-sm">
+          GitHub
+        </a>
+        <span class="text-gray-600">|</span>
+        <span class="text-gray-500 text-sm">
+          <a href="https://github.com/adamprime/TLDR-esume/blob/main/LICENSE" class="hover:text-gray-300">Elastic License 2.0</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
