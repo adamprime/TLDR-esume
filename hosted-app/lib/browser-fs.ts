@@ -9,7 +9,7 @@ export interface DirectoryEntry {
 }
 
 /**
- * Prompt user to select a folder for TLDR;esume data
+ * Prompt user to select a folder for TL;DResume data
  */
 export async function selectFolder(): Promise<FileSystemDirectoryHandle> {
   const handle = await (window as any).showDirectoryPicker({

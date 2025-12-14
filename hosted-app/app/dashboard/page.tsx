@@ -136,7 +136,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-12 border-b-4 border-ink pb-4 bg-paper px-6 shadow-hard-sm">
           <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-serif font-black italic tracking-tighter">TLDR;esume</h1>
+            <h1 className="text-3xl font-serif font-black italic tracking-tighter">TL;DResume</h1>
             <span className="text-xs border border-ink px-1 transform -rotate-2">DASHBOARD</span>
           </div>
           <div className="flex items-center gap-6">

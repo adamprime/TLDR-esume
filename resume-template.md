@@ -56,7 +56,7 @@ Year of Graduation
 
 1. **Keep it to 1-2 pages** - Recruiters spend 6 seconds on initial scan
 2. **Quantify everything you can** - Numbers make impact tangible
-3. **Tailor for each application** - That's what TLDR;esume is for!
+3. **Tailor for each application** - That's what TL;DResume is for!
 4. **Use consistent formatting** - Same fonts, spacing, bullet styles
 5. **Lead with your strongest stuff** - Most recent/relevant experience first
 6. **Remove this tips section** - It's just here to help you get started!

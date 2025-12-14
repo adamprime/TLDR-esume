@@ -1,4 +1,4 @@
-# TLDR;esume - Next.js Application
+# TL;DResume - Next.js Application
 
 ## Project Overview
 

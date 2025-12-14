@@ -1,4 +1,4 @@
-# TLDR;esume Hosted Version - Technical Specification
+# TL;DResume Hosted Version - Technical Specification
 
 ## Overview
 

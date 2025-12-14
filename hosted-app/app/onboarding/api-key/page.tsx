@@ -89,7 +89,7 @@ export default function ApiKeyPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-serif font-black mb-6">Connect Your AI Provider</h1>
           <p className="text-gray-400 font-mono text-sm leading-relaxed">
-            TLDR;esume uses your own AI API key. Your key stays on your computer
+            TL;DResume uses your own AI API key. Your key stays on your computer
             and goes directly to the AI provider.
           </p>
         </div>

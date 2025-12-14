@@ -1,10 +1,10 @@
-# TLDR;esume
+# TL;DResume
 
 **AI-powered resume and cover letter customization for job applications.**
 
-Stop copying your resume into ChatGPT for every application. TLDR;esume gives you a system to manage job applications, generate tailored resumes and cover letters, and export polished PDFs — all powered by AI but grounded in *your* real experience.
+Stop copying your resume into ChatGPT for every application. TL;DResume gives you a system to manage job applications, generate tailored resumes and cover letters, and export polished PDFs — all powered by AI but grounded in *your* real experience.
 
-## Two Ways to Use TLDR;esume
+## Two Ways to Use TL;DResume
 
 ### 🌐 Hosted Version (Recommended for most users)
 

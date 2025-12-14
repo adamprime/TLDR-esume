@@ -105,7 +105,7 @@ export default function SettingsPage() {
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-100">
-              {isFirstRun ? 'Welcome to TLDR;esume' : 'Settings'}
+              {isFirstRun ? 'Welcome to TL;DResume' : 'Settings'}
             </h1>
             {!isFirstRun && (
               <Link
@@ -124,7 +124,7 @@ export default function SettingsPage() {
           <div className="mb-8 p-4 bg-blue-900/30 border border-blue-700 rounded-lg">
             <h2 className="text-lg font-semibold text-blue-300 mb-2">Let&apos;s get you set up!</h2>
             <p className="text-gray-300">
-              Fill in your details below to personalize TLDR;esume. You&apos;ll need an API key from 
+              Fill in your details below to personalize TL;DResume. You&apos;ll need an API key from 
               Anthropic or OpenAI to use the AI features. Set that in your <code className="bg-[#2a2a2a] px-1 rounded">.env.local</code> file.
             </p>
           </div>

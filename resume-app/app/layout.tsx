@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TLDR;esume",
+  title: "TL;DResume",
   description: "AI-powered resume and cover letter customization for job applications",
 };
 

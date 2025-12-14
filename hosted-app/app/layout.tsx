@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TLDR;esume",
+  title: "TL;DResume",
   description: "AI-powered resume tailoring that keeps your data local",
 };
 

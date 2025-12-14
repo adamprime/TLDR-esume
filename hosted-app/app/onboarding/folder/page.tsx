@@ -61,7 +61,7 @@ export default function FolderSelectionPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-serif font-black mb-6">Choose Your Data Folder</h1>
           <p className="text-gray-400 font-mono text-sm leading-relaxed">
-            Select a folder on your computer where TLDR;esume will store your resumes,
+            Select a folder on your computer where TL;DResume will store your resumes,
             applications, and settings. All your data stays here - we never see it.
           </p>
         </div>
