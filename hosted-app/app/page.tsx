@@ -43,10 +43,10 @@ export default function Home() {
 
   if (state === 'loading' || state === 'reconnecting') {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-paper">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">TLDR;esume</h1>
-          <p className="text-gray-400">
+          <h1 className="text-3xl font-serif font-black mb-4">TLDR;esume</h1>
+          <p className="text-gray-400 font-mono animate-pulse">
             {state === 'loading' ? 'Loading...' : 'Reconnecting to your folder...'}
           </p>
         </div>
@@ -56,10 +56,10 @@ export default function Home() {
 
   if (state === 'unsupported') {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-md text-center">
-          <h1 className="text-2xl font-bold mb-4 text-red-400">Browser Not Supported</h1>
-          <p className="text-gray-400 mb-6">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-paper">
+        <div className="max-w-md text-center border-2 border-ink p-8 shadow-hard bg-paper">
+          <h1 className="text-2xl font-serif font-bold mb-4 text-red-500 uppercase tracking-widest border-b-2 border-red-500 inline-block pb-1">Browser Not Supported</h1>
+          <p className="text-gray-400 mb-6 font-mono text-sm leading-relaxed">
             TLDR;esume requires a Chromium-based browser to access local files.
             Please use Brave, Chrome, or Edge.
           </p>
@@ -67,7 +67,7 @@ export default function Home() {
             href="https://brave.com/download"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+            className="inline-block px-6 py-3 bg-accent text-black font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-0.5 transition-all"
           >
             Download Brave (Recommended)
           </a>
@@ -79,20 +79,20 @@ export default function Home() {
   // Onboarding state - redirect to onboarding flow
   if (state === 'onboarding') {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-md text-center">
-          <h1 className="text-3xl font-bold mb-4">Welcome to TLDR;esume</h1>
-          <p className="text-gray-400 mb-8">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-paper">
+        <div className="max-w-md text-center border-2 border-ink p-8 shadow-hard bg-paper">
+          <h1 className="text-4xl font-serif font-black mb-6">Welcome to TLDR;esume</h1>
+          <p className="text-gray-400 mb-8 font-mono text-sm leading-relaxed">
             AI-powered resume tailoring that keeps your data on your computer.
             Let&apos;s get you set up in a few quick steps.
           </p>
           <button
             onClick={() => router.push('/onboarding/folder')}
-            className="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors"
+            className="px-8 py-4 bg-accent text-black text-xl font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-1 transition-all w-full mb-4"
           >
             Get Started
           </button>
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="text-xs text-gray-500 font-mono uppercase tracking-widest">
             Takes about 5 minutes
           </p>
         </div>

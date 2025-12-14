@@ -75,85 +75,85 @@ export default function ApiKeyPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-paper">
       <div className="max-w-lg w-full">
         {/* Progress indicator */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-sm">✓</div>
-          <div className="w-12 h-0.5 bg-blue-600" />
-          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold">2</div>
-          <div className="w-12 h-0.5 bg-gray-700" />
-          <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-sm">3</div>
+        <div className="flex items-center justify-center gap-4 mb-12">
+          <div className="w-10 h-10 rounded-full bg-green-500 text-black border-2 border-green-500 flex items-center justify-center text-sm font-bold shadow-hard-sm">✓</div>
+          <div className="w-16 h-0.5 bg-green-500" />
+          <div className="w-10 h-10 rounded-full bg-accent text-black border-2 border-ink flex items-center justify-center text-sm font-bold shadow-hard-sm">2</div>
+          <div className="w-16 h-0.5 bg-ink" />
+          <div className="w-10 h-10 rounded-full bg-paper border-2 border-ink text-gray-500 flex items-center justify-center text-sm font-bold">3</div>
         </div>
 
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold mb-4">Connect Your AI Provider</h1>
-          <p className="text-gray-400">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-serif font-black mb-6">Connect Your AI Provider</h1>
+          <p className="text-gray-400 font-mono text-sm leading-relaxed">
             TLDR;esume uses your own AI API key. Your key stays on your computer
             and goes directly to the AI provider.
           </p>
         </div>
 
         {/* Provider selection */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 mb-8">
           <button
             onClick={() => setProvider('anthropic')}
-            className={`flex-1 p-4 rounded-lg border transition-colors ${
+            className={`flex-1 p-4 border-2 transition-all shadow-sm group ${
               provider === 'anthropic'
-                ? 'border-blue-600 bg-blue-600/10'
-                : 'border-[#2a2a2a] bg-[#1a1a1a] hover:border-gray-600'
+                ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1'
+                : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'
             }`}
           >
-            <div className="font-semibold">Anthropic</div>
-            <div className="text-sm text-gray-400">Claude (Recommended)</div>
+            <div className="font-serif font-bold text-lg">Anthropic</div>
+            <div className={`text-xs font-mono mt-1 ${provider === 'anthropic' ? 'text-black' : 'text-gray-400'}`}>Claude (Recommended)</div>
           </button>
           <button
             onClick={() => setProvider('openai')}
-            className={`flex-1 p-4 rounded-lg border transition-colors ${
+            className={`flex-1 p-4 border-2 transition-all shadow-sm group ${
               provider === 'openai'
-                ? 'border-blue-600 bg-blue-600/10'
-                : 'border-[#2a2a2a] bg-[#1a1a1a] hover:border-gray-600'
+                ? 'border-accent bg-accent text-black shadow-hard-sm transform -translate-y-1'
+                : 'border-ink bg-paper text-ink hover:border-accent hover:text-accent'
             }`}
           >
-            <div className="font-semibold">OpenAI</div>
-            <div className="text-sm text-gray-400">GPT</div>
+            <div className="font-serif font-bold text-lg">OpenAI</div>
+            <div className={`text-xs font-mono mt-1 ${provider === 'openai' ? 'text-black' : 'text-gray-400'}`}>GPT</div>
           </button>
         </div>
 
         {/* Instructions */}
-        <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-300 mb-3">
+        <div className="bg-paper border-2 border-ink shadow-inner p-6 mb-8">
+          <p className="text-sm font-bold font-serif mb-4 text-ink uppercase tracking-wider">
             {provider === 'anthropic' 
               ? "To use Claude, you'll need an Anthropic API key:"
               : "To use GPT, you'll need an OpenAI API key:"}
           </p>
-          <ol className="text-sm text-gray-400 space-y-2 list-decimal list-inside">
+          <ol className="text-sm text-gray-400 space-y-3 list-decimal list-inside font-mono text-xs">
             {provider === 'anthropic' ? (
               <>
-                <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">console.anthropic.com/settings/keys</a></li>
+                <li>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" className="text-accent hover:underline">console.anthropic.com/settings/keys</a></li>
                 <li>Create an account or sign in</li>
                 <li>Click "Create Key" and give it a name</li>
-                <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-ant-</code>)</li>
+                <li>Copy the key (starts with <code className="text-accent bg-black px-1 border border-gray-700">sk-ant-</code>)</li>
                 <li>Paste it below</li>
               </>
             ) : (
               <>
-                <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-blue-400 hover:text-blue-300">platform.openai.com/api-keys</a></li>
+                <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" className="text-accent hover:underline">platform.openai.com/api-keys</a></li>
                 <li>Create an account or sign in</li>
                 <li>Click "Create new secret key"</li>
-                <li>Copy the key (starts with <code className="text-gray-300 bg-[#2a2a2a] px-1 rounded">sk-</code>)</li>
+                <li>Copy the key (starts with <code className="text-accent bg-black px-1 border border-gray-700">sk-</code>)</li>
                 <li>Paste it below</li>
               </>
             )}
           </ol>
-          <p className="text-xs text-gray-500 mt-3">
-            💡 Typical cost: $0.05–$0.20 per application (resume + cover letter)
+          <p className="text-[10px] text-gray-500 mt-4 font-mono border-t border-gray-700 pt-3 uppercase tracking-wider">
+            💡 Typical cost: $0.05–$0.20 per application
           </p>
         </div>
 
         {/* API key input */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2">
+        <div className="mb-8">
+          <label className="block text-xs font-bold mb-2 uppercase tracking-wider font-serif">
             {provider === 'anthropic' ? 'Anthropic' : 'OpenAI'} API Key
           </label>
           <input
@@ -161,23 +161,23 @@ export default function ApiKeyPage() {
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
             placeholder={provider === 'anthropic' ? 'sk-ant-...' : 'sk-...'}
-            className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg focus:outline-none focus:border-blue-600"
+            className="w-full px-4 py-3 bg-paper border-2 border-ink focus:outline-none focus:border-accent focus:shadow-hard-sm transition-all font-mono text-sm"
           />
         </div>
 
         <button
           onClick={handleContinue}
           disabled={isValidating || !apiKey.trim()}
-          className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 bg-accent text-black text-xl font-bold border-2 border-ink shadow-hard-sm hover:shadow-hard hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
         >
           {isValidating ? 'Validating...' : 'Continue'}
         </button>
 
         {error && (
-          <p className="mt-4 text-red-400 text-center">{error}</p>
+          <p className="mt-6 text-red-500 font-bold font-mono text-center bg-red-100/10 p-2 border-2 border-red-500">{error}</p>
         )}
 
-        <p className="mt-6 text-sm text-gray-500 text-center">
+        <p className="mt-8 text-xs text-gray-500 text-center font-mono uppercase tracking-widest">
           Your API key is stored locally in your data folder, never on our servers.
         </p>
       </div>
