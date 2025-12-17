@@ -4,12 +4,38 @@
 
 A local-first job application management system with AI-powered resume customization, cover letter generation, fit assessment, and PDF export. Supports both Anthropic (Claude) and OpenAI (GPT) models.
 
-## Repository Structure
+## Repository & Upstream Structure
+
+This project uses a **two-repo model**:
+
+| Remote | Repo | Purpose |
+|--------|------|---------|
+| `origin` | `2025-resume-project` (private) | Personal development repo with private data |
+| `upstream` | `TLDR-esume` (public) | Public release repo, deploys to Netlify |
+
+**Workflow:**
+- Develop and test locally in `origin`
+- Push to both `origin` (private) and `upstream` (public) when releasing
+- Never commit personal data (resumes, API keys, drafts) - these are gitignored
+
+**What deploys to production:**
+- `hosted-app/` → app.tldrresume.com (Netlify)
+- `landing-page/` → tldrresume.com (Netlify)
+
+## Directory Structure
 
 ```
-TLDR-esume/
-├── resume-app/           # Next.js application (see resume-app/AGENTS.md for details)
-├── style/                # PDF export CSS templates
+2025-resume-project/
+├── hosted-app/           # PUBLIC: Browser-based app (deploys to Netlify)
+│   ├── app/              # Next.js App Router pages
+│   ├── lib/              # Browser-compatible utilities (no Node.js)
+│   └── components/       # React components
+├── resume-app/           # LOCAL: Original Node.js app (uses Puppeteer, file system)
+│   ├── app/              # Next.js App Router pages  
+│   ├── lib/              # Node.js utilities (Puppeteer PDF, fs access)
+│   └── components/       # React components
+├── landing-page/         # PUBLIC: Marketing site (deploys to Netlify)
+├── style/                # PDF export CSS templates (shared)
 │   ├── marked-resume-modern.css   # Sans-serif (Inter)
 │   └── marked-resume-serif.css    # Serif (Crimson Pro)
 ├── resume-template.md    # Template for new users
@@ -17,6 +43,18 @@ TLDR-esume/
 ├── LICENSE               # Elastic License 2.0
 └── AGENTS.md             # This file
 ```
+
+## hosted-app vs resume-app
+
+| Feature | `hosted-app` (Public) | `resume-app` (Local) |
+|---------|----------------------|---------------------|
+| **Deployment** | Netlify (app.tldrresume.com) | Local only (`npm run dev`) |
+| **File Storage** | Browser File System Access API | Node.js `fs` module |
+| **PDF Export** | Browser print dialog | Puppeteer (headless Chrome) |
+| **AI Calls** | Client-side (user's API key) | Server-side API routes |
+| **Dependencies** | Browser-compatible only | Full Node.js ecosystem |
+
+**Important:** Changes to shared functionality should be made in `hosted-app/` first (the public app), then backported to `resume-app/` if needed.
 
 ## User Data (gitignored)
 
