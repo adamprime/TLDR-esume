@@ -12,6 +12,7 @@ const REVIEW_PROMPT = `You are a brutally honest resume reviewer. Review this re
 2. A brief summary of your assessment
 3. Specific strengths (2-3)
 4. Specific weaknesses that should be fixed (3-5), each with a unique ID
+5. If LinkedIn content is provided, identify experience or skills mentioned on LinkedIn that are MISSING from the resume (these are opportunities to strengthen the resume)
 
 For weaknesses, be SPECIFIC and provide actionable suggestions.
 
@@ -20,23 +21,27 @@ Output as JSON:
   "grade": "B+",
   "summary": "2-3 sentence honest assessment",
   "strengths": [{ "area": "string", "detail": "string" }],
-  "weaknesses": [{ "id": "w1", "area": "string", "detail": "string", "suggestion": "string" }]
+  "weaknesses": [{ "id": "w1", "area": "string", "detail": "string", "suggestion": "string" }],
+  "linkedinGaps": [{ "id": "lg1", "area": "string", "detail": "string", "suggestion": "string" }]
 }
 
---- Resume to Review ---
+Note: "linkedinGaps" should only be populated if LinkedIn content was provided. These are things on LinkedIn that should be added to the resume.
 `;
 
-const IMPROVE_PROMPT = `You are an expert resume writer. Improve this resume by addressing the selected weaknesses.
+const IMPROVE_PROMPT = `You are an expert resume writer. Improve this resume by addressing the selected weaknesses and incorporating relevant LinkedIn content.
 
 CRITICAL RULES:
-1. NEVER invent statistics, numbers, or metrics not in the original
+1. NEVER invent statistics, numbers, or metrics not in the original resume or LinkedIn content
 2. NEVER fabricate accomplishments or experiences
-3. Only use information from the original resume
+3. You MAY use information from either the original resume OR the LinkedIn content (both are real, verified information from the candidate)
 4. Maintain the same markdown format including YAML frontmatter
 5. Keep the authentic voice - don't make it generic
 
 --- Original Resume ---
 {resume}
+
+--- LinkedIn Profile Content (if provided) ---
+{linkedinContent}
 
 --- Weaknesses to Address ---
 {weaknesses}
@@ -48,6 +53,7 @@ interface ReviewResult {
   summary: string;
   strengths: { area: string; detail: string }[];
   weaknesses: { id: string; area: string; detail: string; suggestion: string }[];
+  linkedinGaps?: { id: string; area: string; detail: string; suggestion: string }[];
 }
 
 export default function ReviewPage() {
@@ -62,6 +68,8 @@ export default function ReviewPage() {
   const [viewMode, setViewMode] = useState<'edit' | 'diff' | 'both'>('both');
   const [error, setError] = useState<string | null>(null);
   const [handle, setHandle] = useState<FileSystemDirectoryHandle | null>(null);
+  const [linkedinContext, setLinkedinContext] = useState('');
+  const [showLinkedinInput, setShowLinkedinInput] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -90,15 +98,24 @@ export default function ReviewPage() {
       const configJson = await readFile(handle, 'config.json');
       const config = JSON.parse(configJson);
 
-      const response = await callAI(config, REVIEW_PROMPT + resume);
+      let prompt = REVIEW_PROMPT + '\n--- Resume to Review ---\n' + resume;
+      if (linkedinContext.trim()) {
+        prompt += '\n\n--- LinkedIn Profile Content ---\n' + linkedinContext;
+      }
+
+      const response = await callAI(config, prompt);
       
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       if (!jsonMatch) throw new Error('Invalid response format');
       
       const reviewData = JSON.parse(jsonMatch[0]) as ReviewResult;
       setReview(reviewData);
-      // Select all weaknesses by default
-      setSelectedWeaknesses(new Set(reviewData.weaknesses.map(w => w.id)));
+      // Select all weaknesses and linkedin gaps by default
+      const allIds = [
+        ...reviewData.weaknesses.map(w => w.id),
+        ...(reviewData.linkedinGaps || []).map(g => g.id)
+      ];
+      setSelectedWeaknesses(new Set(allIds));
     } catch (err) {
       setError('Failed to review resume. Please try again.');
       console.error(err);
@@ -121,9 +138,19 @@ export default function ReviewPage() {
         .map(w => `- ${w.area}: ${w.detail}\n  Suggestion: ${w.suggestion}`)
         .join('\n\n');
 
+      const selectedLinkedinGaps = (review.linkedinGaps || [])
+        .filter(g => selectedWeaknesses.has(g.id))
+        .map(g => `- ${g.area}: ${g.detail}\n  Suggestion: ${g.suggestion}`)
+        .join('\n\n');
+
+      const allImprovements = [selectedWeaknessDetails, selectedLinkedinGaps]
+        .filter(Boolean)
+        .join('\n\n--- LinkedIn Gaps to Address ---\n');
+
       const prompt = IMPROVE_PROMPT
         .replace('{resume}', resume)
-        .replace('{weaknesses}', selectedWeaknessDetails);
+        .replace('{linkedinContent}', linkedinContext || '(none provided)')
+        .replace('{weaknesses}', allImprovements);
 
       const improved = await callAI(config, prompt);
       setImprovedResume(improved);
@@ -243,6 +270,42 @@ export default function ReviewPage() {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Panel - Review Results */}
         <div className="w-80 border-r-2 border-ink overflow-y-auto p-6 bg-paper shadow-hard-sm z-0">
+          {/* LinkedIn Context Section */}
+          <div className="mb-6">
+            <button
+              onClick={() => setShowLinkedinInput(!showLinkedinInput)}
+              className="w-full flex items-center justify-between px-3 py-2 bg-blue-900/20 border-2 border-blue-500 text-blue-400 font-bold text-sm hover:bg-blue-900/40 transition-colors"
+            >
+              <span>+ LinkedIn Profile</span>
+              <span className={`transform transition-transform ${showLinkedinInput ? 'rotate-180' : ''}`}>▼</span>
+            </button>
+            {showLinkedinInput && (
+              <div className="mt-2 p-3 border-2 border-gray-700 bg-[#0f0f0f]">
+                <p className="text-xs text-gray-400 mb-2 font-mono leading-relaxed">
+                  Paste your LinkedIn profile content to help identify experience missing from your resume.
+                </p>
+                <details className="mb-2">
+                  <summary className="text-xs text-blue-400 cursor-pointer hover:text-blue-300 font-bold">How to copy from LinkedIn</summary>
+                  <ol className="text-xs text-gray-500 mt-2 space-y-1 font-mono pl-4 list-decimal">
+                    <li>Go to your LinkedIn profile</li>
+                    <li>Scroll through your About, Experience, and Skills sections</li>
+                    <li>Select and copy the text (Cmd+A in each section, then Cmd+C)</li>
+                    <li>Paste it all below</li>
+                  </ol>
+                </details>
+                <textarea
+                  value={linkedinContext}
+                  onChange={(e) => setLinkedinContext(e.target.value)}
+                  placeholder="Paste your LinkedIn About section, Experience, Skills, etc..."
+                  className="w-full h-32 px-3 py-2 bg-paper border-2 border-gray-600 focus:border-blue-500 focus:outline-none text-xs font-mono resize-none"
+                />
+                {linkedinContext && (
+                  <p className="text-xs text-green-500 mt-1 font-mono">✓ LinkedIn content added ({linkedinContext.length} chars)</p>
+                )}
+              </div>
+            )}
+          </div>
+
           {!review && !isReviewing && (
             <div className="text-center py-8 border-2 border-dashed border-gray-700 rounded-lg">
               <p className="text-gray-500 mb-4 font-mono text-sm">Click &quot;Get AI Review&quot; to analyze your resume</p>
@@ -282,8 +345,10 @@ export default function ReviewPage() {
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="font-bold font-serif text-red-500 text-sm border-b-2 border-red-500 inline-block">WEAKNESSES</h3>
                   <div className="flex gap-2">
-                    <button onClick={() => setSelectedWeaknesses(new Set(review.weaknesses.map(w => w.id)))}
-                      className="text-[10px] uppercase font-bold text-accent hover:underline">All</button>
+                    <button onClick={() => {
+                      const allIds = [...review.weaknesses.map(w => w.id), ...(review.linkedinGaps || []).map(g => g.id)];
+                      setSelectedWeaknesses(new Set(allIds));
+                    }} className="text-[10px] uppercase font-bold text-accent hover:underline">All</button>
                     <button onClick={() => setSelectedWeaknesses(new Set())}
                       className="text-[10px] uppercase font-bold text-gray-500 hover:underline">None</button>
                   </div>
@@ -307,8 +372,36 @@ export default function ReviewPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-xs text-gray-500 mt-2 font-mono text-right">{selectedWeaknesses.size} selected</p>
               </div>
+
+              {/* LinkedIn Gaps - only shown if LinkedIn content was provided */}
+              {review.linkedinGaps && review.linkedinGaps.length > 0 && (
+                <div>
+                  <h3 className="font-bold font-serif text-blue-500 mb-3 text-sm border-b-2 border-blue-500 inline-block">LINKEDIN GAPS</h3>
+                  <p className="text-xs text-gray-500 mb-3 font-mono">Experience on LinkedIn missing from your resume:</p>
+                  <ul className="space-y-4">
+                    {review.linkedinGaps.map((g) => (
+                      <li key={g.id} className="text-xs bg-paper border border-gray-700 p-3 hover:border-blue-500 transition-colors group">
+                        <label className="flex items-start gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={selectedWeaknesses.has(g.id)}
+                            onChange={() => toggleWeakness(g.id)}
+                            className="mt-1 rounded border-gray-500 text-blue-500 focus:ring-blue-500"
+                          />
+                          <div>
+                            <span className="font-bold text-ink block mb-1 group-hover:text-blue-400 transition-colors">{g.area}</span>
+                            <p className="text-gray-400 mb-2 font-mono leading-tight">{g.detail}</p>
+                            <p className="text-accent italic font-mono border-l-2 border-accent pl-2">💡 {g.suggestion}</p>
+                          </div>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <p className="text-xs text-gray-500 mt-2 font-mono text-right">{selectedWeaknesses.size} selected</p>
 
               {/* Generate button */}
               <button

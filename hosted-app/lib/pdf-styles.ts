@@ -393,20 +393,20 @@ export function markdownToHtml(markdown: string): string {
       continue;
     }
     
-    // Headers
+    // Headers - apply inline formatting for bold/italic
     if (trimmed.startsWith('### ')) {
       if (inList) { result.push('</ul>'); inList = false; }
-      result.push(`<h3>${trimmed.slice(4)}</h3>`);
+      result.push(`<h3>${applyInlineFormatting(trimmed.slice(4))}</h3>`);
       continue;
     }
     if (trimmed.startsWith('## ')) {
       if (inList) { result.push('</ul>'); inList = false; }
-      result.push(`<h2>${trimmed.slice(3)}</h2>`);
+      result.push(`<h2>${applyInlineFormatting(trimmed.slice(3))}</h2>`);
       continue;
     }
     if (trimmed.startsWith('# ')) {
       if (inList) { result.push('</ul>'); inList = false; }
-      result.push(`<h1>${trimmed.slice(2)}</h1>`);
+      result.push(`<h1>${applyInlineFormatting(trimmed.slice(2))}</h1>`);
       continue;
     }
     
