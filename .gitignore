@@ -21,6 +21,7 @@ preferences.json
 resume.md
 resume_*.md
 !resume-template.md
+linkedin-post-draft.md
 
 # Next.js
 .next/
