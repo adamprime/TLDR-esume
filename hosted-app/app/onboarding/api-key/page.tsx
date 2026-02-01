@@ -37,10 +37,10 @@ export default function ApiKeyPage() {
 
     try {
       // Validate the API key
-      const isValid = await validateApiKey(provider, apiKey);
+      const result = await validateApiKey(provider, apiKey);
       
-      if (!isValid) {
-        setError('Invalid API key. Please check and try again.');
+      if (!result.valid) {
+        setError(result.error || 'Invalid API key. Please check and try again.');
         setIsValidating(false);
         return;
       }

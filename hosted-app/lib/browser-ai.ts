@@ -107,21 +107,27 @@ export async function callAI(
   throw new Error(`Unknown AI provider: ${config.aiProvider}`);
 }
 
+export interface ValidationResult {
+  valid: boolean;
+  error?: string;
+}
+
 /**
  * Validate an API key by making a minimal test request
  */
 export async function validateApiKey(
   provider: 'anthropic' | 'openai',
   apiKey: string
-): Promise<boolean> {
+): Promise<ValidationResult> {
   try {
     if (provider === 'anthropic') {
       await callAnthropic(apiKey, 'claude-haiku-4-5-20251001', 'Say "ok"', 10);
     } else {
       await callOpenAI(apiKey, 'gpt-5-nano', 'Say "ok"', 10);
     }
-    return true;
-  } catch {
-    return false;
+    return { valid: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return { valid: false, error: message };
   }
 }

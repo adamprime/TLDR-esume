@@ -158,7 +158,7 @@ describe('browser-ai', () => {
   });
 
   describe('validateApiKey', () => {
-    it('should return true for valid Anthropic key', async () => {
+    it('should return valid: true for valid Anthropic key', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
@@ -167,21 +167,23 @@ describe('browser-ai', () => {
       });
 
       const result = await validateApiKey('anthropic', 'sk-ant-valid');
-      expect(result).toBe(true);
+      expect(result.valid).toBe(true);
+      expect(result.error).toBeUndefined();
     });
 
-    it('should return false for invalid Anthropic key', async () => {
+    it('should return valid: false with error message for invalid Anthropic key', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 401,
-        json: async () => ({ error: { message: 'Invalid' } }),
+        json: async () => ({ error: { message: 'Invalid API key' } }),
       });
 
       const result = await validateApiKey('anthropic', 'sk-ant-invalid');
-      expect(result).toBe(false);
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Invalid API key');
     });
 
-    it('should return true for valid OpenAI key', async () => {
+    it('should return valid: true for valid OpenAI key', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
@@ -190,18 +192,68 @@ describe('browser-ai', () => {
       });
 
       const result = await validateApiKey('openai', 'sk-openai-valid');
-      expect(result).toBe(true);
+      expect(result.valid).toBe(true);
+      expect(result.error).toBeUndefined();
     });
 
-    it('should return false for invalid OpenAI key', async () => {
+    it('should return valid: false with error message for invalid OpenAI key', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 401,
-        json: async () => ({ error: { message: 'Invalid' } }),
+        json: async () => ({ error: { message: 'Incorrect API key provided' } }),
       });
 
       const result = await validateApiKey('openai', 'sk-openai-invalid');
-      expect(result).toBe(false);
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Incorrect API key provided');
+    });
+
+    it('should return error message for rate limiting', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        json: async () => ({ error: { message: 'Rate limit exceeded' } }),
+      });
+
+      const result = await validateApiKey('anthropic', 'sk-ant-valid');
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Rate limit exceeded');
+    });
+
+    it('should return error message for insufficient credits (Anthropic)', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 402,
+        json: async () => ({ error: { message: 'Your credit balance is too low' } }),
+      });
+
+      const result = await validateApiKey('anthropic', 'sk-ant-valid');
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Your credit balance is too low');
+    });
+
+    it('should return error message for OpenAI rate limiting', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        json: async () => ({ error: { message: 'Rate limit reached for requests' } }),
+      });
+
+      const result = await validateApiKey('openai', 'sk-openai-valid');
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Rate limit reached for requests');
+    });
+
+    it('should return error message for OpenAI insufficient quota', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        json: async () => ({ error: { message: 'You exceeded your current quota' } }),
+      });
+
+      const result = await validateApiKey('openai', 'sk-openai-valid');
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('You exceeded your current quota');
     });
   });
 });
