@@ -183,7 +183,14 @@ function AssessmentView({ appId }: { appId: string }) {
     try {
       const [resume, appJson, configJson] = await Promise.all([readFile(handle, 'resume.md'), readFile(handle, `versions/${appId}/application.json`), readFile(handle, 'config.json')]);
       const app = JSON.parse(appJson), config = JSON.parse(configJson);
-      const prompt = FIT_ASSESSMENT_PROMPT.replace('{resume}', resume).replace('{jobDescription}', app.jobDescription).replace('{company}', app.company).replace('{role}', app.role);
+      let professionalContext = '';
+      try {
+        if (await fileExists(handle, 'professional-context.md')) {
+          const ctx = await readFile(handle, 'professional-context.md');
+          professionalContext = '\n--- Professional Context (verified facts about the candidate beyond the resume) ---\n' + ctx;
+        }
+      } catch {}
+      const prompt = FIT_ASSESSMENT_PROMPT.replace('{resume}', resume).replace('{jobDescription}', app.jobDescription).replace('{company}', app.company).replace('{role}', app.role).replace('{professionalContext}', professionalContext);
       const response = await callAI(config, prompt);
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       if (!jsonMatch) throw new Error('Invalid response');
@@ -302,12 +309,21 @@ function ResumeView({ appId }: { appId: string }) {
           });
         }
       } catch {}
+
+      let professionalContext = '';
+      try {
+        if (await fileExists(handle, 'professional-context.md')) {
+          const ctx = await readFile(handle, 'professional-context.md');
+          professionalContext = '\n--- Professional Context (verified facts about the candidate beyond the resume) ---\n' + ctx;
+        }
+      } catch {}
       
       const prompt = RESUME_PROMPT
         .replace('{baseResume}', baseResume)
         .replace('{jobDescription}', app.jobDescription)
         .replace('{company}', app.company)
         .replace('{role}', app.role)
+        .replace('{professionalContext}', professionalContext)
         .replace('{gapContext}', gapContext);
 
       const generated = await callAI(config, prompt);
@@ -496,6 +512,14 @@ function CoverLetterView({ appId }: { appId: string }) {
         }
       } catch {}
 
+      let professionalContext = '';
+      try {
+        if (await fileExists(handle, 'professional-context.md')) {
+          const ctx = await readFile(handle, 'professional-context.md');
+          professionalContext = '\n--- Professional Context (verified facts about the candidate beyond the resume) ---\n' + ctx;
+        }
+      } catch {}
+
       const tone: TonePreference = config.tonePreference || 'balanced';
       const prompt = getCoverLetterPrompt(tone)
         .replace('{resume}', resume)
@@ -503,6 +527,7 @@ function CoverLetterView({ appId }: { appId: string }) {
         .replace('{company}', app.company)
         .replace('{role}', app.role)
         .replace('{jobUrl}', app.url || 'Not provided')
+        .replace('{professionalContext}', professionalContext)
         .replace('{gapContext}', gapContext)
         .replace('{hookContext}', hookContext);
 

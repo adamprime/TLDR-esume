@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateCoverLetter } from '@/lib/ai';
-import { getResume, saveCoverLetter, getApplication, getAssessment, getCoverLetterHooks } from '@/lib/files';
+import { getResume, saveCoverLetter, getApplication, getAssessment, getCoverLetterHooks, readProfessionalContext } from '@/lib/files';
+import { getPreferences } from '@/lib/preferences';
 
 export async function POST(request: NextRequest) {
   try {
@@ -64,14 +65,19 @@ export async function POST(request: NextRequest) {
       }
     }
     
+    const professionalContext = await readProfessionalContext();
+    const prefs = await getPreferences();
+    
     const coverLetter = await generateCoverLetter({
       resume,
       jobDescription: app.jobDescription,
       company: app.company,
       role: app.role,
       jobUrl: app.jobUrl,
+      professionalContext,
       gapContext,
       hookContext,
+      tone: prefs.tonePreference,
     });
     
     await saveCoverLetter(applicationId, coverLetter);

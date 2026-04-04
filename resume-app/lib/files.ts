@@ -33,6 +33,16 @@ export async function readBaseResume(filename: string): Promise<string> {
   return fs.readFile(filePath, 'utf-8');
 }
 
+export async function readProfessionalContext(): Promise<string> {
+  const filePath = path.join(PROJECT_PATH, 'professional-context.md');
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    return '\n--- Professional Context (verified facts about the candidate beyond the resume) ---\n' + content;
+  } catch {
+    return '';
+  }
+}
+
 export async function getAllApplications(): Promise<Application[]> {
   const versionsPath = getVersionsPath();
   const folders = await fs.readdir(versionsPath);

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { assessFit } from '@/lib/ai';
-import { readBaseResume, getApplication, saveAssessment, getAssessment, updateAssessmentGaps } from '@/lib/files';
+import { readBaseResume, readProfessionalContext, getApplication, saveAssessment, getAssessment, updateAssessmentGaps } from '@/lib/files';
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,12 +32,15 @@ export async function POST(request: NextRequest) {
     const resumeFile = baseResumeFile || app.baseResume;
     const resume = await readBaseResume(resumeFile);
     
+    const professionalContext = await readProfessionalContext();
+    
     // Run assessment
     const assessment = await assessFit({
       resume,
       jobDescription: app.jobDescription,
       company: app.company,
       role: app.role,
+      professionalContext,
     });
     
     // Save assessment

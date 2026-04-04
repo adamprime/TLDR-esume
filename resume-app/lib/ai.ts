@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
-import { RESUME_PROMPT, COVER_LETTER_PROMPT, QUESTION_ANSWER_PROMPT, FIT_ASSESSMENT_PROMPT, RESUME_REVIEW_PROMPT, RESUME_IMPROVEMENT_PROMPT } from './prompts';
+import { RESUME_PROMPT, getCoverLetterPrompt, QUESTION_ANSWER_PROMPT, FIT_ASSESSMENT_PROMPT, RESUME_REVIEW_PROMPT, RESUME_IMPROVEMENT_PROMPT } from './prompts';
+import type { TonePreference } from './prompts';
 import { FitAssessment, FitGap, ResumeReview, ResumeWeakness, ResumeQuestion } from './types';
 import { getPreferences } from './preferences';
 import { AIModel } from './preference-types';
@@ -88,9 +89,10 @@ export async function generateResume(params: {
   jobDescription: string;
   company: string;
   role: string;
+  professionalContext?: string;
   gapContext?: string;
 }): Promise<string> {
-  const prompt = interpolate(RESUME_PROMPT, { ...params, gapContext: params.gapContext || '' });
+  const prompt = interpolate(RESUME_PROMPT, { ...params, professionalContext: params.professionalContext || '', gapContext: params.gapContext || '' });
   return callAI(prompt, 4096);
 }
 
@@ -100,11 +102,15 @@ export async function generateCoverLetter(params: {
   company: string;
   role: string;
   jobUrl: string;
+  professionalContext?: string;
   gapContext?: string;
   hookContext?: string;
+  tone?: TonePreference;
 }): Promise<string> {
-  const prompt = interpolate(COVER_LETTER_PROMPT, { 
+  const template = getCoverLetterPrompt(params.tone || 'balanced');
+  const prompt = interpolate(template, { 
     ...params, 
+    professionalContext: params.professionalContext || '',
     gapContext: params.gapContext || '',
     hookContext: params.hookContext || '',
   });
@@ -127,8 +133,9 @@ export async function assessFit(params: {
   jobDescription: string;
   company: string;
   role: string;
+  professionalContext?: string;
 }): Promise<FitAssessment> {
-  const prompt = interpolate(FIT_ASSESSMENT_PROMPT, params);
+  const prompt = interpolate(FIT_ASSESSMENT_PROMPT, { ...params, professionalContext: params.professionalContext || '' });
   const response = await callAI(prompt, 4096);
   
   // Parse JSON response

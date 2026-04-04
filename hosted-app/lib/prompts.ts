@@ -32,6 +32,8 @@ Output ONLY the markdown resume, no explanations or commentary.
 --- Target Role ---
 {role}
 
+{professionalContext}
+
 {gapContext}`;
 
 const TONE_GUIDELINES = {
@@ -105,6 +107,8 @@ WHAT MAKES A GREAT COVER LETTER:
 --- Job URL ---
 {jobUrl}
 
+{professionalContext}
+
 {gapContext}
 
 {hookContext}
@@ -169,6 +173,8 @@ Output as JSON matching this structure:
 
 --- Role ---
 {role}
+
+{professionalContext}
 
 Output ONLY the JSON, no markdown code blocks, no explanations.`;
 

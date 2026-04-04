@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateResume } from '@/lib/ai';
-import { readBaseResume, saveResume, getApplication, updateApplication, getAssessment } from '@/lib/files';
+import { readBaseResume, saveResume, getApplication, updateApplication, getAssessment, readProfessionalContext } from '@/lib/files';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,11 +30,14 @@ export async function POST(request: NextRequest) {
       }
     }
     
+    const professionalContext = await readProfessionalContext();
+    
     const generatedResume = await generateResume({
       baseResume,
       jobDescription,
       company,
       role,
+      professionalContext,
       gapContext,
     });
     

@@ -20,6 +20,9 @@ preferences.json
 # Keep your actual resumes private
 resume.md
 resume_*.md
+resume-onepager.md
+skill-stack-resume.md
+professional-context.md
 !resume-template.md
 linkedin-post-draft.md
 

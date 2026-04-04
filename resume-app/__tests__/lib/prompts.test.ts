@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { 
   RESUME_PROMPT, 
-  COVER_LETTER_PROMPT, 
+  COVER_LETTER_PROMPT,
+  getCoverLetterPrompt,
   QUESTION_ANSWER_PROMPT 
 } from '@/lib/prompts';
 
@@ -61,8 +62,32 @@ describe('prompts', () => {
       expect(COVER_LETTER_PROMPT).toContain('350 words');
     });
 
-    it('should mention avoiding cliches', () => {
-      expect(COVER_LETTER_PROMPT.toLowerCase()).toContain('cliché');
+    it('should warn against fabricating experience', () => {
+      expect(COVER_LETTER_PROMPT.toLowerCase()).toContain('fabricate');
+    });
+  });
+
+  describe('getCoverLetterPrompt', () => {
+    it('should return quirky tone with cliché warning', () => {
+      const prompt = getCoverLetterPrompt('quirky');
+      expect(prompt.toLowerCase()).toContain('cliché');
+    });
+
+    it('should return professional tone with formal language', () => {
+      const prompt = getCoverLetterPrompt('professional');
+      expect(prompt.toLowerCase()).toContain('formal');
+    });
+
+    it('should return balanced tone by default', () => {
+      const prompt = getCoverLetterPrompt();
+      expect(prompt.toLowerCase()).toContain('personable');
+    });
+
+    it('should always contain anti-hallucination rules', () => {
+      for (const tone of ['professional', 'balanced', 'quirky'] as const) {
+        const prompt = getCoverLetterPrompt(tone);
+        expect(prompt.toLowerCase()).toContain('fabricate');
+      }
     });
   });
 
