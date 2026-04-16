@@ -215,3 +215,15 @@ These apply to ALL generated content — resumes, cover letters, written pitches
 5. Gap answers and hook context are treated as verified candidate information
 6. When in doubt, understate rather than overstate
 7. If a metric doesn't exist, describe impact qualitatively
+
+---
+
+## Post-Session: iCloud Sync
+
+At the end of every application session, run the iCloud backup script:
+
+```bash
+./sync-to-icloud.sh
+```
+
+This syncs `resume.md`, `professional-context.md`, `versions/`, and `export/` to iCloud (`~/Library/Mobile Documents/com~apple~CloudDocs/resumes-tldresume/`). The project is the source of truth; iCloud is the backup.
